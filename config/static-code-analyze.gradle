@@ -1,0 +1,88 @@
+ext {
+    reportDirectory = "$project.buildDir/reports"
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    toolVersion = '5.6.0'
+    sourceSets = [sourceSets.main]
+    ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-empty',
+            'java-finalizers',
+            'java-strictexception',
+            'java-strings',
+            'java-sunsecure',
+            'java-typeresolution',
+            'java-unnecessary'
+    ]
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+findbugs {
+    toolVersion = '3.0.1'
+    sourceSets = [sourceSets.main]
+    effort = 'max'
+    reportLevel = 'high'
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+checkstyle {
+    toolVersion = '7.6.1'
+    sourceSets = [sourceSets.main]
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+jacoco {
+    toolVersion = '0.7.9'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        csv.enabled = false
+        html.enabled = true
+    }
+}
+
+pitest {
+    targetClasses = ['org.home.quarantine.*']
+    threads = 4
+}
+
+gradleLint {
+    criticalRules = [
+            'dependency-parentheses',
+            'overridden-dependency-version',
+            'unused-exclude-by-dep',
+            'archaic-wrapper',
+            'all-nebula-renames'
+    ]
+}

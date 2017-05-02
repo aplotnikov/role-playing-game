@@ -1,0 +1,40 @@
+plugins {
+    id 'build-dashboard'
+    id 'java'
+    id 'groovy'
+    id 'pmd'
+    id 'findbugs'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.1.11'
+    id 'nebula.lint' version '7.3.5'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+jar {
+    baseName = 'role-playing-game'
+    group = 'org.home'
+    version = '0.0.1-SNAPSHOT'
+}
+
+apply from: 'config/static-code-analyze.gradle'
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.16.16'
+
+    compile 'com.google.code.findbugs:findbugs:3.0.1'
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.10',
+                'org.spockframework:spock-core:1.1-groovy-2.4-rc-4',
+                'nl.jqno.equalsverifier:equalsverifier:2.2.2'
+}
