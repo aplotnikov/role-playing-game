@@ -1,0 +1,9 @@
+dependencies:
+  override:
+    # the following command makes no business sense. It is a stub command for replacing ./gradlew dependencies command
+    - pwd
+test:
+  override:
+    - ./gradlew clean build jacocoTestReport
+  post:
+    - cp -R build/reports/ $CIRCLE_TEST_REPORTS
