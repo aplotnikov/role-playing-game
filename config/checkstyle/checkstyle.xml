@@ -19,11 +19,6 @@
     </module>
 
     <module name="RegexpSingleline">
-        <property name="format" value="System.out.println()"/>
-        <property name="message" value="System.out.println() is not allowed"/>
-    </module>
-
-    <module name="RegexpSingleline">
         <property name="format" value="org.drools.core.util.StringUtils"/>
         <property name="message" value="StringUtils from Drools is used."/>
     </module>
@@ -78,9 +73,6 @@
             <property name="max" value="2"/>
         </module>
         <module name="InnerTypeLast"/>
-        <module name="VisibilityModifier">
-            <property name="packageAllowed" value="true"/>
-        </module>
 
         <!-- Annotations -->
         <module name="MissingOverride"/>
