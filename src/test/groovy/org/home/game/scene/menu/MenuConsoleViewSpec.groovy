@@ -1,40 +1,44 @@
 package org.home.game.scene.menu
 
+import static org.home.game.scene.menu.MenuView.ActionDelegate
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
+import org.home.game.common.utils.console.ConsoleReader
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.SystemOutRule
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
 class MenuConsoleViewSpec extends Specification {
 
     @Rule
-    SystemOutRule systemOutRule = new SystemOutRule().enableLog()
+    SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
 
     @Rule
     TextFromStandardInputStream systemInMock = emptyStandardInputStream()
 
-    MenuView.ActionDelegate delegate = Mock()
+    @Shared
+    ConsoleReader reader = new ConsoleReader()
+
+    ActionDelegate delegate = Mock()
 
     @Subject
-    MenuConsoleView view = new MenuConsoleView(delegate: delegate)
+    MenuConsoleView view = new MenuConsoleView(reader)
+
+    void setup() {
+        view.setDelegate(delegate)
+    }
 
     void 'main menu should be drawn and onStartChosen action should be called'() {
         given:
-            systemInMock.provideLines('', '1')
+            systemInMock.provideLines('1')
         and:
             String expectedResult = """\
                                       |Main menu
                                       |1. Start new game
                                       |2. Resume previous game
-                                      |Put operation's number which you want to do: 
-                                      |${(1..50).collect { System.lineSeparator() }.join('')}\
-                                      |Main menu
-                                      |1. Start new game
-                                      |2. Resume previous game
-                                      |Operation number is incorrect. Please, type correct one.
                                       |Put operation's number which you want to do: 
                                       |""".stripMargin()
         when:

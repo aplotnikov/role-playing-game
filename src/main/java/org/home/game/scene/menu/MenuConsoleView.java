@@ -1,60 +1,47 @@
 package org.home.game.scene.menu;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang.math.IntRange;
-import org.apache.commons.lang.math.Range;
 import org.home.game.common.mvp.AbstractConsoleView;
-import org.home.game.common.utils.console.ConsoleIntegerReader;
+import org.home.game.common.utils.console.ConsoleReader;
+import org.home.game.scene.menu.MenuView.ActionDelegate;
 
-import static org.home.game.scene.menu.MenuConsoleView.MainMenuItem.RESUME;
-import static org.home.game.scene.menu.MenuConsoleView.MainMenuItem.START;
+import javax.annotation.Nonnull;
 
-public class MenuConsoleView extends AbstractConsoleView<MenuView.ActionDelegate> implements MenuView {
+public class MenuConsoleView extends AbstractConsoleView<ActionDelegate> implements MenuView {
 
-    private static final Range AVAILABLE_MENU_ITEMS = new IntRange(1, 2);
-
-    private static void printMainMenu(boolean hasToPrintWarning) {
-        System.out.println("Main menu");
-        System.out.println(START.toString());
-        System.out.println(RESUME.toString());
-
-        if (hasToPrintWarning) {
-            System.out.println("Operation number is incorrect. Please, type correct one.");
-        }
-
-        System.out.println("Put operation's number which you want to do: ");
+    public MenuConsoleView(@Nonnull ConsoleReader reader) {
+        super(reader);
     }
 
     @Override
     public void draw() {
         printMainMenu(false);
-        ConsoleIntegerReader reader = new ConsoleIntegerReader();
-        int chosenMenuItem = reader.readUntil(
-                line -> AVAILABLE_MENU_ITEMS.containsInteger(Integer.valueOf(line)),
-                () -> {
-                    erase();
-                    printMainMenu(true);
-                }
-        );
-
-        if (chosenMenuItem == START.index) {
-            delegate.onStartChosen();
-        } else if (chosenMenuItem == RESUME.index) {
-            delegate.onResumeChosen();
+        switch (readChosenMenuItem(MainMenuItem.values(), () -> printMainMenu(true))) {
+            case START:
+                delegate.onStartChosen();
+                break;
+            case RESUME:
+                delegate.onResumeChosen();
+            default:
         }
+    }
+
+    private void printMainMenu(boolean hasToPrintWarning) {
+        printMenu("Main menu", hasToPrintWarning, MainMenuItem.values());
     }
 
     @RequiredArgsConstructor
     enum MainMenuItem {
-        START(1, "Start new game"),
-        RESUME(2, "Resume previous game");
+        START("Start new game"),
+        RESUME("Resume previous game");
 
-        private final int index;
+        @NonNull
         private final String title;
 
         @Override
         public String toString() {
-            return index + ". " + title;
+            return title;
         }
     }
 }

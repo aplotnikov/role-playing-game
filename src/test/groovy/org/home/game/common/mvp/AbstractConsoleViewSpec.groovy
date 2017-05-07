@@ -1,7 +1,9 @@
 package org.home.game.common.mvp
 
+import org.home.game.common.utils.console.ConsoleReader
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.SystemOutRule
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -10,10 +12,13 @@ class AbstractConsoleViewSpec extends Specification {
     private interface SomeActionDelegate {}
 
     @Rule
-    SystemOutRule systemOutRule = new SystemOutRule().enableLog()
+    SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
+
+    @Shared
+    ConsoleReader reader = new ConsoleReader()
 
     @Subject
-    AbstractConsoleView<SomeActionDelegate> view = new AbstractConsoleView<SomeActionDelegate>() {
+    AbstractConsoleView<SomeActionDelegate> view = new AbstractConsoleView<SomeActionDelegate>(reader) {
         @Override
         void draw() {}
     }
