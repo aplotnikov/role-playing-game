@@ -3,11 +3,9 @@ package org.home.game.scene.menu
 import static org.home.game.scene.menu.MenuView.ActionDelegate
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
-import org.home.game.common.utils.console.ConsoleReader
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.SystemOutRule
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -19,13 +17,10 @@ class MenuConsoleViewSpec extends Specification {
     @Rule
     TextFromStandardInputStream systemInMock = emptyStandardInputStream()
 
-    @Shared
-    ConsoleReader reader = new ConsoleReader()
-
     ActionDelegate delegate = Mock()
 
     @Subject
-    MenuConsoleView view = new MenuConsoleView(reader)
+    MenuConsoleConsoleView view = new MenuConsoleConsoleView()
 
     void setup() {
         view.setDelegate(delegate)

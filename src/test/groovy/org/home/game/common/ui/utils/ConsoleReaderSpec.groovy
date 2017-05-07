@@ -1,4 +1,4 @@
-package org.home.game.common.utils.console
+package org.home.game.common.ui.utils
 
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 

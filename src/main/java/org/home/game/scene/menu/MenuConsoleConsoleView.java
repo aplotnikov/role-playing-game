@@ -2,22 +2,22 @@ package org.home.game.scene.menu;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractConsoleView;
-import org.home.game.common.utils.console.ConsoleReader;
+import org.home.game.common.ui.Menu;
 import org.home.game.scene.menu.MenuView.ActionDelegate;
 
-import javax.annotation.Nonnull;
+import static lombok.AccessLevel.PRIVATE;
 
-public class MenuConsoleView extends AbstractConsoleView<ActionDelegate> implements MenuView {
+@FieldDefaults(level = PRIVATE, makeFinal = true)
+public class MenuConsoleConsoleView extends AbstractConsoleView<ActionDelegate> implements MenuView {
 
-    public MenuConsoleView(@Nonnull ConsoleReader reader) {
-        super(reader);
-    }
+    Menu<MainMenuItem> menu = new Menu<>("Main menu", MainMenuItem.values());
 
     @Override
     public void draw() {
-        printMainMenu(false);
-        switch (readChosenMenuItem(MainMenuItem.values(), () -> printMainMenu(true))) {
+        menu.draw();
+        switch (menu.chooseItem()) {
             case START:
                 delegate.onStartChosen();
                 break;
@@ -25,10 +25,6 @@ public class MenuConsoleView extends AbstractConsoleView<ActionDelegate> impleme
                 delegate.onResumeChosen();
             default:
         }
-    }
-
-    private void printMainMenu(boolean hasToPrintWarning) {
-        printMenu("Main menu", hasToPrintWarning, MainMenuItem.values());
     }
 
     @RequiredArgsConstructor

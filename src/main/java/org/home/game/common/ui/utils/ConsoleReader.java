@@ -1,4 +1,4 @@
-package org.home.game.common.utils.console;
+package org.home.game.common.ui.utils;
 
 import org.apache.commons.lang.StringUtils;
 
