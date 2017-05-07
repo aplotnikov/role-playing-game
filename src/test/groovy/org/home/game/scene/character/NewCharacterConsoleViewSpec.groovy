@@ -29,10 +29,8 @@ class NewCharacterConsoleViewSpec extends Specification {
 
     void 'new character menu should be drawn and all parameters should be filled in'() {
         given:
-            String expectedResult = """\
-                                      |New Character Menu
-                                      |Character name:
-                                      |Choose Race:
+            String expectedOutput = """New Character Menu
+                                      |Character name: Choose Race:
                                       |1. Human
                                       |2. Orc
                                       |3. Elf
@@ -55,7 +53,7 @@ class NewCharacterConsoleViewSpec extends Specification {
         when:
             view.draw()
         then:
-            systemOutRule.getLog() == expectedResult
+            systemOutRule.getLog() == expectedOutput
         and:
             1 * delegate.onChosen(characterName)
             1 * delegate.onChosen(HUMAN)

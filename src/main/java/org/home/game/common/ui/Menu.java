@@ -11,7 +11,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
 import static lombok.AccessLevel.PRIVATE;
 
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -36,11 +35,12 @@ public class Menu<T extends Enum> implements Component {
 
     Range acceptableItems;
 
+    @SafeVarargs
     public Menu(@Nonnull String title, @Nonnull T... items) {
         if (items.length == 0) {
             throw new IllegalArgumentException("There are no configured menu items");
         }
-        this.title = requireNonNull(title);
+        this.title = title;
         this.items = items;
         this.acceptableItems = new IntRange(1, items.length);
     }

@@ -1,5 +1,7 @@
 package org.home.game.common.mvp
 
+import static java.lang.System.lineSeparator
+
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.SystemOutRule
 import spock.lang.Specification
@@ -31,10 +33,10 @@ class AbstractConsoleViewSpec extends Specification {
 
     void 'erase method should print 50 empty lines'() {
         given:
-            String expectedContent = (1..50).collect { System.lineSeparator() }.join('')
+            String expectedOutput = (1..50).collect { lineSeparator() }.join('')
         when:
             view.erase()
         then:
-            systemOutRule.getLog() == expectedContent
+            systemOutRule.getLog() == expectedOutput
     }
 }

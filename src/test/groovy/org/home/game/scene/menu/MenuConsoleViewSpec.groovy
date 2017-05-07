@@ -30,8 +30,7 @@ class MenuConsoleViewSpec extends Specification {
         given:
             systemInMock.provideLines('1')
         and:
-            String expectedResult = """\
-                                      |Main menu
+            String expectedOutput = """Main menu
                                       |1. Start new game
                                       |2. Resume previous game
                                       |Put operation's number which you want to do: 
@@ -43,15 +42,14 @@ class MenuConsoleViewSpec extends Specification {
         and:
             0 * _
         and:
-            systemOutRule.getLog() == expectedResult
+            systemOutRule.getLog() == expectedOutput
     }
 
     void 'main menu should be drawn and onResumeChosen action should be called'() {
         given:
             systemInMock.provideLines('2')
         and:
-            String expectedResult = """\
-                                      |Main menu
+            String expectedOutput = """Main menu
                                       |1. Start new game
                                       |2. Resume previous game
                                       |Put operation's number which you want to do: 
@@ -63,6 +61,6 @@ class MenuConsoleViewSpec extends Specification {
         and:
             0 * _
         and:
-            systemOutRule.getLog() == expectedResult
+            systemOutRule.getLog() == expectedOutput
     }
 }

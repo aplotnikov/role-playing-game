@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class NewCharacterConsoleConsoleView extends AbstractConsoleView<ActionDelegate> implements NewCharacterView {
 
-    TextBox characterName = new TextBox("Character name:");
+    TextBox characterName = new TextBox("Character name: ");
 
     Menu<Race> raceMenu = new Menu<>("Choose Race:", Race.values());
 
