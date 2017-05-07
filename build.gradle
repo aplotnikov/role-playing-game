@@ -25,6 +25,10 @@ jar {
     baseName = 'role-playing-game'
     group = 'org.home'
     version = '0.0.1-SNAPSHOT'
+
+    manifest {
+        attributes 'Main-Class': 'org.home.game.Game'
+    }
 }
 
 apply from: 'config/static-code-analyze.gradle'
