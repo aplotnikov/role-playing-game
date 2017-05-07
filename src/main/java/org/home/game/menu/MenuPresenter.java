@@ -1,8 +1,8 @@
-package org.home.game.scene.menu;
+package org.home.game.menu;
 
 import lombok.experimental.FieldDefaults;
+import org.home.game.character.create.NewCharacterPresenter;
 import org.home.game.common.mvp.AbstractPresenter;
-import org.home.game.scene.character.create.NewCharacterPresenter;
 
 import javax.annotation.Nonnull;
 

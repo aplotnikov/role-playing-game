@@ -1,4 +1,4 @@
-package org.home.game.scene.menu;
+package org.home.game.menu;
 
 import org.home.game.common.mvp.View;
 

@@ -1,11 +1,11 @@
-package org.home.game.scene.menu;
+package org.home.game.menu;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractConsoleView;
 import org.home.game.common.ui.Menu;
-import org.home.game.scene.menu.MenuView.ActionDelegate;
+import org.home.game.menu.MenuView.ActionDelegate;
 
 import static lombok.AccessLevel.PRIVATE;
 

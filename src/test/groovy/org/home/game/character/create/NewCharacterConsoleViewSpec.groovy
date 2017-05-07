@@ -1,8 +1,8 @@
-package org.home.game.scene.character.create
+package org.home.game.character.create
 
-import static org.home.game.scene.character.create.NewCharacterView.ActionDelegate
-import static org.home.game.scene.character.domain.Race.HUMAN
-import static org.home.game.scene.character.domain.Sex.MALE
+import static org.home.game.character.create.NewCharacterView.ActionDelegate
+import static org.home.game.character.domain.Race.HUMAN
+import static org.home.game.character.domain.Sex.MALE
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
 import org.junit.Rule

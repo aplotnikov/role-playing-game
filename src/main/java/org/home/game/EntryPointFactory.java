@@ -1,10 +1,10 @@
 package org.home.game;
 
+import org.home.game.character.create.NewCharacterConsoleConsoleView;
+import org.home.game.character.create.NewCharacterPresenter;
 import org.home.game.common.mvp.Presenter;
-import org.home.game.scene.character.create.NewCharacterConsoleConsoleView;
-import org.home.game.scene.character.create.NewCharacterPresenter;
-import org.home.game.scene.menu.MenuConsoleConsoleView;
-import org.home.game.scene.menu.MenuPresenter;
+import org.home.game.menu.MenuConsoleConsoleView;
+import org.home.game.menu.MenuPresenter;
 
 import javax.annotation.Nonnull;
 

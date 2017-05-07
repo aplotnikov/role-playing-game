@@ -1,6 +1,6 @@
-package org.home.game.scene.menu
+package org.home.game.menu
 
-import static org.home.game.scene.menu.MenuView.ActionDelegate
+import static org.home.game.menu.MenuView.ActionDelegate
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
 import org.junit.Rule
