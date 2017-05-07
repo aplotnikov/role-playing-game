@@ -23,6 +23,7 @@ public class MenuConsoleConsoleView extends AbstractConsoleView<ActionDelegate> 
                 break;
             case RESUME:
                 delegate.onResumeChosen();
+                break;
             default:
         }
     }
