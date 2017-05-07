@@ -1,4 +1,4 @@
-package org.home.game.scene.character;
+package org.home.game.scene.character.create;
 
 import org.home.game.common.mvp.View;
 import org.home.game.scene.character.domain.Race;

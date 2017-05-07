@@ -1,17 +1,16 @@
-package org.home.game.scene.character;
+package org.home.game.scene.character.create;
 
 import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractConsoleView;
 import org.home.game.common.ui.Menu;
 import org.home.game.common.ui.TextBox;
-import org.home.game.scene.character.NewCharacterView.ActionDelegate;
 import org.home.game.scene.character.domain.Race;
 import org.home.game.scene.character.domain.Sex;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class NewCharacterConsoleConsoleView extends AbstractConsoleView<ActionDelegate> implements NewCharacterView {
+public class NewCharacterConsoleConsoleView extends AbstractConsoleView<NewCharacterView.ActionDelegate> implements NewCharacterView {
 
     TextBox characterName = new TextBox("Character name: ");
 

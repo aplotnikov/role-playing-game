@@ -1,8 +1,7 @@
-package org.home.game.scene.character;
+package org.home.game.scene.character.create;
 
 import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractPresenter;
-import org.home.game.scene.character.NewCharacterView.ActionDelegate;
 import org.home.game.scene.character.domain.Race;
 import org.home.game.scene.character.domain.Sex;
 
@@ -11,7 +10,7 @@ import javax.annotation.Nonnull;
 import static lombok.AccessLevel.PRIVATE;
 
 @FieldDefaults(level = PRIVATE)
-public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements ActionDelegate {
+public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterView.ActionDelegate {
 
     Race race;
 
