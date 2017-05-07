@@ -1,8 +1,8 @@
 package org.home.game.scene.character;
 
 import org.home.game.common.mvp.View;
-import org.home.game.domain.Race;
-import org.home.game.domain.Sex;
+import org.home.game.scene.character.domain.Race;
+import org.home.game.scene.character.domain.Sex;
 
 import javax.annotation.Nonnull;
 

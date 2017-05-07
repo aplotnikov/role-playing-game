@@ -1,4 +1,4 @@
-package org.home.game.domain;
+package org.home.game.scene.character.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

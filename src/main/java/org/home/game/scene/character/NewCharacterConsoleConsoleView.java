@@ -4,9 +4,9 @@ import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractConsoleView;
 import org.home.game.common.ui.Menu;
 import org.home.game.common.ui.TextBox;
-import org.home.game.domain.Race;
-import org.home.game.domain.Sex;
 import org.home.game.scene.character.NewCharacterView.ActionDelegate;
+import org.home.game.scene.character.domain.Race;
+import org.home.game.scene.character.domain.Sex;
 
 import static lombok.AccessLevel.PRIVATE;
 

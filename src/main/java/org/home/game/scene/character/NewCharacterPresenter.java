@@ -2,9 +2,9 @@ package org.home.game.scene.character;
 
 import lombok.experimental.FieldDefaults;
 import org.home.game.common.mvp.AbstractPresenter;
-import org.home.game.domain.Race;
-import org.home.game.domain.Sex;
 import org.home.game.scene.character.NewCharacterView.ActionDelegate;
+import org.home.game.scene.character.domain.Race;
+import org.home.game.scene.character.domain.Sex;
 
 import javax.annotation.Nonnull;
 

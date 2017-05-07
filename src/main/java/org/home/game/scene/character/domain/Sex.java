@@ -1,15 +1,12 @@
-package org.home.game.domain;
+package org.home.game.scene.character.domain;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum Race {
-    HUMAN("Human"),
-    ORC("Orc"),
-    ELF("Elf"),
-    GNOME("Gnome"),
-    TROLL("Troll");
+public enum Sex {
+    MALE("Male"),
+    FEMALE("Female");
 
     @NonNull
     private final String title;
