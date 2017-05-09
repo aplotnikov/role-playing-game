@@ -1,8 +1,9 @@
 package org.home.game.menu;
 
 import lombok.experimental.FieldDefaults;
-import org.home.game.character.create.NewCharacterPresenter;
+import org.home.game.GamePlay;
 import org.home.game.common.mvp.AbstractPresenter;
+import org.home.game.map.MapFactory;
 
 import javax.annotation.Nonnull;
 
@@ -11,17 +12,17 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class MenuPresenter extends AbstractPresenter<MenuView> implements MenuView.ActionDelegate {
 
-    NewCharacterPresenter newCharacterPresenter;
+    MapFactory mapFactory;
 
-    public MenuPresenter(@Nonnull MenuView view, @Nonnull NewCharacterPresenter newCharacterPresenter) {
+    public MenuPresenter(@Nonnull MenuView view, @Nonnull MapFactory mapFactory) {
         super(view);
-        this.newCharacterPresenter = newCharacterPresenter;
         this.view.setDelegate(this);
+        this.mapFactory = mapFactory;
     }
 
     @Override
     public void onStartChosen() {
-        newCharacterPresenter.show();
+        new GamePlay(mapFactory.create()).start();
     }
 
     @Override
