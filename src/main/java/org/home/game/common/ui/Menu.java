@@ -28,8 +28,7 @@ public class Menu<T extends Enum> implements Component {
     T[] items;
 
     Runnable redrawWithWarningMessage = () -> {
-        erase();
-        draw();
+        redraw();
         printMenuFooter(true);
     };
 

@@ -1,5 +1,6 @@
 package org.home.game.common.ui
 
+import static java.lang.System.lineSeparator
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
 import org.junit.Rule
@@ -24,10 +25,21 @@ class TextBoxSpec extends Specification {
     TextBox component = new TextBox(title)
 
     void 'component should print title'() {
+        given:
+            String expectOutput = title + lineSeparator()
         when:
             component.draw()
         then:
-            systemOutRule.getLog() == title
+            systemOutRule.getLog() == expectOutput
+    }
+
+    void 'component should be redrawn'() {
+        given:
+            String expectOutput = (1..50).collect { lineSeparator() }.join('') + title + lineSeparator()
+        when:
+            component.redraw()
+        then:
+            systemOutRule.getLog() == expectOutput
     }
 
     void 'component should return input text'() {

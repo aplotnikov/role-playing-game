@@ -23,7 +23,6 @@ class MenuSpec extends Specification {
         ITEM_1, ITEM_2
     }
 
-
     @Shared
     String title = 'title'
 
@@ -46,6 +45,19 @@ class MenuSpec extends Specification {
                                       |""".stripMargin()
         when:
             menu.draw()
+        then:
+            systemOutRule.getLog() == expectedOutput
+    }
+
+    void 'menu should be redrawn'() {
+        given:
+            String expectedOutput = """${eraseMenuOutput()}\
+                                      |title
+                                      |1. ITEM_1
+                                      |2. ITEM_2
+                                      |""".stripMargin()
+        when:
+            menu.redraw()
         then:
             systemOutRule.getLog() == expectedOutput
     }

@@ -18,7 +18,7 @@ public class TextBox implements Component {
 
     @Override
     public void draw() {
-        System.out.print(title);
+        System.out.println(title);
     }
 
     public String getValue() {
