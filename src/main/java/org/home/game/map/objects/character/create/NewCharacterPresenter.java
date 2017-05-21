@@ -1,13 +1,16 @@
-package org.home.game.character.create;
+package org.home.game.map.objects.character.create;
 
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.home.game.character.domain.Race;
-import org.home.game.character.domain.Sex;
 import org.home.game.common.mvp.AbstractPresenter;
+import org.home.game.map.objects.character.GameCharacter;
+import org.home.game.map.objects.character.Race;
+import org.home.game.map.objects.character.Sex;
 
 import javax.annotation.Nonnull;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.home.game.map.objects.character.GameCharacter.userCharacter;
 
 @FieldDefaults(level = PRIVATE)
 public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterView.ActionDelegate {
@@ -17,6 +20,9 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
     Sex sex;
 
     String name;
+
+    @Getter
+    GameCharacter gameCharacter;
 
     public NewCharacterPresenter(@Nonnull NewCharacterView view) {
         super(view);
@@ -40,6 +46,9 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
 
     @Override
     public void onCompleted() {
-
+        gameCharacter = userCharacter(name, race, sex);
+        name = null;
+        race = null;
+        sex = null;
     }
 }

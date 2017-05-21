@@ -1,4 +1,4 @@
-package org.home.game.character.domain;
+package org.home.game.map.objects.character;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

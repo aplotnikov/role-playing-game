@@ -27,7 +27,7 @@ jar {
     version = '0.0.1-SNAPSHOT'
 
     manifest {
-        attributes 'Main-Class': 'org.home.game.Game'
+        attributes 'Main-Class': 'org.home.game.Launcher'
     }
 }
 
@@ -38,8 +38,10 @@ dependencies {
 
     compile 'com.google.code.findbugs:findbugs:3.0.1'
 
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.10',
-                'org.spockframework:spock-core:1.1-groovy-2.4-rc-4',
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.11',
+                'org.spockframework:spock-core:1.1-groovy-2.4',
                 'nl.jqno.equalsverifier:equalsverifier:2.2.2',
-                'com.github.stefanbirkner:system-rules:1.16.1'
+                'com.github.stefanbirkner:system-rules:1.16.1',
+                'cglib:cglib-nodep:3.2.5',
+                'org.objenesis:objenesis:2.5.1'
 }

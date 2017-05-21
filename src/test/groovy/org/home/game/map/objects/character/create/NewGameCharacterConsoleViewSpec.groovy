@@ -1,8 +1,8 @@
-package org.home.game.character.create
+package org.home.game.map.objects.character.create
 
-import static org.home.game.character.create.NewCharacterView.ActionDelegate
-import static org.home.game.character.domain.Race.HUMAN
-import static org.home.game.character.domain.Sex.MALE
+import static org.home.game.map.objects.character.Race.HUMAN
+import static org.home.game.map.objects.character.Sex.MALE
+import static org.home.game.map.objects.character.create.NewCharacterView.ActionDelegate
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
 import org.junit.Rule
@@ -11,7 +11,7 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream
 import spock.lang.Specification
 import spock.lang.Subject
 
-class NewCharacterConsoleViewSpec extends Specification {
+class NewGameCharacterConsoleViewSpec extends Specification {
     @Rule
     SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
 
@@ -30,7 +30,8 @@ class NewCharacterConsoleViewSpec extends Specification {
     void 'new character menu should be drawn and all parameters should be filled in'() {
         given:
             String expectedOutput = """New Character Menu
-                                      |Character name: Choose Race:
+                                      |Character name: 
+                                      |Choose Race:
                                       |1. Human
                                       |2. Orc
                                       |3. Elf

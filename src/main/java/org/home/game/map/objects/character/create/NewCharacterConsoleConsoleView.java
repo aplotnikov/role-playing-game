@@ -1,8 +1,8 @@
-package org.home.game.character.create;
+package org.home.game.map.objects.character.create;
 
 import lombok.experimental.FieldDefaults;
-import org.home.game.character.domain.Race;
-import org.home.game.character.domain.Sex;
+import org.home.game.map.objects.character.Race;
+import org.home.game.map.objects.character.Sex;
 import org.home.game.common.mvp.AbstractConsoleView;
 import org.home.game.common.ui.Menu;
 import org.home.game.common.ui.TextBox;
