@@ -19,7 +19,11 @@ class MainGameMap implements GameMap {
 
     @Override
     public boolean containsUserCharacter() {
-        return true;
+        return entities.stream().flatMap(List::stream).anyMatch(this::isUser);
+    }
+
+    private boolean isUser(MapEntity entity) {
+        return entity.isUser() || entity.getInnerEntity().map(this::isUser).orElse(false);
     }
 
     @Override
