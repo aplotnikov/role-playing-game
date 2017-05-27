@@ -2,6 +2,7 @@ package org.home.game.common.mvp
 
 import static java.lang.System.lineSeparator
 
+import org.home.game.common.mvp.console.AbstractConsoleView
 import org.junit.Rule
 import org.junit.contrib.java.lang.system.SystemOutRule
 import spock.lang.Specification

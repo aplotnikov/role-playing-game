@@ -1,43 +1,45 @@
 package org.home.game.map.factory;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.home.game.map.Map;
-import org.home.game.map.objects.character.GameCharacter;
-import org.home.game.map.objects.character.create.NewCharacterPresenter;
+import org.home.game.map.GameMap;
+import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.character.create.NewCharacterPresenter;
 
 import javax.annotation.Nonnull;
 
-import static lombok.AccessLevel.PRIVATE;
-import static org.home.game.map.Map.map;
-import static org.home.game.map.objects.animals.Bear.bear;
-import static org.home.game.map.objects.animals.Wolf.wolf;
-import static org.home.game.map.objects.character.GameCharacter.character;
-import static org.home.game.map.objects.character.Race.ORC;
-import static org.home.game.map.objects.character.Sex.FEMALE;
-import static org.home.game.map.objects.container.Road.road;
-import static org.home.game.map.objects.immovable.Stone.stone;
-import static org.home.game.map.objects.immovable.Tree.tree;
+import static org.home.game.map.GameMapBuilder.map;
+import static org.home.game.map.entities.MapEntityFactory.bear;
+import static org.home.game.map.entities.MapEntityFactory.character;
+import static org.home.game.map.entities.MapEntityFactory.road;
+import static org.home.game.map.entities.MapEntityFactory.stone;
+import static org.home.game.map.entities.MapEntityFactory.tree;
+import static org.home.game.map.entities.MapEntityFactory.wolf;
+import static org.home.game.map.entities.character.Race.ORC;
+import static org.home.game.map.entities.character.Sex.FEMALE;
 
-@RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StaticMapFactory implements MapFactory {
 
-    @NonNull
-    NewCharacterPresenter newCharacterPresenter;
+    private final NewCharacterPresenter newCharacterPresenter;
+
+    public StaticMapFactory(@Nonnull NewCharacterPresenter newCharacterPresenter) {
+        this.newCharacterPresenter = newCharacterPresenter;
+    }
 
     @Nonnull
     @Override
-    public Map create() {
+    public GameMap create() {
         newCharacterPresenter.show();
-        GameCharacter userGameCharacter = newCharacterPresenter.getGameCharacter();
+        MapEntity character = newCharacterPresenter.getGameCharacter().orElseThrow(IllegalStateException::new);
         return map()
                 .line(road(), road(), wolf(), tree(), stone())
                 .line(road(), road(), road(), tree(), tree())
-                .line(road(), road(), road(userGameCharacter), road(), bear())
+                .line(road(), road(), road(character), road(), bear())
                 .line(road(), stone(), road(), road(), road())
-                .line(character(ORC.toString(), ORC, FEMALE), tree(), road(), road(), road())
+                .line(road(orc()), tree(), road(), road(), road())
                 .create();
+    }
+
+    @Nonnull
+    private MapEntity orc() {
+        return character(ORC.toString(), ORC, FEMALE);
     }
 }

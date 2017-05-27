@@ -1,20 +1,23 @@
 package org.home.game.play
 
-import org.home.game.map.Map
+import org.home.game.map.GameMap
 import org.home.game.map.factory.MapFactory
+import org.home.game.map.painter.MapPainter
 import spock.lang.Specification
 import spock.lang.Subject
 
 class GameFactorySpec extends Specification {
 
-    Map map = Stub()
+    GameMap map = Stub()
 
     MapFactory mapFactory = Stub() {
         create() >> map
     }
 
+    MapPainter mapPainter = Stub()
+
     @Subject
-    GameFactory factory = new GameFactory(mapFactory)
+    GameFactory factory = new GameFactory(mapFactory, mapPainter)
 
     void 'new game should be created'() {
         when:
@@ -22,6 +25,7 @@ class GameFactorySpec extends Specification {
         then:
             firstGame != null
             firstGame.map == map
+            firstGame.painter == mapPainter
         when:
             Game secondGame = factory.create()
         then:

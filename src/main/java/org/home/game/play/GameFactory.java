@@ -1,22 +1,24 @@
 package org.home.game.play;
 
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.home.game.map.factory.MapFactory;
+import org.home.game.map.painter.MapPainter;
 
 import javax.annotation.Nonnull;
 
-import static lombok.AccessLevel.PRIVATE;
-
-@RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GameFactory {
 
-    MapFactory mapFactory;
+    private final MapFactory mapFactory;
+
+    private final MapPainter mapPainter;
+
+    public GameFactory(@Nonnull MapFactory mapFactory, @Nonnull MapPainter mapPainter) {
+        this.mapFactory = mapFactory;
+        this.mapPainter = mapPainter;
+    }
 
     @Nonnull
     public Game create() {
-        return new Game(mapFactory.create());
+        return new Game(mapFactory.create(), mapPainter);
     }
 
     @Nonnull

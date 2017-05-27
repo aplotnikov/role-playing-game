@@ -34,8 +34,6 @@ jar {
 apply from: 'config/static-code-analyze.gradle'
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.16.16'
-
     compile 'com.google.code.findbugs:findbugs:3.0.1'
 
     testCompile 'org.codehaus.groovy:groovy-all:2.4.11',
