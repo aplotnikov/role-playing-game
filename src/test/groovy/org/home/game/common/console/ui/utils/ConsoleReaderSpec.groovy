@@ -1,23 +1,16 @@
 package org.home.game.common.console.ui.utils
 
-import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
-
-import org.junit.Rule
-import org.junit.contrib.java.lang.system.TextFromStandardInputStream
-import spock.lang.Specification
+import org.home.game.ConsoleIntegrationSpec
 import spock.lang.Subject
 
-class ConsoleReaderSpec extends Specification {
-
-    @Rule
-    TextFromStandardInputStream systemInMock = emptyStandardInputStream()
+class ConsoleReaderSpec extends ConsoleIntegrationSpec {
 
     @Subject
     ConsoleReader reader = new ConsoleReader()
 
     void 'reader should return valid integer value'() {
         given:
-            systemInMock.provideLines('', ' ', 'text', '0', '9', '1')
+            userInput '', ' ', 'text', '0', '9', '1'
         and:
             Runnable onFail = Mock()
         when:
@@ -34,7 +27,7 @@ class ConsoleReaderSpec extends Specification {
         given:
             String value = 'some string'
         and:
-            systemInMock.provideLines(value)
+            userInput value
         expect:
             reader.readString() == value
     }

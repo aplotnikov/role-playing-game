@@ -8,10 +8,10 @@ import spock.lang.Subject
 
 class GameFactorySpec extends Specification {
 
-    GameMap map = Stub()
+    GameMap gameMap = Stub()
 
     MapFactory mapFactory = Stub() {
-        create() >> map
+        create() >> gameMap
     }
 
     MapPainter mapPainter = Stub()
@@ -23,9 +23,10 @@ class GameFactorySpec extends Specification {
         when:
             Game firstGame = factory.create()
         then:
-            firstGame != null
-            firstGame.map == map
-            firstGame.painter == mapPainter
+            with(firstGame) {
+                map == gameMap
+                painter == mapPainter
+            }
         when:
             Game secondGame = factory.create()
         then:

@@ -1,40 +1,20 @@
 package org.home.game.menu
 
 import static org.home.game.menu.MenuView.ActionDelegate
-import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
-import org.junit.Rule
-import org.junit.contrib.java.lang.system.SystemOutRule
-import org.junit.contrib.java.lang.system.TextFromStandardInputStream
-import spock.lang.Specification
+import org.home.game.ConsoleIntegrationSpec
 import spock.lang.Subject
 
-class MenuConsoleViewSpec extends Specification {
-
-    @Rule
-    SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
-
-    @Rule
-    TextFromStandardInputStream systemInMock = emptyStandardInputStream()
+class MenuConsoleViewSpec extends ConsoleIntegrationSpec {
 
     ActionDelegate delegate = Mock()
 
     @Subject
-    MenuConsoleConsoleView view = new MenuConsoleConsoleView()
-
-    void setup() {
-        view.setDelegate(delegate)
-    }
+    MenuConsoleConsoleView view = new MenuConsoleConsoleView(delegate: delegate)
 
     void 'main menu should be drawn and onStartChosen action should be called'() {
         given:
-            systemInMock.provideLines('1')
-        and:
-            String expectedOutput = """Main menu
-                                      |1. Start new game
-                                      |2. Resume previous game
-                                      |Put operation's number which you want to do: 
-                                      |""".stripMargin()
+            userInput '1'
         when:
             view.draw()
         then:
@@ -42,18 +22,17 @@ class MenuConsoleViewSpec extends Specification {
         and:
             0 * _
         and:
-            systemOutRule.getLog() == expectedOutput
+            assertOutput """\
+Main menu
+1. Start new game
+2. Resume previous game
+Put operation's number which you want to do: 
+"""
     }
 
     void 'main menu should be drawn and onResumeChosen action should be called'() {
         given:
-            systemInMock.provideLines('2')
-        and:
-            String expectedOutput = """Main menu
-                                      |1. Start new game
-                                      |2. Resume previous game
-                                      |Put operation's number which you want to do: 
-                                      |""".stripMargin()
+            userInput '2'
         when:
             view.draw()
         then:
@@ -61,6 +40,11 @@ class MenuConsoleViewSpec extends Specification {
         and:
             0 * _
         and:
-            systemOutRule.getLog() == expectedOutput
+            assertOutput """\
+Main menu
+1. Start new game
+2. Resume previous game
+Put operation's number which you want to do: 
+"""
     }
 }

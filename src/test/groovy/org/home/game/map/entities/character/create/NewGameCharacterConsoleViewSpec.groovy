@@ -3,58 +3,42 @@ package org.home.game.map.entities.character.create
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 import static org.home.game.map.entities.character.create.NewCharacterView.ActionDelegate
-import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
-import org.junit.Rule
-import org.junit.contrib.java.lang.system.SystemOutRule
-import org.junit.contrib.java.lang.system.TextFromStandardInputStream
-import spock.lang.Specification
+import org.home.game.ConsoleIntegrationSpec
 import spock.lang.Subject
 
-class NewGameCharacterConsoleViewSpec extends Specification {
-    @Rule
-    SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
-
-    @Rule
-    TextFromStandardInputStream systemInMock = emptyStandardInputStream()
+class NewGameCharacterConsoleViewSpec extends ConsoleIntegrationSpec {
 
     ActionDelegate delegate = Mock()
 
     @Subject
-    NewCharacterConsoleConsoleView view = new NewCharacterConsoleConsoleView()
-
-    void setup() {
-        view.delegate = delegate
-    }
+    NewCharacterConsoleConsoleView view = new NewCharacterConsoleConsoleView(delegate: delegate)
 
     void 'new character menu should be drawn and all parameters should be filled in'() {
         given:
-            String expectedOutput = """New Character Menu
-                                      |Character name: 
-                                      |Choose Race:
-                                      |1. Human
-                                      |2. Orc
-                                      |3. Elf
-                                      |4. Gnome
-                                      |5. Troll
-                                      |Put operation's number which you want to do: 
-                                      |Choose Sex:
-                                      |1. Male
-                                      |2. Female
-                                      |Put operation's number which you want to do: 
-                                      |""".stripMargin()
-        and:
             String characterName = 'character name'
         and:
-            systemInMock.provideLines(
-                    characterName,
-                    '1', // race
-                    '1' // sex
-            )
+            userInput characterName,
+                      '1', // race
+                      '1' // sex
         when:
             view.draw()
         then:
-            systemOutRule.getLog() == expectedOutput
+            assertOutput """\
+New Character Menu
+Character name: 
+Choose Race:
+1. Human
+2. Orc
+3. Elf
+4. Gnome
+5. Troll
+Put operation's number which you want to do: 
+Choose Sex:
+1. Male
+2. Female
+Put operation's number which you want to do: 
+"""
         and:
             1 * delegate.onChosen(characterName)
             1 * delegate.onChosen(HUMAN)

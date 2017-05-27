@@ -1,22 +1,12 @@
 package org.home.game.common.console.ui
 
 import static java.lang.System.lineSeparator
-import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
 
-import org.junit.Rule
-import org.junit.contrib.java.lang.system.SystemOutRule
-import org.junit.contrib.java.lang.system.TextFromStandardInputStream
+import org.home.game.ConsoleIntegrationSpec
 import spock.lang.Shared
-import spock.lang.Specification
 import spock.lang.Subject
 
-class TextBoxSpec extends Specification {
-
-    @Rule
-    SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()
-
-    @Rule
-    TextFromStandardInputStream systemInMock = emptyStandardInputStream()
+class TextBoxSpec extends ConsoleIntegrationSpec {
 
     @Shared
     String title = 'my text box'
@@ -25,28 +15,24 @@ class TextBoxSpec extends Specification {
     TextBox component = new TextBox(title)
 
     void 'component should print title'() {
-        given:
-            String expectOutput = title + lineSeparator()
         when:
             component.draw()
         then:
-            systemOutRule.getLog() == expectOutput
+            assertOutput title + lineSeparator()
     }
 
     void 'component should be redrawn'() {
-        given:
-            String expectOutput = (1..50).collect { lineSeparator() }.join('') + title + lineSeparator()
         when:
             component.redraw()
         then:
-            systemOutRule.getLog() == expectOutput
+            assertOutput eraseOutput() + title + lineSeparator()
     }
 
     void 'component should return input text'() {
         given:
             String inputText = 'my text'
         and:
-            systemInMock.provideLines(inputText)
+            userInput inputText
         expect:
             component.getValue() == inputText
     }
