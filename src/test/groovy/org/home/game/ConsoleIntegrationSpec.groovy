@@ -20,8 +20,8 @@ abstract class ConsoleIntegrationSpec extends Specification {
         assert systemOutRule.getLog() == expectedOutput
     }
 
-    protected void userInput(String... inputs) {
-        systemInMock.provideLines inputs
+    protected void userInput(String... input) {
+        systemInMock.provideLines input
     }
 
     protected static String eraseOutput() {
