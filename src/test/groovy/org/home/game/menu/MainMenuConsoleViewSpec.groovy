@@ -1,16 +1,16 @@
 package org.home.game.menu
 
-import static org.home.game.menu.MenuView.ActionDelegate
+import static MainMenuView.ActionDelegate
 
 import org.home.game.ConsoleIntegrationSpec
 import spock.lang.Subject
 
-class MenuConsoleViewSpec extends ConsoleIntegrationSpec {
+class MainMenuConsoleViewSpec extends ConsoleIntegrationSpec {
 
     ActionDelegate delegate = Mock()
 
     @Subject
-    MenuConsoleConsoleView view = new MenuConsoleConsoleView(delegate: delegate)
+    MainMainMenuConsoleConsoleView view = new MainMainMenuConsoleConsoleView(delegate: delegate)
 
     void 'main menu should be drawn and onStartChosen action should be called'() {
         given:
@@ -22,12 +22,7 @@ class MenuConsoleViewSpec extends ConsoleIntegrationSpec {
         and:
             0 * _
         and:
-            assertOutput """\
-Main menu
-1. Start new game
-2. Resume previous game
-Put operation's number which you want to do: 
-"""
+            assertOutput mainMenuOutput()
     }
 
     void 'main menu should be drawn and onResumeChosen action should be called'() {
@@ -40,7 +35,11 @@ Put operation's number which you want to do:
         and:
             0 * _
         and:
-            assertOutput """\
+            assertOutput mainMenuOutput()
+    }
+
+    private static String mainMenuOutput() {
+        """\
 Main menu
 1. Start new game
 2. Resume previous game

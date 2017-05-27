@@ -5,22 +5,22 @@ import org.home.game.play.GameFactory
 import spock.lang.Specification
 import spock.lang.Subject
 
-class MenuPresenterSpec extends Specification {
+class MainMenuPresenterSpec extends Specification {
 
-    MenuView view = Mock()
+    MainMenuView view = Mock()
 
     GameFactory factory = Mock()
 
     @Subject
-    MenuPresenter presenter = new MenuPresenter(view, factory)
+    MainMenuPresenter presenter = new MainMenuPresenter(view, factory)
 
     Game game = Mock()
 
     void 'presenter should be set as delegate into view during object creation'() {
         when:
-            new MenuPresenter(view, factory)
+            new MainMenuPresenter(view, factory)
         then:
-            1 * view.setDelegate(_ as MenuPresenter)
+            1 * view.setDelegate(_ as MainMenuPresenter)
         and:
             0 * _
     }

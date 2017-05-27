@@ -7,8 +7,8 @@ import org.home.game.map.factory.MapFactory;
 import org.home.game.map.factory.StaticMapFactory;
 import org.home.game.map.painter.ConsoleMapPainter;
 import org.home.game.map.painter.MapPainter;
-import org.home.game.menu.MenuConsoleConsoleView;
-import org.home.game.menu.MenuPresenter;
+import org.home.game.menu.MainMainMenuConsoleConsoleView;
+import org.home.game.menu.MainMenuPresenter;
 import org.home.game.play.GameFactory;
 
 import javax.annotation.Nonnull;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 class EntryPointFactory {
     @Nonnull
     static Presenter newEntryPoint() {
-        return new MenuPresenter(new MenuConsoleConsoleView(), gameFactory());
+        return new MainMenuPresenter(new MainMainMenuConsoleConsoleView(), gameFactory());
     }
 
     @Nonnull

@@ -5,11 +5,11 @@ import org.home.game.play.GameFactory;
 
 import javax.annotation.Nonnull;
 
-public class MenuPresenter extends AbstractPresenter<MenuView> implements MenuView.ActionDelegate {
+public class MainMenuPresenter extends AbstractPresenter<MainMenuView> implements MainMenuView.ActionDelegate {
 
     private final GameFactory gameFactory;
 
-    public MenuPresenter(@Nonnull MenuView view, @Nonnull GameFactory gameFactory) {
+    public MainMenuPresenter(@Nonnull MainMenuView view, @Nonnull GameFactory gameFactory) {
         super(view);
         this.view.setDelegate(this);
         this.gameFactory = gameFactory;
