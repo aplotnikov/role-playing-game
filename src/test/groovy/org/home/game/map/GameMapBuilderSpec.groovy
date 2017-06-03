@@ -5,6 +5,8 @@ import static org.home.game.map.entities.MapEntityFactory.character
 import static org.home.game.map.entities.MapEntityFactory.road
 import static org.home.game.map.entities.MapEntityFactory.tree
 import static org.home.game.map.entities.MapEntityFactory.userCharacter
+import static org.home.game.map.entities.MapEntityType.ROAD
+import static org.home.game.map.entities.MapEntityType.TREE
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Race.ORC
 import static org.home.game.map.entities.character.Sex.MALE
@@ -47,15 +49,31 @@ class GameMapBuilderSpec extends Specification {
     }
 
     void 'new map should be created'() {
+        given:
+            MapEntity userCharacter = userCharacter('User', HUMAN, MALE)
+        and:
+            MapEntity orc = character(ORC.toString(), ORC, MALE)
         when:
-            GameMap map = map()
+            List<List<MapEntity>> map = map()
                     .line(road(), tree(), road())
-                    .line(road(), userCharacter('User', HUMAN, MALE), road())
-                    .line(road(), character(ORC.toString(), ORC, MALE), road())
+                    .line(road(), road(userCharacter), road())
+                    .line(road(), road(orc), road())
                     .create()
         then:
             map != null
         and:
-            map instanceof MainGameMap
+            map[0]*.type == [ROAD, TREE, ROAD]
+            map[1]*.type == [ROAD, ROAD, ROAD]
+            map[2]*.type == [ROAD, ROAD, ROAD]
+        and:
+            with(map[1][1].innerEntity) {
+                present
+                get() == userCharacter
+            }
+        and:
+            with(map[2][1].innerEntity) {
+                present
+                get() == orc
+            }
     }
 }

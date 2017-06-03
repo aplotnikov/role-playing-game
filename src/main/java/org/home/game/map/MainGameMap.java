@@ -1,59 +1,59 @@
 package org.home.game.map;
 
+import org.home.game.map.behaviour.GameStrategy;
 import org.home.game.map.entities.MapEntity;
-import org.home.game.map.entities.MapEntityType;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
-import static org.home.game.map.entities.MapEntityType.BEAR;
-import static org.home.game.map.entities.MapEntityType.CHARACTER;
-import static org.home.game.map.entities.MapEntityType.WOLF;
-
-class MainGameMap implements GameMap {
-
-    private static final Set<MapEntityType> ENEMIES = EnumSet.of(CHARACTER, WOLF, BEAR);
+public class MainGameMap implements GameMap {
 
     private final List<List<MapEntity>> entities;
 
-    MainGameMap(@Nonnull List<List<MapEntity>> entities) {
+    private final GameStrategy userBehaviour;
+
+    private final GameStrategy gameBehaviour;
+
+    private final Predicate<MapEntity> taskDetectionCondition;
+
+    public MainGameMap(
+            @Nonnull List<List<MapEntity>> entities,
+            @Nonnull GameStrategy userBehaviour,
+            @Nonnull GameStrategy gameBehaviour,
+            @Nonnull Predicate<MapEntity> taskDetectionCondition
+    ) {
         this.entities = entities;
+        this.userBehaviour = userBehaviour;
+        this.gameBehaviour = gameBehaviour;
+        this.taskDetectionCondition = taskDetectionCondition;
     }
 
     @Override
     public boolean containsUserCharacter() {
-        return entities.stream().flatMap(List::stream).anyMatch(this::isUser);
-    }
-
-    private boolean isUser(@Nonnull MapEntity entity) {
-        return entity.isUser() || entity.getInnerEntity().map(this::isUser).orElse(false);
+        return entities().anyMatch(MapEntity::containUserCharacter);
     }
 
     @Override
     public boolean containsTasks() {
-        return entities.stream().flatMap(List::stream).anyMatch(this::hasEnemy);
+        return entities().anyMatch(entity -> entity.containTasks(taskDetectionCondition));
     }
 
-    private boolean hasEnemy(@Nonnull MapEntity entity) {
-        return ENEMIES.contains(entity.getType()) && !entity.isUser()
-                || entity.getInnerEntity().map(this::hasEnemy).orElse(false);
+    @Nonnull
+    private Stream<MapEntity> entities() {
+        return entities.stream().flatMap(List::stream);
     }
 
     @Override
     public void goToNextIteration() {
-
+        userBehaviour.process(entities);
+        gameBehaviour.process(entities);
     }
 
     @Nonnull
     @Override
     public List<List<MapEntity>> getEntities() {
-        return entities.stream()
-                       .map(Collections::unmodifiableList)
-                       .collect(collectingAndThen(toList(), Collections::unmodifiableList));
+        return entities;
     }
 }

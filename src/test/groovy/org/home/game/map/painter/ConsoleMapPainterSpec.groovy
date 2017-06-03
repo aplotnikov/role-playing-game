@@ -26,11 +26,12 @@ class ConsoleMapPainterSpec extends Specification {
     @Subject
     ConsoleMapPainter painter = new ConsoleMapPainter()
 
-    GameMap map = map()
-            .line(road(), wolf(), tree())
-            .line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree())
-            .line(stone(), road(character('ORC', ORC, FEMALE)), tree())
-            .create()
+    GameMap map = Stub() {
+        getEntities() >> map().line(road(), wolf(), tree())
+                              .line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree())
+                              .line(stone(), road(character('ORC', ORC, FEMALE)), tree())
+                              .create()
+    }
 
     void 'map should be drawn'() {
         given:

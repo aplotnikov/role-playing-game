@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 public class GameMapBuilder {
 
@@ -33,17 +34,16 @@ public class GameMapBuilder {
             throw new IllegalStateException("It is impossible to create map lines with different size");
         }
 
-        this.entities.add(asList(entities));
+        this.entities.add(unmodifiableList(asList(entities)));
         return this;
     }
 
     @Nonnull
-    public GameMap create() {
+    public List<List<MapEntity>> create() {
         if (entities.isEmpty()) {
             throw new IllegalStateException("It is impossible to create empty map");
         }
 
-        return new MainGameMap(entities);
+        return unmodifiableList(entities);
     }
-
 }

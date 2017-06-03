@@ -8,7 +8,12 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.util.function.Predicate
+
 class SimpleMapEntitySpec extends Specification {
+
+    @Shared
+    Predicate<MapEntity> foreverTrueCondition = { true }
 
     @Shared
     String entityName = 'Stone'
@@ -25,6 +30,8 @@ class SimpleMapEntitySpec extends Specification {
                 !innerEntity.isPresent()
                 !canContainAnotherEntity()
                 !containAnotherEntity()
+                !containUserCharacter()
+                containTasks(foreverTrueCondition)
             }
     }
 

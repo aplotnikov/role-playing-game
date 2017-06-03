@@ -8,8 +8,6 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 
-import static java.util.Objects.nonNull;
-
 public class ContainerMapEntity implements MapEntity {
 
     private final String name;
@@ -17,7 +15,7 @@ public class ContainerMapEntity implements MapEntity {
     private final MapEntityType type;
 
     @CheckForNull
-    private MapEntity entity;
+    private MapEntity innerEntity;
 
     public ContainerMapEntity(@Nonnull String name, @Nonnull MapEntityType type) {
         this.name = name;
@@ -41,23 +39,18 @@ public class ContainerMapEntity implements MapEntity {
     }
 
     @Override
-    public boolean containAnotherEntity() {
-        return nonNull(entity);
-    }
-
-    @Override
     public Optional<MapEntity> getInnerEntity() {
-        return Optional.ofNullable(entity);
+        return Optional.ofNullable(innerEntity);
     }
 
     @Override
     public void take(@Nonnull MapEntity anotherEntity) {
-        entity = anotherEntity;
+        innerEntity = anotherEntity;
     }
 
     @Override
     public void clear() {
-        entity = null;
+        innerEntity = null;
     }
 
     @Nonnull
@@ -71,9 +64,11 @@ public class ContainerMapEntity implements MapEntity {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         ContainerMapEntity that = (ContainerMapEntity) o;
         return Objects.equals(name, that.name)
                 && type == that.type;
@@ -89,7 +84,7 @@ public class ContainerMapEntity implements MapEntity {
         return "ContainerMapEntity{"
                 + "name='" + name + '\''
                 + ", type=" + type
-                + ", entity=" + entity
+                + ", innerEntity=" + innerEntity
                 + '}';
     }
 }

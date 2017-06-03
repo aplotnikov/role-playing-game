@@ -27,16 +27,6 @@ public class SimpleMapEntity implements MapEntity {
     }
 
     @Override
-    public boolean canContainAnotherEntity() {
-        return false;
-    }
-
-    @Override
-    public boolean containAnotherEntity() {
-        return false;
-    }
-
-    @Override
     public void take(@Nonnull MapEntity anotherEntity) {
         throw new UnsupportedOperationException("This method is not supported.");
     }

@@ -10,7 +10,12 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.util.function.Predicate
+
 class GameCharacterSpec extends Specification {
+
+    @Shared
+    Predicate<MapEntity> foreverTrueCondition = { true }
 
     @Shared
     String characterName = 'Andrii'
@@ -29,6 +34,8 @@ class GameCharacterSpec extends Specification {
                 !innerEntity.isPresent()
                 !canContainAnotherEntity()
                 !containAnotherEntity()
+                !containUserCharacter()
+                !containTasks(foreverTrueCondition)
             }
     }
 

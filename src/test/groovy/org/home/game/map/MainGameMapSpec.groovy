@@ -1,54 +1,56 @@
 package org.home.game.map
 
 import static org.home.game.map.GameMapBuilder.map
-import static org.home.game.map.entities.MapEntityFactory.bear
-import static org.home.game.map.entities.MapEntityFactory.character
-import static org.home.game.map.entities.MapEntityFactory.road
-import static org.home.game.map.entities.MapEntityFactory.tree
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityFactory.wolf
-import static org.home.game.map.entities.character.Race.HUMAN
-import static org.home.game.map.entities.character.Sex.MALE
 
+import org.home.game.map.behaviour.GameStrategy
+import org.home.game.map.entities.MapEntity
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
+
+import java.util.function.Predicate
 
 @Unroll
 class MainGameMapSpec extends Specification {
 
-    void 'map should contain user character'() {
-        expect:
-            gameMap.containsUserCharacter()
-        where:
-            gameMap << [
-                    map().line(road(), userCharacter('Andrii', HUMAN, MALE), tree()).create(),
-                    map().line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree()).create()
-            ]
-    }
+    MapEntity entity = Stub()
 
-    void 'map should not contain user character'() {
+    List<List<MapEntity>> entities = map().line(entity).create()
+
+    GameStrategy userBehaviour = Mock()
+
+    GameStrategy gameBehaviour = Mock()
+
+    Predicate<MapEntity> taskDetectionCondition = Stub()
+
+    @Subject
+    MainGameMap map = new MainGameMap(entities, userBehaviour, gameBehaviour, taskDetectionCondition)
+
+    void 'map should contain user character when entity contains user character'() {
         given:
-            GameMap map = map().line(road(), character('Andrii', HUMAN, MALE), tree()).create()
+            entity.containUserCharacter() >> entityContainsUserCharacter
         expect:
-            !map.containsUserCharacter()
-    }
-
-    void 'map should contain tasks'() {
-        expect:
-            gameMap.containsTasks()
+            map.containsUserCharacter() == entityContainsUserCharacter
         where:
-            gameMap << [
-                    map().line(wolf()).create(),
-                    map().line(bear()).create(),
-                    map().line(character('Andrii Plotnikov', HUMAN, MALE)).create(),
-                    map().line(road(bear())).create()
-            ]
+            entityContainsUserCharacter << [true, false]
     }
 
-    void 'map should not contain tasks'() {
+    void 'map should contain tasks when entity contains tasks'() {
         given:
-            GameMap gameMap = map().line(road(), userCharacter('Andrii', HUMAN, MALE), tree()).create()
+            entity.containTasks(taskDetectionCondition) >> entityContainsTasks
         expect:
-            !gameMap.containsTasks()
+            map.containsTasks() == entityContainsTasks
+        where:
+            entityContainsTasks << [true, false]
+    }
+
+    void 'map should process user and game behaviour on the next iteration'() {
+        when:
+            map.goToNextIteration()
+        then:
+            1 * userBehaviour.process(entities)
+            1 * gameBehaviour.process(entities)
+        and:
+            0 * _
     }
 }
