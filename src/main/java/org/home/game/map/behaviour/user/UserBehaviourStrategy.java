@@ -30,7 +30,7 @@ public class UserBehaviourStrategy implements GameStrategy {
         }
     }
 
-    private boolean isValid(@Nonnull MapPoint position, int maxCoordinate) {
+    private boolean isValid(@Nonnull MapPoint position, @Nonnegative int maxCoordinate) {
         IntRange correctCoordinate = new IntRange(0, maxCoordinate);
         return correctCoordinate.containsInteger(position.getLeft())
                 && correctCoordinate.containsInteger(position.getTop());
