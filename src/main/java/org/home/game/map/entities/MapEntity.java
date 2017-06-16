@@ -1,44 +1,47 @@
 package org.home.game.map.entities;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import static java.util.Optional.empty;
 
 public interface MapEntity {
 
     @Nonnull
     String getName();
 
+    @Nonnegative
+    int getHealth();
+
+    @Nonnegative
+    int getAttackPower();
+
     boolean isUser();
 
-    default boolean canContainAnotherEntity() {
-        return false;
-    }
+    boolean isAlive();
 
-    default boolean containAnotherEntity() {
-        return getInnerEntity().isPresent();
-    }
+    boolean canContainAnotherEntity();
 
-    default boolean containUserCharacter() {
-        return getInnerEntity()
-                .map(entity -> entity.isUser() || entity.containUserCharacter())
-                .orElse(false);
-    }
+    boolean containAnotherEntity();
 
-    default boolean containTasks(@Nonnull Predicate<MapEntity> condition) {
-        return condition.test(this) && !isUser()
-                || getInnerEntity().map(entity -> entity.containTasks(condition)).orElse(false);
-    }
+    boolean containUserCharacter();
+
+    boolean containTasks(@Nonnull Predicate<MapEntity> condition);
+
+    MapEntity findEntity(@Nonnull Predicate<MapEntity> condition);
 
     void take(@Nonnull MapEntity anotherEntity);
 
+    void isBeatenBy(@Nonnull MapEntity anotherEntity);
+
+    void defense();
+
+    void relax();
+
     void clear();
 
-    default Optional<MapEntity> getInnerEntity() {
-        return empty();
-    }
+    @Nonnull
+    Optional<MapEntity> getInnerEntity();
 
     @Nonnull
     MapEntityType getType();

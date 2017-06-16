@@ -1,16 +1,14 @@
 package org.home.game.map.entities.character;
 
-import org.home.game.map.entities.MapEntity;
-import org.home.game.map.entities.MapEntityType;
+import org.home.game.map.entities.simple.SimpleMapEntity;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static org.home.game.map.entities.MapEntityType.CHARACTER;
 
-public class GameCharacter implements MapEntity {
-
-    private final String name;
+public class GameCharacter extends SimpleMapEntity {
 
     private final boolean isUserCharacter;
 
@@ -18,17 +16,15 @@ public class GameCharacter implements MapEntity {
 
     private final Sex sex;
 
-    public GameCharacter(@Nonnull String name, boolean isUserCharacter, @Nonnull Race race, @Nonnull Sex sex) {
-        this.name = name;
+    public GameCharacter(@Nonnull String name,
+                         boolean isUserCharacter,
+                         @Nonnull Race race,
+                         @Nonnull Sex sex,
+                         @Nonnegative int attackPower) {
+        super(name, CHARACTER, attackPower);
         this.isUserCharacter = isUserCharacter;
         this.race = race;
         this.sex = sex;
-    }
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -47,22 +43,6 @@ public class GameCharacter implements MapEntity {
     }
 
     @Override
-    public void take(@Nonnull MapEntity anotherEntity) {
-        throw new UnsupportedOperationException("This method is not supported.");
-    }
-
-    @Override
-    public void clear() {
-        throw new UnsupportedOperationException("This method is not supported.");
-    }
-
-    @Nonnull
-    @Override
-    public MapEntityType getType() {
-        return CHARACTER;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -73,24 +53,27 @@ public class GameCharacter implements MapEntity {
         }
 
         GameCharacter that = (GameCharacter) o;
-        return isUserCharacter == that.isUserCharacter
-                && Objects.equals(name, that.name)
+        return super.equals(that)
+                && isUserCharacter == that.isUserCharacter
                 && race == that.race
                 && sex == that.sex;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, isUserCharacter, race, sex);
+        return 31 * super.hashCode() + Objects.hash(isUserCharacter, race, sex);
     }
 
     @Override
     public String toString() {
         return "GameCharacter{"
-                + "name='" + name + '\''
+                + "name='" + getName() + '\''
+                + ", type=" + getType()
                 + ", isUserCharacter=" + isUserCharacter
                 + ", race=" + race
                 + ", sex=" + sex
+                + ", health=" + getHealth()
+                + ", attackPower=" + getAttackPower()
                 + '}';
     }
 }

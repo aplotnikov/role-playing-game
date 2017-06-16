@@ -9,6 +9,8 @@ import static org.home.game.map.entities.MapEntityType.WOLF
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
+import org.home.game.map.entities.character.GameCharacter
+import org.home.game.map.entities.simple.SimpleMapEntity
 import spock.lang.Specification
 
 class MapEntityFactorySpec extends Specification {
@@ -17,9 +19,13 @@ class MapEntityFactorySpec extends Specification {
         when:
             MapEntity road = MapEntityFactory.road()
         then:
-            with(road) {
+            road instanceof SimpleMapEntity
+        and:
+            with(road as SimpleMapEntity) {
                 name == 'Road'
                 type == ROAD
+                health == 100
+                attackPower == 0
                 !containAnotherEntity()
             }
     }
@@ -30,81 +36,113 @@ class MapEntityFactorySpec extends Specification {
         when:
             MapEntity road = MapEntityFactory.road(entity)
         then:
-            with(road) {
+            road instanceof SimpleMapEntity
+        and:
+            with(road as SimpleMapEntity) {
                 name == 'Road'
                 type == ROAD
+                health == 100
+                attackPower == 0
                 containAnotherEntity()
             }
     }
 
     void 'wolf should be created'() {
         when:
-            MapEntity road = MapEntityFactory.wolf()
+            MapEntity wolf = MapEntityFactory.wolf()
         then:
-            with(road) {
+            wolf instanceof SimpleMapEntity
+        and:
+            with(wolf as SimpleMapEntity) {
                 name == 'Wolf'
                 type == WOLF
+                health == 100
+                attackPower == 10
+                !isDefended
                 !containAnotherEntity()
             }
     }
 
     void 'bear should be created'() {
         when:
-            MapEntity road = MapEntityFactory.bear()
+            MapEntity bear = MapEntityFactory.bear()
         then:
-            with(road) {
+            bear instanceof SimpleMapEntity
+        and:
+            with(bear as SimpleMapEntity) {
                 name == 'Bear'
                 type == BEAR
+                health == 100
+                attackPower == 20
+                !isDefended
                 !containAnotherEntity()
             }
     }
 
     void 'tree should be created'() {
         when:
-            MapEntity road = MapEntityFactory.tree()
+            MapEntity tree = MapEntityFactory.tree()
         then:
-            with(road) {
+            tree instanceof SimpleMapEntity
+        and:
+            with(tree as SimpleMapEntity) {
                 name == 'Tree'
                 type == TREE
+                health == 100
+                attackPower == 0
+                !isDefended
                 !containAnotherEntity()
             }
     }
 
     void 'stone should be created'() {
         when:
-            MapEntity road = MapEntityFactory.stone()
+            MapEntity stone = MapEntityFactory.stone()
         then:
-            with(road) {
+            stone instanceof SimpleMapEntity
+        and:
+            with(stone as SimpleMapEntity) {
                 name == 'Stone'
                 type == STONE
+                health == 100
+                attackPower == 0
+                !isDefended
                 !containAnotherEntity()
             }
     }
 
     void 'user character should be created'() {
         when:
-            MapEntity road = MapEntityFactory.userCharacter('Andrii', HUMAN, MALE)
+            MapEntity character = MapEntityFactory.userCharacter('Andrii', HUMAN, MALE)
         then:
-            with(road) {
+            character instanceof GameCharacter
+        and:
+            with(character as GameCharacter) {
                 name == 'Andrii'
                 type == CHARACTER
                 isUser()
                 race == HUMAN
                 sex == MALE
+                health == 100
+                attackPower == 40
                 !containAnotherEntity()
             }
     }
 
     void 'character should be created'() {
         when:
-            MapEntity road = MapEntityFactory.character('Andrii', HUMAN, MALE)
+            MapEntity character = MapEntityFactory.character('Andrii', HUMAN, MALE)
         then:
-            with(road) {
+            character instanceof GameCharacter
+        and:
+            with(character as GameCharacter) {
                 name == 'Andrii'
                 type == CHARACTER
                 !isUser()
                 race == HUMAN
                 sex == MALE
+                health == 100
+                attackPower == 30
                 !containAnotherEntity()
             }
     }

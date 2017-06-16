@@ -33,13 +33,15 @@ class ContainerMapEntitySpec extends Specification {
     MapEntity character = character('Andrii', HUMAN, MALE)
 
     @Subject
-    ContainerMapEntity container = new ContainerMapEntity(containerName, ROAD)
+    ContainerMapEntity container = new ContainerMapEntity(containerName, ROAD, 0)
 
     void 'constructor argument should be set into fields and container has default behaviour'() {
         expect:
             with(container) {
                 name == containerName
                 type == ROAD
+                health == 100
+                attackPower == 0
                 !innerEntity.isPresent()
                 canContainAnotherEntity()
                 !containAnotherEntity()
@@ -109,6 +111,9 @@ class ContainerMapEntitySpec extends Specification {
 
     void 'equals and hashcode contract should be followed'() {
         expect:
-            EqualsVerifier.forClass(ContainerMapEntity).usingGetClass().withIgnoredFields('innerEntity').verify()
+            EqualsVerifier.forClass(ContainerMapEntity)
+                          .usingGetClass()
+                          .withIgnoredFields('innerEntity', 'health', 'isDefended')
+                          .verify()
     }
 }

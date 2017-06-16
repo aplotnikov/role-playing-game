@@ -4,20 +4,20 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class MapPoint {
+public class Position {
 
     private final int left;
 
     private final int top;
 
-    private MapPoint(@Nonnegative int left, @Nonnegative int top) {
+    private Position(@Nonnegative int left, @Nonnegative int top) {
         this.left = left;
         this.top = top;
     }
 
     @Nonnull
-    public static MapPoint of(@Nonnegative int left, @Nonnegative int top) {
-        return new MapPoint(left, top);
+    public static Position of(@Nonnegative int left, @Nonnegative int top) {
+        return new Position(left, top);
     }
 
     @Nonnegative
@@ -40,8 +40,8 @@ public class MapPoint {
             return false;
         }
 
-        MapPoint mapPoint = (MapPoint) o;
-        return left == mapPoint.left && top == mapPoint.top;
+        Position position = (Position) o;
+        return left == position.left && top == position.top;
     }
 
     @Override
@@ -51,6 +51,6 @@ public class MapPoint {
 
     @Override
     public String toString() {
-        return "MapPoint{" + "left=" + left + ", top=" + top + '}';
+        return "Position{" + "left=" + left + ", top=" + top + '}';
     }
 }

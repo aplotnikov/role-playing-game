@@ -1,7 +1,7 @@
 package org.home.game.map.behaviour.user;
 
 import org.home.game.common.console.ui.Menu;
-import org.home.game.map.utils.MapPoint;
+import org.home.game.map.utils.Position;
 
 import javax.annotation.Nonnull;
 
@@ -11,17 +11,17 @@ public class UserMovementConsoleInput implements UserMovementInput {
 
     @Nonnull
     @Override
-    public MapPoint getNextPosition(@Nonnull MapPoint currentPosition) {
+    public Position getNextPosition(@Nonnull Position currentPosition) {
         movementMenu.draw();
         switch (movementMenu.chooseItem()) {
             case UP:
-                return MapPoint.of(currentPosition.getLeft(), currentPosition.getTop() - 1);
+                return Position.of(currentPosition.getLeft(), currentPosition.getTop() - 1);
             case DOWN:
-                return MapPoint.of(currentPosition.getLeft(), currentPosition.getTop() + 1);
+                return Position.of(currentPosition.getLeft(), currentPosition.getTop() + 1);
             case RIGHT:
-                return MapPoint.of(currentPosition.getLeft() + 1, currentPosition.getTop());
+                return Position.of(currentPosition.getLeft() + 1, currentPosition.getTop());
             case LEFT:
-                return MapPoint.of(currentPosition.getLeft() - 1, currentPosition.getTop());
+                return Position.of(currentPosition.getLeft() - 1, currentPosition.getTop());
             default:
                 throw new IllegalStateException("Unsupported menu item");
         }

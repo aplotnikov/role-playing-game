@@ -1,13 +1,13 @@
 package org.home.game.map.behaviour.user
 
 import org.home.game.ConsoleIntegrationSpec
-import org.home.game.map.utils.MapPoint
+import org.home.game.map.utils.Position
 import spock.lang.Subject
 
 class UserMovementConsoleInputSpec extends ConsoleIntegrationSpec {
 
     @Subject
-    MapPoint currentPosition = MapPoint.of(1, 1)
+    Position currentPosition = Position.of(1, 1)
 
     @Subject
     UserMovementConsoleInput input = new UserMovementConsoleInput()
@@ -16,7 +16,7 @@ class UserMovementConsoleInputSpec extends ConsoleIntegrationSpec {
         given:
             userInput '1'
         when:
-            MapPoint nextPosition = input.getNextPosition(currentPosition)
+            Position nextPosition = input.getNextPosition(currentPosition)
         then:
             with(nextPosition) {
                 left == currentPosition.left
@@ -30,7 +30,7 @@ class UserMovementConsoleInputSpec extends ConsoleIntegrationSpec {
         given:
             userInput '2'
         when:
-            MapPoint nextPosition = input.getNextPosition(currentPosition)
+            Position nextPosition = input.getNextPosition(currentPosition)
         then:
             with(nextPosition) {
                 left == currentPosition.left
@@ -44,7 +44,7 @@ class UserMovementConsoleInputSpec extends ConsoleIntegrationSpec {
         given:
             userInput '3'
         when:
-            MapPoint nextPosition = input.getNextPosition(currentPosition)
+            Position nextPosition = input.getNextPosition(currentPosition)
         then:
             with(nextPosition) {
                 left == currentPosition.left + 1
@@ -58,7 +58,7 @@ class UserMovementConsoleInputSpec extends ConsoleIntegrationSpec {
         given:
             userInput '4'
         when:
-            MapPoint nextPosition = input.getNextPosition(currentPosition)
+            Position nextPosition = input.getNextPosition(currentPosition)
         then:
             with(nextPosition) {
                 left == currentPosition.left - 1

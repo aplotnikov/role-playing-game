@@ -17,8 +17,6 @@ public class ConsoleReader {
 
     private static final Predicate<String> VALID_INPUT_DATA_CONDITION = NOT_BLANK.and(StringUtils::isNumeric).and(NON_NEGATIVE);
 
-    private final Scanner scanner = new Scanner(System.in, "UTF-8");
-
     @Nonnegative
     public int readIntegerUntil(@Nonnull Predicate<String> userCondition, @Nonnull Runnable onFail) {
         Predicate<String> retryCondition = VALID_INPUT_DATA_CONDITION.and(userCondition).negate();
@@ -33,7 +31,12 @@ public class ConsoleReader {
     }
 
     @Nonnull
+    private Scanner scanner() {
+        return new Scanner(System.in, "UTF-8");
+    }
+
+    @Nonnull
     public String readString() {
-        return scanner.nextLine();
+        return scanner().nextLine();
     }
 }

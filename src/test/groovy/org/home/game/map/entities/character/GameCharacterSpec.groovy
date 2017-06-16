@@ -21,7 +21,7 @@ class GameCharacterSpec extends Specification {
     String characterName = 'Andrii'
 
     @Subject
-    GameCharacter character = new GameCharacter(characterName, true, HUMAN, MALE)
+    GameCharacter character = new GameCharacter(characterName, true, HUMAN, MALE, 10)
 
     void 'constructor argument should be set into fields and character has default behaviour'() {
         expect:
@@ -31,6 +31,8 @@ class GameCharacterSpec extends Specification {
                 race == HUMAN
                 sex == MALE
                 type == CHARACTER
+                health == 100
+                attackPower == 10
                 !innerEntity.isPresent()
                 !canContainAnotherEntity()
                 !containAnotherEntity()
@@ -39,24 +41,11 @@ class GameCharacterSpec extends Specification {
             }
     }
 
-    void 'UnsupportedOperationException should be thrown when take method is called'() {
-        when:
-            character.take(Stub(MapEntity))
-        then:
-            UnsupportedOperationException exception = thrown(UnsupportedOperationException)
-            exception.message == 'This method is not supported.'
-    }
-
-    void 'UnsupportedOperationException should be thrown when clear method is called'() {
-        when:
-            character.clear()
-        then:
-            UnsupportedOperationException exception = thrown(UnsupportedOperationException)
-            exception.message == 'This method is not supported.'
-    }
-
     void 'equals and hashcode contract should be followed'() {
         expect:
-            EqualsVerifier.forClass(GameCharacter).usingGetClass().verify()
+            EqualsVerifier.forClass(GameCharacter)
+                          .usingGetClass()
+                          .withIgnoredFields('health', 'isDefended')
+                          .verify()
     }
 }

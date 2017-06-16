@@ -2,35 +2,20 @@ package org.home.game.map.entities.container;
 
 import org.home.game.map.entities.MapEntity;
 import org.home.game.map.entities.MapEntityType;
+import org.home.game.map.entities.simple.SimpleMapEntity;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ContainerMapEntity implements MapEntity {
-
-    private final String name;
-
-    private final MapEntityType type;
+public class ContainerMapEntity extends SimpleMapEntity {
 
     @CheckForNull
     private MapEntity innerEntity;
 
-    public ContainerMapEntity(@Nonnull String name, @Nonnull MapEntityType type) {
-        this.name = name;
-        this.type = type;
-    }
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean isUser() {
-        return false;
+    public ContainerMapEntity(@Nonnull String name, @Nonnull MapEntityType type, @Nonnegative int attachPower) {
+        super(name, type, attachPower);
     }
 
     @Override
@@ -38,6 +23,7 @@ public class ContainerMapEntity implements MapEntity {
         return true;
     }
 
+    @Nonnull
     @Override
     public Optional<MapEntity> getInnerEntity() {
         return Optional.ofNullable(innerEntity);
@@ -53,37 +39,13 @@ public class ContainerMapEntity implements MapEntity {
         innerEntity = null;
     }
 
-    @Nonnull
-    @Override
-    public MapEntityType getType() {
-        return type;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ContainerMapEntity that = (ContainerMapEntity) o;
-        return Objects.equals(name, that.name)
-                && type == that.type;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, type);
-    }
-
     @Override
     public String toString() {
         return "ContainerMapEntity{"
-                + "name='" + name + '\''
-                + ", type=" + type
+                + "name='" + getName() + '\''
+                + ", type=" + getType()
+                + ", health=" + getHealth()
+                + ", attackPower=" + getAttackPower()
                 + ", innerEntity=" + innerEntity
                 + '}';
     }

@@ -15,5 +15,4 @@ public interface GameMap {
 
     @Nonnull
     List<List<MapEntity>> getEntities();
-
 }
