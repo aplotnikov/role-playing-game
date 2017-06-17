@@ -1,6 +1,6 @@
 package org.home.game.map.entities;
 
-public enum MapEntityType {
+public enum EntityType {
     ROAD,
     STONE,
     TREE,

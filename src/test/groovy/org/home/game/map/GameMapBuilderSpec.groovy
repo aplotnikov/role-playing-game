@@ -1,17 +1,17 @@
 package org.home.game.map
 
 import static org.home.game.map.GameMapBuilder.map
-import static org.home.game.map.entities.MapEntityFactory.character
-import static org.home.game.map.entities.MapEntityFactory.road
-import static org.home.game.map.entities.MapEntityFactory.tree
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityType.ROAD
-import static org.home.game.map.entities.MapEntityType.TREE
+import static org.home.game.map.entities.EntityFactory.character
+import static org.home.game.map.entities.EntityFactory.road
+import static org.home.game.map.entities.EntityFactory.tree
+import static org.home.game.map.entities.EntityFactory.userCharacter
+import static org.home.game.map.entities.EntityType.ROAD
+import static org.home.game.map.entities.EntityType.TREE
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Race.ORC
 import static org.home.game.map.entities.character.Sex.MALE
 
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -37,7 +37,7 @@ class GameMapBuilderSpec extends Specification {
     void 'IllegalStateException should be thrown when different lines have different size'() {
         when:
             map().line(road(), road())
-                 .line(secondLine as MapEntity[])
+                 .line(secondLine as Entity[])
         then:
             IllegalStateException exception = thrown(IllegalStateException)
             exception.message == 'It is impossible to create map lines with different size'
@@ -50,11 +50,11 @@ class GameMapBuilderSpec extends Specification {
 
     void 'new map should be created'() {
         given:
-            MapEntity userCharacter = userCharacter('User', HUMAN, MALE)
+            Entity userCharacter = userCharacter('User', HUMAN, MALE)
         and:
-            MapEntity orc = character(ORC.toString(), ORC, MALE)
+            Entity orc = character(ORC.toString(), ORC, MALE)
         when:
-            List<List<MapEntity>> map = map()
+            List<List<Entity>> map = map()
                     .line(road(), tree(), road())
                     .line(road(), road(userCharacter), road())
                     .line(road(), road(orc), road())

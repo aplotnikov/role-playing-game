@@ -1,14 +1,14 @@
 package org.home.game.map.entities.character.create;
 
 import org.home.game.common.mvp.AbstractPresenter;
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 import org.home.game.map.entities.character.Race;
 import org.home.game.map.entities.character.Sex;
 
 import javax.annotation.Nonnull;
 
 import static java.util.Objects.requireNonNull;
-import static org.home.game.map.entities.MapEntityFactory.userCharacter;
+import static org.home.game.map.entities.EntityFactory.userCharacter;
 import static org.home.game.map.entities.character.create.NewCharacterView.ActionDelegate;
 
 public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterFactory, ActionDelegate {
@@ -47,7 +47,7 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
     }
 
     @Nonnull
-    public MapEntity getGameCharacter() {
+    public Entity getGameCharacter() {
         show();
         return userCharacter(name, race, sex);
     }

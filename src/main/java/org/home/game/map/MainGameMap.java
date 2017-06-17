@@ -2,7 +2,7 @@ package org.home.game.map;
 
 import org.apache.commons.lang.math.IntRange;
 import org.home.game.map.behaviour.user.UserMovementInput;
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 import org.home.game.map.task.TaskCompletionStrategy;
 import org.home.game.map.utils.Position;
 
@@ -18,17 +18,17 @@ import static java.util.stream.IntStream.range;
 
 public class MainGameMap implements GameMap {
 
-    private final List<List<MapEntity>> entities;
+    private final List<List<Entity>> entities;
 
-    private final Predicate<MapEntity> taskDetectionCondition;
+    private final Predicate<Entity> taskDetectionCondition;
 
     private final UserMovementInput userMovementInput;
 
     private final TaskCompletionStrategy taskCompletionStrategy;
 
-    public MainGameMap(@Nonnull List<List<MapEntity>> entities,
+    public MainGameMap(@Nonnull List<List<Entity>> entities,
                        @Nonnull UserMovementInput userMovementInput,
-                       @Nonnull Predicate<MapEntity> taskDetectionCondition,
+                       @Nonnull Predicate<Entity> taskDetectionCondition,
                        @Nonnull TaskCompletionStrategy taskCompletionStrategy) {
         this.entities = entities;
         this.taskDetectionCondition = taskDetectionCondition;
@@ -38,7 +38,7 @@ public class MainGameMap implements GameMap {
 
     @Override
     public boolean containsUserCharacter() {
-        return entities().anyMatch(MapEntity::containUserCharacter);
+        return entities().anyMatch(Entity::containUserCharacter);
     }
 
     @Override
@@ -47,13 +47,13 @@ public class MainGameMap implements GameMap {
     }
 
     @Nonnull
-    private Stream<MapEntity> entities() {
+    private Stream<Entity> entities() {
         return entities.stream().flatMap(List::stream);
     }
 
     @Override
     public void goToNextIteration() {
-        Position currentPosition = findFirstEntity(MapEntity::containUserCharacter)
+        Position currentPosition = findFirstEntity(Entity::containUserCharacter)
                 .orElseThrow(() -> new IllegalStateException("It is impossible to continue game when no user character on the map"));
         Position nextPosition = userMovementInput.getNextPosition(currentPosition);
         if (isValid(nextPosition, entities.size() - 1)) {
@@ -62,7 +62,7 @@ public class MainGameMap implements GameMap {
     }
 
     @Nonnull
-    private Optional<Position> findFirstEntity(Predicate<MapEntity> condition) {
+    private Optional<Position> findFirstEntity(Predicate<Entity> condition) {
         return range(0, entities.size())
                 .boxed()
                 .flatMap(top -> zip(top, findEntityIndex(entities.get(top), condition)))
@@ -70,7 +70,7 @@ public class MainGameMap implements GameMap {
     }
 
     @Nonnull
-    private IntStream findEntityIndex(@Nonnull List<MapEntity> entities, @Nonnull Predicate<MapEntity> condition) {
+    private IntStream findEntityIndex(@Nonnull List<Entity> entities, @Nonnull Predicate<Entity> condition) {
         return range(0, entities.size()).filter(left -> condition.test(entities.get(left)));
     }
 
@@ -86,16 +86,16 @@ public class MainGameMap implements GameMap {
     }
 
     private void moveUser(@Nonnull Position currentPosition, @Nonnull Position nextPosition) {
-        MapEntity containerEntity = entityOn(currentPosition);
-        MapEntity newContainerEntity = entityOn(nextPosition);
+        Entity containerEntity = entityOn(currentPosition);
+        Entity newContainerEntity = entityOn(nextPosition);
 
         if (!newContainerEntity.canContainAnotherEntity()) {
             return;
         }
 
         if (newContainerEntity.containTasks(taskDetectionCondition)) {
-            MapEntity userCharacter = containerEntity.findEntity(MapEntity::isUser);
-            MapEntity taskEntity = newContainerEntity.findEntity(taskDetectionCondition);
+            Entity userCharacter = containerEntity.findEntity(Entity::isUser);
+            Entity taskEntity = newContainerEntity.findEntity(taskDetectionCondition);
 
             taskCompletionStrategy.complete(userCharacter, taskEntity);
 
@@ -114,17 +114,17 @@ public class MainGameMap implements GameMap {
     }
 
     @Nonnull
-    private MapEntity entityOn(@Nonnull Position position) {
+    private Entity entityOn(@Nonnull Position position) {
         return entities.get(position.getTop()).get(position.getLeft());
     }
 
-    private boolean isUserAlive(@Nonnull MapEntity entity) {
-        return entity.findEntity(MapEntity::isUser).isAlive();
+    private boolean isUserAlive(@Nonnull Entity entity) {
+        return entity.findEntity(Entity::isUser).isAlive();
     }
 
     @Nonnull
     @Override
-    public List<List<MapEntity>> getEntities() {
+    public List<List<Entity>> getEntities() {
         return entities;
     }
 }

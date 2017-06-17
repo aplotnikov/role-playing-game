@@ -1,14 +1,14 @@
 package org.home.game.map
 
-import static org.home.game.map.entities.MapEntityFactory.road
-import static org.home.game.map.entities.MapEntityFactory.tree
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityFactory.wolf
+import static org.home.game.map.entities.EntityFactory.road
+import static org.home.game.map.entities.EntityFactory.tree
+import static org.home.game.map.entities.EntityFactory.userCharacter
+import static org.home.game.map.entities.EntityFactory.wolf
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.map.behaviour.user.UserMovementInput
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import org.home.game.map.task.TaskCompletionStrategy
 import org.home.game.map.utils.Position
 import spock.lang.Specification
@@ -20,9 +20,9 @@ import java.util.function.Predicate
 @Unroll
 class MainGameMapSpec extends Specification {
 
-    List<List<MapEntity>> entities = [[road()]]
+    List<List<Entity>> entities = [[road()]]
 
-    Predicate<MapEntity> taskDetectionCondition = Stub()
+    Predicate<Entity> taskDetectionCondition = Stub()
 
     UserMovementInput userMovementInput = Stub()
 
@@ -45,7 +45,7 @@ class MainGameMapSpec extends Specification {
 
     void 'map should contain tasks when entity contains tasks'() {
         given:
-            taskDetectionCondition.test(_ as MapEntity) >> entityContainsTasks
+            taskDetectionCondition.test(_ as Entity) >> entityContainsTasks
         expect:
             map.containsTasks() == entityContainsTasks
         where:
@@ -123,15 +123,15 @@ class MainGameMapSpec extends Specification {
 
     void 'task completion strategy should be processed when user meets a task'() {
         given:
-            MapEntity wolf = wolf()
-            MapEntity character = userCharacter('Andrii', HUMAN, MALE)
+            Entity wolf = wolf()
+            Entity character = userCharacter('Andrii', HUMAN, MALE)
         and:
             entities[0] << road()
             entities << [road(wolf), road(character)]
         and:
             userMovementInput.getNextPosition(_ as Position) >> Position.of(0, 1)
         and:
-            taskDetectionCondition.test(_ as MapEntity) >> true
+            taskDetectionCondition.test(_ as Entity) >> true
         when:
             map.goToNextIteration()
         then:
@@ -139,7 +139,7 @@ class MainGameMapSpec extends Specification {
             !entities[1][1].containUserCharacter()
         and:
             1 * taskCompletionStrategy.complete(character, wolf) >> {
-                MapEntity user, MapEntity enemy ->
+                Entity user, Entity enemy ->
                     user.defense()
                     enemy.defense()
             }
@@ -152,8 +152,8 @@ class MainGameMapSpec extends Specification {
 
     void 'user character should be removed when the character is not alive'() {
         given:
-            MapEntity character = userCharacter('Andrii', HUMAN, MALE)
-            character.isBeatenBy(Stub(MapEntity) { getAttackPower() >> 100 })
+            Entity character = userCharacter('Andrii', HUMAN, MALE)
+            character.isBeatenBy(Stub(Entity) { getAttackPower() >> 100 })
         and:
             entities[0] << road()
             entities << [road(wolf()), road(character)]

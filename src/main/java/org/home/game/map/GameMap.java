@@ -1,6 +1,6 @@
 package org.home.game.map;
 
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -14,5 +14,5 @@ public interface GameMap {
     void goToNextIteration();
 
     @Nonnull
-    List<List<MapEntity>> getEntities();
+    List<List<Entity>> getEntities();
 }

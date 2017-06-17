@@ -1,12 +1,12 @@
 package org.home.game.map.painter
 
 import static org.home.game.map.GameMapBuilder.map
-import static org.home.game.map.entities.MapEntityFactory.character
-import static org.home.game.map.entities.MapEntityFactory.road
-import static org.home.game.map.entities.MapEntityFactory.stone
-import static org.home.game.map.entities.MapEntityFactory.tree
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityFactory.wolf
+import static org.home.game.map.entities.EntityFactory.character
+import static org.home.game.map.entities.EntityFactory.road
+import static org.home.game.map.entities.EntityFactory.stone
+import static org.home.game.map.entities.EntityFactory.tree
+import static org.home.game.map.entities.EntityFactory.userCharacter
+import static org.home.game.map.entities.EntityFactory.wolf
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Race.ORC
 import static org.home.game.map.entities.character.Sex.FEMALE

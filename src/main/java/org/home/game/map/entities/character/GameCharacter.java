@@ -1,15 +1,15 @@
 package org.home.game.map.entities.character;
 
-import org.home.game.map.entities.simple.SimpleMapEntity;
+import org.home.game.map.entities.SimpleEntity;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
-import static org.home.game.map.entities.MapEntityType.CHARACTER;
+import static org.home.game.map.entities.EntityType.CHARACTER;
 
-public class GameCharacter extends SimpleMapEntity {
+public class GameCharacter extends SimpleEntity {
 
     private final boolean isUserCharacter;
 

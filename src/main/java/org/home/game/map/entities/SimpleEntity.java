@@ -1,7 +1,4 @@
-package org.home.game.map.entities.simple;
-
-import org.home.game.map.entities.MapEntity;
-import org.home.game.map.entities.MapEntityType;
+package org.home.game.map.entities;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -9,11 +6,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SimpleMapEntity implements MapEntity {
+public class SimpleEntity implements Entity {
 
     private final String name;
 
-    private final MapEntityType type;
+    private final EntityType type;
 
     private final int attackPower;
 
@@ -21,7 +18,7 @@ public class SimpleMapEntity implements MapEntity {
 
     private boolean defended;
 
-    public SimpleMapEntity(@Nonnull String name, @Nonnull MapEntityType type, @Nonnegative int attackPower) {
+    public SimpleEntity(@Nonnull String name, @Nonnull EntityType type, @Nonnegative int attackPower) {
         this.name = name;
         this.type = type;
         this.attackPower = attackPower;
@@ -47,7 +44,7 @@ public class SimpleMapEntity implements MapEntity {
 
     @Nonnull
     @Override
-    public MapEntityType getType() {
+    public EntityType getType() {
         return type;
     }
 
@@ -79,13 +76,13 @@ public class SimpleMapEntity implements MapEntity {
     }
 
     @Override
-    public boolean containTasks(@Nonnull Predicate<MapEntity> condition) {
+    public boolean containTasks(@Nonnull Predicate<Entity> condition) {
         return condition.test(this) && !isUser()
                 || getInnerEntity().filter(entity -> entity.containTasks(condition)).isPresent();
     }
 
     @Override
-    public MapEntity findEntity(@Nonnull Predicate<MapEntity> condition) {
+    public Entity findEntity(@Nonnull Predicate<Entity> condition) {
         return getInnerEntity()
                 .map(entity -> condition.test(entity) ? entity : entity.findEntity(condition))
                 .orElseThrow(() -> new IllegalStateException("There is no entities with such condition"));
@@ -93,17 +90,17 @@ public class SimpleMapEntity implements MapEntity {
 
     @Nonnull
     @Override
-    public Optional<MapEntity> getInnerEntity() {
+    public Optional<Entity> getInnerEntity() {
         return Optional.empty();
     }
 
     @Override
-    public void take(@Nonnull MapEntity anotherEntity) {
+    public void take(@Nonnull Entity anotherEntity) {
         throw new UnsupportedOperationException("This method is not supported.");
     }
 
     @Override
-    public void isBeatenBy(@Nonnull MapEntity anotherEntity) {
+    public void isBeatenBy(@Nonnull Entity anotherEntity) {
         if (defended) {
             defended = false;
         } else {
@@ -141,7 +138,7 @@ public class SimpleMapEntity implements MapEntity {
             return false;
         }
 
-        SimpleMapEntity anotherEntity = (SimpleMapEntity) anotherObject;
+        SimpleEntity anotherEntity = (SimpleEntity) anotherObject;
         return Objects.equals(name, anotherEntity.name)
                 && type == anotherEntity.type
                 && attackPower == anotherEntity.attackPower;
@@ -154,7 +151,7 @@ public class SimpleMapEntity implements MapEntity {
 
     @Override
     public String toString() {
-        return "SimpleMapEntity{"
+        return "SimpleEntity{"
                 + "name='" + name + '\''
                 + ", type=" + type
                 + ", health=" + health

@@ -1,9 +1,9 @@
 package org.home.game.map.task;
 
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 
 import javax.annotation.Nonnull;
 
 public interface TaskCompletionStrategy {
-    void complete(@Nonnull MapEntity user, @Nonnull MapEntity task);
+    void complete(@Nonnull Entity user, @Nonnull Entity task);
 }

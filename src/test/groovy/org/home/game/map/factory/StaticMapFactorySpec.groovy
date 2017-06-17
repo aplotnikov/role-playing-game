@@ -1,19 +1,19 @@
 package org.home.game.map.factory
 
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityType.BEAR
-import static org.home.game.map.entities.MapEntityType.CHARACTER
-import static org.home.game.map.entities.MapEntityType.ROAD
-import static org.home.game.map.entities.MapEntityType.STONE
-import static org.home.game.map.entities.MapEntityType.TREE
-import static org.home.game.map.entities.MapEntityType.WOLF
+import static org.home.game.map.entities.EntityFactory.userCharacter
+import static org.home.game.map.entities.EntityType.BEAR
+import static org.home.game.map.entities.EntityType.CHARACTER
+import static org.home.game.map.entities.EntityType.ROAD
+import static org.home.game.map.entities.EntityType.STONE
+import static org.home.game.map.entities.EntityType.TREE
+import static org.home.game.map.entities.EntityType.WOLF
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.map.GameMap
 import org.home.game.map.MainGameMap
 import org.home.game.map.behaviour.user.UserMovementInput
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import org.home.game.map.entities.character.create.NewCharacterFactory
 import org.home.game.map.task.TaskCompletionStrategy
 import spock.lang.Specification
@@ -27,7 +27,7 @@ class StaticMapFactorySpec extends Specification {
 
     UserMovementInput userInput = Stub()
 
-    Predicate<MapEntity> condition = { false }
+    Predicate<Entity> condition = { false }
 
     TaskCompletionStrategy strategy = Stub()
 
@@ -36,7 +36,7 @@ class StaticMapFactorySpec extends Specification {
 
     void 'map should be created and user should provide information about his character'() {
         given:
-            MapEntity character = userCharacter('Andrii', HUMAN, MALE)
+            Entity character = userCharacter('Andrii', HUMAN, MALE)
         when:
             GameMap map = factory.create()
         then:

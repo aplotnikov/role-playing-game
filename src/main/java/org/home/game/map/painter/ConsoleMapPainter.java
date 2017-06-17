@@ -2,7 +2,7 @@ package org.home.game.map.painter;
 
 import org.home.game.common.console.ui.Component;
 import org.home.game.map.GameMap;
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
@@ -50,13 +50,13 @@ public class ConsoleMapPainter implements MapPainter, Component {
         System.out.println(lineSeparator);
     }
 
-    private void drawLine(@Nonnull List<MapEntity> entities) {
+    private void drawLine(@Nonnull List<Entity> entities) {
         System.out.print(CELL_SEPARATOR);
         entities.forEach(this::drawEntity);
         System.out.println(CELL_SEPARATOR);
     }
 
-    private void drawEntity(@Nonnull MapEntity entity) {
+    private void drawEntity(@Nonnull Entity entity) {
         switch (entity.getType()) {
             case ROAD:
                 entity.getInnerEntity().ifPresent(this::drawEntity);

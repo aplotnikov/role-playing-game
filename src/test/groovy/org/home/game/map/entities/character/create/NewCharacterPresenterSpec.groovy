@@ -1,10 +1,10 @@
 package org.home.game.map.entities.character.create
 
-import static org.home.game.map.entities.MapEntityType.CHARACTER
+import static org.home.game.map.entities.EntityType.CHARACTER
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import org.home.game.map.entities.character.GameCharacter
 import spock.lang.Shared
 import spock.lang.Specification
@@ -38,7 +38,7 @@ class NewCharacterPresenterSpec extends Specification {
             presenter.onChosen(characterName)
             presenter.onCompleted()
         when:
-            MapEntity character = presenter.getGameCharacter()
+            Entity character = presenter.getGameCharacter()
         then:
             character instanceof GameCharacter
             with(character as GameCharacter) {

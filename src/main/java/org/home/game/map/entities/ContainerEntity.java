@@ -1,20 +1,16 @@
-package org.home.game.map.entities.container;
-
-import org.home.game.map.entities.MapEntity;
-import org.home.game.map.entities.MapEntityType;
-import org.home.game.map.entities.simple.SimpleMapEntity;
+package org.home.game.map.entities;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-public class ContainerMapEntity extends SimpleMapEntity {
+public class ContainerEntity extends SimpleEntity {
 
     @CheckForNull
-    private MapEntity innerEntity;
+    private Entity innerEntity;
 
-    public ContainerMapEntity(@Nonnull String name, @Nonnull MapEntityType type, @Nonnegative int attachPower) {
+    public ContainerEntity(@Nonnull String name, @Nonnull EntityType type, @Nonnegative int attachPower) {
         super(name, type, attachPower);
     }
 
@@ -25,12 +21,12 @@ public class ContainerMapEntity extends SimpleMapEntity {
 
     @Nonnull
     @Override
-    public Optional<MapEntity> getInnerEntity() {
+    public Optional<Entity> getInnerEntity() {
         return Optional.ofNullable(innerEntity);
     }
 
     @Override
-    public void take(@Nonnull MapEntity anotherEntity) {
+    public void take(@Nonnull Entity anotherEntity) {
         innerEntity = anotherEntity;
     }
 
@@ -41,7 +37,7 @@ public class ContainerMapEntity extends SimpleMapEntity {
 
     @Override
     public String toString() {
-        return "ContainerMapEntity{"
+        return "ContainerEntity{"
                 + "name='" + getName() + '\''
                 + ", type=" + getType()
                 + ", health=" + getHealth()

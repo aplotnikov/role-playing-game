@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public interface MapEntity {
+public interface Entity {
 
     @Nonnull
     String getName();
@@ -26,13 +26,13 @@ public interface MapEntity {
 
     boolean containUserCharacter();
 
-    boolean containTasks(@Nonnull Predicate<MapEntity> condition);
+    boolean containTasks(@Nonnull Predicate<Entity> condition);
 
-    MapEntity findEntity(@Nonnull Predicate<MapEntity> condition);
+    Entity findEntity(@Nonnull Predicate<Entity> condition);
 
-    void take(@Nonnull MapEntity anotherEntity);
+    void take(@Nonnull Entity anotherEntity);
 
-    void isBeatenBy(@Nonnull MapEntity anotherEntity);
+    void isBeatenBy(@Nonnull Entity anotherEntity);
 
     void defense();
 
@@ -43,9 +43,9 @@ public interface MapEntity {
     void clear();
 
     @Nonnull
-    Optional<MapEntity> getInnerEntity();
+    Optional<Entity> getInnerEntity();
 
     @Nonnull
-    MapEntityType getType();
+    EntityType getType();
 
 }

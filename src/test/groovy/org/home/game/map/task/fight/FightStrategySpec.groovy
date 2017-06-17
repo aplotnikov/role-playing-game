@@ -1,6 +1,6 @@
 package org.home.game.map.task.fight
 
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -13,9 +13,9 @@ class FightStrategySpec extends Specification {
     @Subject
     FightStrategy strategy = new FightStrategy(view)
 
-    MapEntity user = Mock()
+    Entity user = Mock()
 
-    MapEntity enemy = Mock()
+    Entity enemy = Mock()
 
     void 'presenter should be set as delegate into view during object creation'() {
         when:

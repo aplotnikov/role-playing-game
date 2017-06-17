@@ -1,10 +1,10 @@
 package org.home.game.map.entities.character.create;
 
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 
 import javax.annotation.Nonnull;
 
 public interface NewCharacterFactory {
     @Nonnull
-    MapEntity getGameCharacter();
+    Entity getGameCharacter();
 }

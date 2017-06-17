@@ -1,16 +1,16 @@
 package org.home.game.map.task.fight;
 
 import org.home.game.common.mvp.AbstractPresenter;
-import org.home.game.map.entities.MapEntity;
+import org.home.game.map.entities.Entity;
 import org.home.game.map.task.TaskCompletionStrategy;
 
 import javax.annotation.Nonnull;
 
 public class FightStrategy extends AbstractPresenter<FightView> implements TaskCompletionStrategy, FightView.ActionDelegate {
 
-    private MapEntity user;
+    private Entity user;
 
-    private MapEntity enemy;
+    private Entity enemy;
 
     public FightStrategy(@Nonnull FightView view) {
         super(view);
@@ -18,7 +18,7 @@ public class FightStrategy extends AbstractPresenter<FightView> implements TaskC
     }
 
     @Override
-    public void complete(@Nonnull MapEntity user, @Nonnull MapEntity enemy) {
+    public void complete(@Nonnull Entity user, @Nonnull Entity enemy) {
         this.user = user;
         this.enemy = enemy;
         nextIteration();

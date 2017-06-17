@@ -1,27 +1,26 @@
 package org.home.game.map.entities
 
-import static org.home.game.map.entities.MapEntityType.BEAR
-import static org.home.game.map.entities.MapEntityType.CHARACTER
-import static org.home.game.map.entities.MapEntityType.ROAD
-import static org.home.game.map.entities.MapEntityType.STONE
-import static org.home.game.map.entities.MapEntityType.TREE
-import static org.home.game.map.entities.MapEntityType.WOLF
+import static EntityType.BEAR
+import static EntityType.CHARACTER
+import static EntityType.ROAD
+import static EntityType.STONE
+import static EntityType.TREE
+import static EntityType.WOLF
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.map.entities.character.GameCharacter
-import org.home.game.map.entities.simple.SimpleMapEntity
 import spock.lang.Specification
 
-class MapEntityFactorySpec extends Specification {
+class EntityFactorySpec extends Specification {
 
     void 'road should be created without inner entity'() {
         when:
-            MapEntity road = MapEntityFactory.road()
+            Entity road = EntityFactory.road()
         then:
-            road instanceof SimpleMapEntity
+            road instanceof SimpleEntity
         and:
-            with(road as SimpleMapEntity) {
+            with(road as SimpleEntity) {
                 name == 'Road'
                 type == ROAD
                 health == 100
@@ -33,13 +32,13 @@ class MapEntityFactorySpec extends Specification {
 
     void 'road should be created with inner entity'() {
         given:
-            MapEntity entity = Stub(MapEntity)
+            Entity entity = Stub(Entity)
         when:
-            MapEntity road = MapEntityFactory.road(entity)
+            Entity road = EntityFactory.road(entity)
         then:
-            road instanceof SimpleMapEntity
+            road instanceof SimpleEntity
         and:
-            with(road as SimpleMapEntity) {
+            with(road as SimpleEntity) {
                 name == 'Road'
                 type == ROAD
                 health == 100
@@ -51,11 +50,11 @@ class MapEntityFactorySpec extends Specification {
 
     void 'wolf should be created'() {
         when:
-            MapEntity wolf = MapEntityFactory.wolf()
+            Entity wolf = EntityFactory.wolf()
         then:
-            wolf instanceof SimpleMapEntity
+            wolf instanceof SimpleEntity
         and:
-            with(wolf as SimpleMapEntity) {
+            with(wolf as SimpleEntity) {
                 name == 'Wolf'
                 type == WOLF
                 health == 100
@@ -67,11 +66,11 @@ class MapEntityFactorySpec extends Specification {
 
     void 'bear should be created'() {
         when:
-            MapEntity bear = MapEntityFactory.bear()
+            Entity bear = EntityFactory.bear()
         then:
-            bear instanceof SimpleMapEntity
+            bear instanceof SimpleEntity
         and:
-            with(bear as SimpleMapEntity) {
+            with(bear as SimpleEntity) {
                 name == 'Bear'
                 type == BEAR
                 health == 100
@@ -83,11 +82,11 @@ class MapEntityFactorySpec extends Specification {
 
     void 'tree should be created'() {
         when:
-            MapEntity tree = MapEntityFactory.tree()
+            Entity tree = EntityFactory.tree()
         then:
-            tree instanceof SimpleMapEntity
+            tree instanceof SimpleEntity
         and:
-            with(tree as SimpleMapEntity) {
+            with(tree as SimpleEntity) {
                 name == 'Tree'
                 type == TREE
                 health == 100
@@ -99,11 +98,11 @@ class MapEntityFactorySpec extends Specification {
 
     void 'stone should be created'() {
         when:
-            MapEntity stone = MapEntityFactory.stone()
+            Entity stone = EntityFactory.stone()
         then:
-            stone instanceof SimpleMapEntity
+            stone instanceof SimpleEntity
         and:
-            with(stone as SimpleMapEntity) {
+            with(stone as SimpleEntity) {
                 name == 'Stone'
                 type == STONE
                 health == 100
@@ -115,7 +114,7 @@ class MapEntityFactorySpec extends Specification {
 
     void 'user character should be created'() {
         when:
-            MapEntity character = MapEntityFactory.userCharacter('Andrii', HUMAN, MALE)
+            Entity character = EntityFactory.userCharacter('Andrii', HUMAN, MALE)
         then:
             character instanceof GameCharacter
         and:
@@ -134,7 +133,7 @@ class MapEntityFactorySpec extends Specification {
 
     void 'character should be created'() {
         when:
-            MapEntity character = MapEntityFactory.character('Andrii', HUMAN, MALE)
+            Entity character = EntityFactory.character('Andrii', HUMAN, MALE)
         then:
             character instanceof GameCharacter
         and:

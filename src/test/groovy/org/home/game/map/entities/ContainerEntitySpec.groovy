@@ -1,15 +1,14 @@
-package org.home.game.map.entities.container
+package org.home.game.map.entities
 
-import static org.home.game.map.entities.MapEntityFactory.character
-import static org.home.game.map.entities.MapEntityFactory.road
-import static org.home.game.map.entities.MapEntityFactory.stone
-import static org.home.game.map.entities.MapEntityFactory.userCharacter
-import static org.home.game.map.entities.MapEntityType.ROAD
+import static org.home.game.map.entities.EntityFactory.character
+import static org.home.game.map.entities.EntityFactory.road
+import static org.home.game.map.entities.EntityFactory.stone
+import static org.home.game.map.entities.EntityFactory.userCharacter
+import static org.home.game.map.entities.EntityType.ROAD
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import nl.jqno.equalsverifier.EqualsVerifier
-import org.home.game.map.entities.MapEntity
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
@@ -18,22 +17,22 @@ import spock.lang.Unroll
 import java.util.function.Predicate
 
 @Unroll
-class ContainerMapEntitySpec extends Specification {
+class ContainerEntitySpec extends Specification {
 
     @Shared
-    Predicate<MapEntity> foreverTrueCondition = { true }
+    Predicate<Entity> foreverTrueCondition = { true }
 
     @Shared
     String containerName = 'Road'
 
     @Shared
-    MapEntity userCharacter = userCharacter('Andrii', HUMAN, MALE)
+    Entity userCharacter = userCharacter('Andrii', HUMAN, MALE)
 
     @Shared
-    MapEntity character = character('Andrii', HUMAN, MALE)
+    Entity character = character('Andrii', HUMAN, MALE)
 
     @Subject
-    ContainerMapEntity container = new ContainerMapEntity(containerName, ROAD, 0)
+    ContainerEntity container = new ContainerEntity(containerName, ROAD, 0)
 
     void 'constructor argument should be set into fields and container has default behaviour'() {
         expect:
@@ -53,7 +52,7 @@ class ContainerMapEntitySpec extends Specification {
 
     void 'container should take another element and throw away it'() {
         when:
-            container.take(Stub(MapEntity))
+            container.take(Stub(Entity))
         then:
             container.containAnotherEntity()
         when:
@@ -98,9 +97,9 @@ class ContainerMapEntitySpec extends Specification {
 
     void 'container should contain tasks when condition is false for container and inner entity contains tasks'() {
         given:
-            Predicate<MapEntity> taskDetectionCondition = { it != container }
+            Predicate<Entity> taskDetectionCondition = { it != container }
         and:
-            MapEntity innerEntity = Stub() {
+            Entity innerEntity = Stub() {
                 isUser() >> false
                 containTasks(taskDetectionCondition) >> true
             }
@@ -112,7 +111,7 @@ class ContainerMapEntitySpec extends Specification {
 
     void 'equals and hashcode contract should be followed'() {
         expect:
-            EqualsVerifier.forClass(ContainerMapEntity)
+            EqualsVerifier.forClass(ContainerEntity)
                           .usingGetClass()
                           .withIgnoredFields('innerEntity', 'health', 'defended')
                           .verify()

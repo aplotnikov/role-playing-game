@@ -1,28 +1,27 @@
-package org.home.game.map.entities.simple
+package org.home.game.map.entities
 
-import static org.home.game.map.entities.MapEntityType.STONE
+import static org.home.game.map.entities.EntityType.STONE
 
 import nl.jqno.equalsverifier.EqualsVerifier
-import org.home.game.map.entities.MapEntity
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.util.function.Predicate
 
-class SimpleMapEntitySpec extends Specification {
+class SimpleEntitySpec extends Specification {
 
     @Shared
-    Predicate<MapEntity> foreverTrueCondition = { true }
+    Predicate<Entity> foreverTrueCondition = { true }
 
     @Shared
-    Predicate<MapEntity> foreverFalseCondition = { false }
+    Predicate<Entity> foreverFalseCondition = { false }
 
     @Shared
     String entityName = 'Stone'
 
     @Subject
-    SimpleMapEntity entity = new SimpleMapEntity(entityName, STONE, 10)
+    SimpleEntity entity = new SimpleEntity(entityName, STONE, 10)
 
     void 'constructor argument should be set into fields and entity has default behaviour'() {
         expect:
@@ -63,7 +62,7 @@ class SimpleMapEntitySpec extends Specification {
 
     void 'UnsupportedOperationException should be thrown when take method is called'() {
         when:
-            entity.take(Stub(MapEntity))
+            entity.take(Stub(Entity))
         then:
             UnsupportedOperationException exception = thrown(UnsupportedOperationException)
             exception.message == 'This method is not supported.'
@@ -79,7 +78,7 @@ class SimpleMapEntitySpec extends Specification {
 
     void 'entity should be beaten by another entity'() {
         given:
-            MapEntity anotherEntity = Stub() {
+            Entity anotherEntity = Stub() {
                 getAttackPower() >> 10
             }
         when:
@@ -90,7 +89,7 @@ class SimpleMapEntitySpec extends Specification {
 
     void 'entity should be not beaten when entity is in defended mode'() {
         given:
-            MapEntity anotherEntity = Stub() {
+            Entity anotherEntity = Stub() {
                 getAttackPower() >> 10
             }
         and:
@@ -114,7 +113,7 @@ class SimpleMapEntitySpec extends Specification {
 
     void 'equals and hashcode contract should be followed'() {
         expect:
-            EqualsVerifier.forClass(SimpleMapEntity)
+            EqualsVerifier.forClass(SimpleEntity)
                           .usingGetClass()
                           .withIgnoredFields('health', 'defended')
                           .verify()

@@ -1,11 +1,11 @@
 package org.home.game.map.entities.character
 
-import static org.home.game.map.entities.MapEntityType.CHARACTER
+import static org.home.game.map.entities.EntityType.CHARACTER
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import nl.jqno.equalsverifier.EqualsVerifier
-import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.Entity
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
@@ -15,7 +15,7 @@ import java.util.function.Predicate
 class GameCharacterSpec extends Specification {
 
     @Shared
-    Predicate<MapEntity> foreverTrueCondition = { true }
+    Predicate<Entity> foreverTrueCondition = { true }
 
     @Shared
     String characterName = 'Andrii'
