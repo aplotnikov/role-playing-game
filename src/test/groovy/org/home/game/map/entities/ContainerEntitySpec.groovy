@@ -122,10 +122,10 @@ class ContainerEntitySpec extends Specification {
     void 'inner entity of inner entity should be found when it matches condition'() {
         given:
             Predicate<Entity> condition = Stub() {
-                test(_ as Entity) >> [false, true]
+                test(_ as Entity) >>> [false, true]
             }
         and:
-            container.take character
+            container.take road(character)
         expect:
             container.findEntity(condition) == character
     }
