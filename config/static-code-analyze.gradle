@@ -72,7 +72,7 @@ jacocoTestReport {
 }
 
 pitest {
-    targetClasses = ['org.home.quarantine.*']
+    targetClasses = ['org.home.game.*']
     threads = 4
 }
 
