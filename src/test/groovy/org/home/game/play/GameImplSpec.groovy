@@ -5,24 +5,29 @@ import org.home.game.map.painter.MapPainter
 import spock.lang.Specification
 import spock.lang.Subject
 
-class GameSpec extends Specification {
+class GameImplSpec extends Specification {
 
     GameMap map = Mock()
 
     MapPainter painter = Mock()
 
+    GameView view = Mock()
+
     @Subject
-    GameImpl game = new GameImpl(map, painter)
+    GameImpl game = new GameImpl(map, painter, view)
 
     void 'game should end when no user character on map'() {
         when:
             game.start()
         then:
             1 * painter.draw(map)
-            2 * map.containsUserCharacter() >>> [true, false]
+            1 * painter.refresh()
+        and:
+            3 * map.containsUserCharacter() >>> [true, false, false]
             1 * map.containsTasks() >> true
             1 * map.goToNextIteration()
-            1 * painter.refresh()
+        and:
+            1 * view.showGameOverNotification()
         and:
             0 * _
     }
@@ -32,10 +37,13 @@ class GameSpec extends Specification {
             game.start()
         then:
             1 * painter.draw(map)
-            2 * map.containsUserCharacter() >> true
+            1 * painter.refresh()
+        and:
+            3 * map.containsUserCharacter() >> true
             2 * map.containsTasks() >>> [true, false]
             1 * map.goToNextIteration()
-            1 * painter.refresh()
+        and:
+            1 * view.showWinnerNotification()
         and:
             0 * _
     }

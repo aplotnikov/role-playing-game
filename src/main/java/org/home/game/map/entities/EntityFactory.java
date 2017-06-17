@@ -51,7 +51,7 @@ public final class EntityFactory {
 
     @Nonnull
     public static Entity userCharacter(@Nonnull String name, @Nonnull Race race, @Nonnull Sex sex) {
-        return new GameCharacter(name, true, race, sex, 40);
+        return new GameCharacter(name, true, race, sex, 50);
     }
 
     @Nonnull

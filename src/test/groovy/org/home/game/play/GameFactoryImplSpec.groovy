@@ -16,8 +16,10 @@ class GameFactoryImplSpec extends Specification {
 
     MapPainter mapPainter = Stub()
 
+    GameView gameView = Stub()
+
     @Subject
-    GameFactoryImpl factory = new GameFactoryImpl(mapFactory, mapPainter)
+    GameFactoryImpl factory = new GameFactoryImpl(mapFactory, mapPainter, gameView)
 
     void 'new game should be created'() {
         when:
@@ -27,6 +29,7 @@ class GameFactoryImplSpec extends Specification {
             with(firstGame as GameImpl) {
                 map == gameMap
                 painter == mapPainter
+                view == gameView
             }
         when:
             Game secondGame = factory.create()

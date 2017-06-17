@@ -11,9 +11,12 @@ public class GameImpl implements Game {
 
     private final MapPainter painter;
 
-    public GameImpl(@Nonnull GameMap map, @Nonnull MapPainter painter) {
+    private final GameView view;
+
+    public GameImpl(@Nonnull GameMap map, @Nonnull MapPainter painter, @Nonnull GameView view) {
         this.map = map;
         this.painter = painter;
+        this.view = view;
     }
 
     @Override
@@ -22,6 +25,12 @@ public class GameImpl implements Game {
         while (map.containsUserCharacter() && map.containsTasks()) {
             map.goToNextIteration();
             painter.refresh();
+        }
+
+        if (map.containsUserCharacter()) {
+            view.showWinnerNotification();
+        } else {
+            view.showGameOverNotification();
         }
     }
 }

@@ -61,6 +61,6 @@ public class StaticMapFactory implements MapFactory {
 
     @Nonnull
     private Entity orc() {
-        return character(ORC.toString(), ORC, FEMALE);
+        return character(ORC.toString(), ORC, FEMALE, 10);
     }
 }

@@ -2,9 +2,6 @@ package org.home.game.map.entities
 
 import static EntityType.BEAR
 import static EntityType.CHARACTER
-import static EntityType.ROAD
-import static EntityType.STONE
-import static EntityType.TREE
 import static EntityType.WOLF
 import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
@@ -125,7 +122,7 @@ class EntityFactorySpec extends Specification {
                 race == HUMAN
                 sex == MALE
                 health == 100
-                attackPower == 40
+                attackPower == 50
                 !defended
                 !containAnotherEntity()
             }

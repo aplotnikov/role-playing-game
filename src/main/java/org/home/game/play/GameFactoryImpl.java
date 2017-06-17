@@ -11,15 +11,18 @@ public class GameFactoryImpl implements GameFactory {
 
     private final MapPainter mapPainter;
 
-    public GameFactoryImpl(@Nonnull MapFactory mapFactory, @Nonnull MapPainter mapPainter) {
+    private final GameView view;
+
+    public GameFactoryImpl(@Nonnull MapFactory mapFactory, @Nonnull MapPainter mapPainter, @Nonnull GameView view) {
         this.mapFactory = mapFactory;
         this.mapPainter = mapPainter;
+        this.view = view;
     }
 
     @Nonnull
     @Override
     public Game create() {
-        return new GameImpl(mapFactory.create(), mapPainter);
+        return new GameImpl(mapFactory.create(), mapPainter, view);
     }
 
     @Nonnull
