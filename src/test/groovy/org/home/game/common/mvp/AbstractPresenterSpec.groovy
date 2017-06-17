@@ -18,13 +18,4 @@ class AbstractPresenterSpec extends Specification {
         and:
             0 * _
     }
-
-    void 'erase method on presenter should be called'() {
-        when:
-            presenter.hide()
-        then:
-            1 * view.erase()
-        and:
-            0 * _
-    }
 }

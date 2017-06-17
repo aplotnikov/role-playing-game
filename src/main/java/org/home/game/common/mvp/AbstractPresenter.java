@@ -14,9 +14,4 @@ public abstract class AbstractPresenter<T extends View> implements Presenter {
     public void show() {
         view.draw();
     }
-
-    @Override
-    public void hide() {
-        view.erase();
-    }
 }

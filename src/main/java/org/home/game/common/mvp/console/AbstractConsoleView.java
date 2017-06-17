@@ -1,7 +1,7 @@
 package org.home.game.common.mvp.console;
 
-import org.home.game.common.mvp.View;
 import org.home.game.common.console.ui.Component;
+import org.home.game.common.mvp.View;
 
 import javax.annotation.Nonnull;
 
