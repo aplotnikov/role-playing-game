@@ -7,13 +7,13 @@ import javax.annotation.Nonnull;
 
 public class UserMovementConsoleInput implements UserMovementInput {
 
-    private final Menu<Movement> movementMenu = new Menu<>("Choose character movement:", Movement.values());
+    private final Menu<Movement> menu = new Menu<>("Choose character movement:", Movement.values());
 
     @Nonnull
     @Override
     public Position getNextPosition(@Nonnull Position currentPosition) {
-        movementMenu.draw();
-        switch (movementMenu.chooseItem()) {
+        menu.draw();
+        switch (menu.chooseItem()) {
             case UP:
                 return Position.of(currentPosition.getLeft(), currentPosition.getTop() - 1);
             case DOWN:

@@ -38,7 +38,8 @@ public class ConsoleMapPainter implements MapPainter, Component {
 
     @Override
     public void refresh() {
-        draw(requireNonNull(map, "draw method with map has to be called before refresh method"));
+        requireNonNull(map, "draw method with map has to be called before refresh method");
+        draw(map);
     }
 
     @Override

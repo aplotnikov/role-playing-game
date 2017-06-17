@@ -4,6 +4,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 public class Position {
 
     private final int left;
@@ -31,17 +33,17 @@ public class Position {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object anotherObject) {
+        if (this == anotherObject) {
             return true;
         }
 
-        if (o == null || getClass() != o.getClass()) {
+        if (isNull(anotherObject) || getClass() != anotherObject.getClass()) {
             return false;
         }
 
-        Position position = (Position) o;
-        return left == position.left && top == position.top;
+        Position anotherPosition = (Position) anotherObject;
+        return left == anotherPosition.left && top == anotherPosition.top;
     }
 
     @Override
@@ -51,6 +53,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" + "left=" + left + ", top=" + top + '}';
+        return "Position{left=" + left + ", top=" + top + '}';
     }
 }
