@@ -12,7 +12,7 @@ class GameSpec extends Specification {
     MapPainter painter = Mock()
 
     @Subject
-    Game game = new Game(map, painter)
+    GameImpl game = new GameImpl(map, painter)
 
     void 'game should end when no user character on map'() {
         when:

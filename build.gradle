@@ -39,7 +39,5 @@ dependencies {
     testCompile 'org.codehaus.groovy:groovy-all:2.4.11',
                 'org.spockframework:spock-core:1.1-groovy-2.4',
                 'nl.jqno.equalsverifier:equalsverifier:2.2.2',
-                'com.github.stefanbirkner:system-rules:1.16.1',
-                'cglib:cglib-nodep:3.2.5',
-                'org.objenesis:objenesis:2.5.1'
+                'com.github.stefanbirkner:system-rules:1.16.1'
 }

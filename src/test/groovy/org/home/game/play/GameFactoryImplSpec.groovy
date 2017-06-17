@@ -6,7 +6,7 @@ import org.home.game.map.painter.MapPainter
 import spock.lang.Specification
 import spock.lang.Subject
 
-class GameFactorySpec extends Specification {
+class GameFactoryImplSpec extends Specification {
 
     GameMap gameMap = Stub()
 
@@ -17,13 +17,14 @@ class GameFactorySpec extends Specification {
     MapPainter mapPainter = Stub()
 
     @Subject
-    GameFactory factory = new GameFactory(mapFactory, mapPainter)
+    GameFactoryImpl factory = new GameFactoryImpl(mapFactory, mapPainter)
 
     void 'new game should be created'() {
         when:
             Game firstGame = factory.create()
         then:
-            with(firstGame) {
+            firstGame instanceof GameImpl
+            with(firstGame as GameImpl) {
                 map == gameMap
                 painter == mapPainter
             }

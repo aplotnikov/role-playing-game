@@ -17,6 +17,7 @@ import org.home.game.map.task.fight.FightStrategy;
 import org.home.game.menu.MainMainMenuConsoleConsoleView;
 import org.home.game.menu.MainMenuPresenter;
 import org.home.game.play.GameFactory;
+import org.home.game.play.GameFactoryImpl;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
@@ -35,7 +36,7 @@ class EntryPointFactory {
 
     @Nonnull
     private static GameFactory gameFactory() {
-        return new GameFactory(mapFactory(), mapPainter());
+        return new GameFactoryImpl(mapFactory(), mapPainter());
     }
 
     @Nonnull
