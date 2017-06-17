@@ -74,26 +74,21 @@ public class SimpleMapEntity implements MapEntity {
     @Override
     public boolean containUserCharacter() {
         return getInnerEntity()
-                .map(entity -> entity.isUser() || entity.containUserCharacter())
-                .orElse(false);
+                .filter(entity -> entity.isUser() || entity.containUserCharacter())
+                .isPresent();
     }
 
     @Override
     public boolean containTasks(@Nonnull Predicate<MapEntity> condition) {
         return condition.test(this) && !isUser()
-                || getInnerEntity().map(entity -> entity.containTasks(condition)).orElse(false);
+                || getInnerEntity().filter(entity -> entity.containTasks(condition)).isPresent();
     }
 
     @Override
     public MapEntity findEntity(@Nonnull Predicate<MapEntity> condition) {
-        Optional<MapEntity> innerEntity = getInnerEntity();
-        return innerEntity
-                .filter(condition)
-                .orElseGet(
-                        () -> innerEntity
-                                .map(entity -> entity.findEntity(condition))
-                                .orElseThrow(() -> new IllegalStateException("There is no entities with such condition"))
-                );
+        return getInnerEntity()
+                .map(entity -> condition.test(entity) ? entity : entity.findEntity(condition))
+                .orElseThrow(() -> new IllegalStateException("There is no entities with such condition"));
     }
 
     @Nonnull
@@ -137,19 +132,19 @@ public class SimpleMapEntity implements MapEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object anotherObject) {
+        if (this == anotherObject) {
             return true;
         }
 
-        if (o == null || getClass() != o.getClass()) {
+        if (anotherObject == null || getClass() != anotherObject.getClass()) {
             return false;
         }
 
-        SimpleMapEntity that = (SimpleMapEntity) o;
-        return Objects.equals(name, that.name)
-                && type == that.type
-                && attackPower == that.attackPower;
+        SimpleMapEntity anotherEntity = (SimpleMapEntity) anotherObject;
+        return Objects.equals(name, anotherEntity.name)
+                && type == anotherEntity.type
+                && attackPower == anotherEntity.attackPower;
     }
 
     @Override

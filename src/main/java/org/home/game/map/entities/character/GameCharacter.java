@@ -6,6 +6,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
 import static org.home.game.map.entities.MapEntityType.CHARACTER;
 
 public class GameCharacter extends SimpleMapEntity {
@@ -43,20 +44,20 @@ public class GameCharacter extends SimpleMapEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object anotherObject) {
+        if (this == anotherObject) {
             return true;
         }
 
-        if (o == null || getClass() != o.getClass()) {
+        if (isNull(anotherObject) || getClass() != anotherObject.getClass()) {
             return false;
         }
 
-        GameCharacter that = (GameCharacter) o;
-        return super.equals(that)
-                && isUserCharacter == that.isUserCharacter
-                && race == that.race
-                && sex == that.sex;
+        GameCharacter anotherCharacter = (GameCharacter) anotherObject;
+        return super.equals(anotherCharacter)
+                && isUserCharacter == anotherCharacter.isUserCharacter
+                && race == anotherCharacter.race
+                && sex == anotherCharacter.sex;
     }
 
     @Override

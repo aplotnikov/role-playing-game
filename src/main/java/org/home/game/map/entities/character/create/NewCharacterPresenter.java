@@ -5,7 +5,6 @@ import org.home.game.map.entities.MapEntity;
 import org.home.game.map.entities.character.Race;
 import org.home.game.map.entities.character.Sex;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import static java.util.Objects.requireNonNull;
@@ -14,13 +13,10 @@ import static org.home.game.map.entities.character.create.NewCharacterView.Actio
 
 public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterFactory, ActionDelegate {
 
-    @CheckForNull
     private Race race;
 
-    @CheckForNull
     private Sex sex;
 
-    @CheckForNull
     private String name;
 
     public NewCharacterPresenter(@Nonnull NewCharacterView view) {
