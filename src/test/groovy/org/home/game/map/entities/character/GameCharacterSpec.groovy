@@ -33,6 +33,7 @@ class GameCharacterSpec extends Specification {
                 type == CHARACTER
                 health == 100
                 attackPower == 10
+                !defended
                 !innerEntity.isPresent()
                 !canContainAnotherEntity()
                 !containAnotherEntity()
@@ -45,7 +46,7 @@ class GameCharacterSpec extends Specification {
         expect:
             EqualsVerifier.forClass(GameCharacter)
                           .usingGetClass()
-                          .withIgnoredFields('health', 'isDefended')
+                          .withIgnoredFields('health', 'defended')
                           .verify()
     }
 }

@@ -26,6 +26,7 @@ class MapEntityFactorySpec extends Specification {
                 type == ROAD
                 health == 100
                 attackPower == 0
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -43,6 +44,7 @@ class MapEntityFactorySpec extends Specification {
                 type == ROAD
                 health == 100
                 attackPower == 0
+                !defended
                 containAnotherEntity()
             }
     }
@@ -58,7 +60,7 @@ class MapEntityFactorySpec extends Specification {
                 type == WOLF
                 health == 100
                 attackPower == 10
-                !isDefended
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -74,7 +76,7 @@ class MapEntityFactorySpec extends Specification {
                 type == BEAR
                 health == 100
                 attackPower == 20
-                !isDefended
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -90,7 +92,7 @@ class MapEntityFactorySpec extends Specification {
                 type == TREE
                 health == 100
                 attackPower == 0
-                !isDefended
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -106,7 +108,7 @@ class MapEntityFactorySpec extends Specification {
                 type == STONE
                 health == 100
                 attackPower == 0
-                !isDefended
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -125,6 +127,7 @@ class MapEntityFactorySpec extends Specification {
                 sex == MALE
                 health == 100
                 attackPower == 40
+                !defended
                 !containAnotherEntity()
             }
     }
@@ -143,6 +146,7 @@ class MapEntityFactorySpec extends Specification {
                 sex == MALE
                 health == 100
                 attackPower == 30
+                !defended
                 !containAnotherEntity()
             }
     }

@@ -96,7 +96,11 @@ public class MainGameMap implements GameMap {
         if (newContainerEntity.containTasks(taskDetectionCondition)) {
             MapEntity userCharacter = containerEntity.findEntity(MapEntity::isUser);
             MapEntity taskEntity = newContainerEntity.findEntity(taskDetectionCondition);
+
             taskCompletionStrategy.complete(userCharacter, taskEntity);
+
+            userCharacter.relax();
+            taskEntity.relax();
         }
 
         containerEntity.getInnerEntity().ifPresent(userCharacter -> {

@@ -138,7 +138,14 @@ class MainGameMapSpec extends Specification {
             entities[1][0].containUserCharacter()
             !entities[1][1].containUserCharacter()
         and:
-            1 * taskCompletionStrategy.complete(character, wolf)
+            1 * taskCompletionStrategy.complete(character, wolf) >> {
+                MapEntity user, MapEntity enemy ->
+                    user.defense()
+                    enemy.defense()
+            }
+        and:
+            !wolf.defended
+            !character.defended
         and:
             0 * _
     }

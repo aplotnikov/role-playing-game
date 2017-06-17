@@ -74,6 +74,7 @@ public class GameCharacter extends SimpleMapEntity {
                 + ", sex=" + sex
                 + ", health=" + getHealth()
                 + ", attackPower=" + getAttackPower()
+                + ", defended=" + isDefended()
                 + '}';
     }
 }

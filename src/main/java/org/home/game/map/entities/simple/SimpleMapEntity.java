@@ -19,14 +19,14 @@ public class SimpleMapEntity implements MapEntity {
 
     private int health;
 
-    private boolean isDefended;
+    private boolean defended;
 
     public SimpleMapEntity(@Nonnull String name, @Nonnull MapEntityType type, @Nonnegative int attackPower) {
         this.name = name;
         this.type = type;
         this.attackPower = attackPower;
         this.health = 100;
-        this.isDefended = false;
+        this.defended = false;
     }
 
     @Nonnull
@@ -109,8 +109,8 @@ public class SimpleMapEntity implements MapEntity {
 
     @Override
     public void isBeatenBy(@Nonnull MapEntity anotherEntity) {
-        if (isDefended) {
-            isDefended = false;
+        if (defended) {
+            defended = false;
         } else {
             health -= anotherEntity.getAttackPower();
         }
@@ -118,12 +118,17 @@ public class SimpleMapEntity implements MapEntity {
 
     @Override
     public void defense() {
-        isDefended = true;
+        defended = true;
+    }
+
+    @Override
+    public boolean isDefended() {
+        return defended;
     }
 
     @Override
     public void relax() {
-        isDefended = false;
+        defended = false;
     }
 
     @Override
@@ -159,7 +164,7 @@ public class SimpleMapEntity implements MapEntity {
                 + ", type=" + type
                 + ", health=" + health
                 + ", attackPower=" + attackPower
-                + ", isDefended=" + isDefended
+                + ", defended=" + defended
                 + '}';
     }
 }

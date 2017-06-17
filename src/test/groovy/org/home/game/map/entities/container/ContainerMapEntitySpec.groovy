@@ -42,6 +42,7 @@ class ContainerMapEntitySpec extends Specification {
                 type == ROAD
                 health == 100
                 attackPower == 0
+                !defended
                 !innerEntity.isPresent()
                 canContainAnotherEntity()
                 !containAnotherEntity()
@@ -113,7 +114,7 @@ class ContainerMapEntitySpec extends Specification {
         expect:
             EqualsVerifier.forClass(ContainerMapEntity)
                           .usingGetClass()
-                          .withIgnoredFields('innerEntity', 'health', 'isDefended')
+                          .withIgnoredFields('innerEntity', 'health', 'defended')
                           .verify()
     }
 }

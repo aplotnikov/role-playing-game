@@ -52,14 +52,20 @@ class StaticMapFactorySpec extends Specification {
                 containsUserCharacter()
                 !containsTasks()
 
-                entities[0]*.type == [ROAD, ROAD, WOLF, TREE, STONE]
+                entities[0]*.type == [ROAD, ROAD, ROAD, TREE, STONE]
                 entities[1]*.type == [ROAD, ROAD, ROAD, TREE, TREE]
-                entities[2]*.type == [ROAD, ROAD, ROAD, ROAD, BEAR]
+                entities[2]*.type == [ROAD, ROAD, ROAD, ROAD, ROAD]
                 entities[3]*.type == [ROAD, STONE, ROAD, ROAD, ROAD]
                 entities[4]*.type == [ROAD, TREE, ROAD, ROAD, ROAD]
 
+                entities[0][2].innerEntity.isPresent()
+                entities[0][2].innerEntity.get().type == WOLF
+
                 entities[2][2].innerEntity.isPresent()
                 entities[2][2].innerEntity.get() == character
+
+                entities[2][4].innerEntity.isPresent()
+                entities[2][4].innerEntity.get().type == BEAR
 
                 entities[4][0].innerEntity.isPresent()
                 entities[4][0].innerEntity.get().type == CHARACTER

@@ -47,6 +47,7 @@ public class ContainerMapEntity extends SimpleMapEntity {
                 + ", health=" + getHealth()
                 + ", attackPower=" + getAttackPower()
                 + ", innerEntity=" + innerEntity
+                + ", defended=" + isDefended()
                 + '}';
     }
 }

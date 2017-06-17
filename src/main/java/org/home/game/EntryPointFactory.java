@@ -12,6 +12,7 @@ import org.home.game.map.factory.StaticMapFactory;
 import org.home.game.map.painter.ConsoleMapPainter;
 import org.home.game.map.painter.MapPainter;
 import org.home.game.map.task.TaskCompletionStrategy;
+import org.home.game.map.task.fight.FightConsoleView;
 import org.home.game.map.task.fight.FightStrategy;
 import org.home.game.menu.MainMainMenuConsoleConsoleView;
 import org.home.game.menu.MainMenuPresenter;
@@ -65,6 +66,6 @@ class EntryPointFactory {
 
     @Nonnull
     private static TaskCompletionStrategy taskCompletionStrategy() {
-        return new FightStrategy();
+        return new FightStrategy(new FightConsoleView());
     }
 }

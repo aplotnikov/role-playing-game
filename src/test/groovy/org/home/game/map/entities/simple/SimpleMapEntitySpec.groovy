@@ -33,7 +33,7 @@ class SimpleMapEntitySpec extends Specification {
                 health == 100
                 attackPower == 10
                 isAlive()
-                !isDefended
+                !defended
                 !innerEntity.isPresent()
                 !canContainAnotherEntity()
                 !containAnotherEntity()
@@ -107,16 +107,16 @@ class SimpleMapEntitySpec extends Specification {
         when:
             entity.relax()
         then:
-            old(entity.isDefended)
+            old(entity.defended)
         and:
-            !entity.isDefended
+            !entity.defended
     }
 
     void 'equals and hashcode contract should be followed'() {
         expect:
             EqualsVerifier.forClass(SimpleMapEntity)
                           .usingGetClass()
-                          .withIgnoredFields('health', 'isDefended')
+                          .withIgnoredFields('health', 'defended')
                           .verify()
     }
 }

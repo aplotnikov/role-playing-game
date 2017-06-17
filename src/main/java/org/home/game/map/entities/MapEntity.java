@@ -36,6 +36,8 @@ public interface MapEntity {
 
     void defense();
 
+    boolean isDefended();
+
     void relax();
 
     void clear();

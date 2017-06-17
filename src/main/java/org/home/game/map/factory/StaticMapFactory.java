@@ -45,17 +45,18 @@ public class StaticMapFactory implements MapFactory {
     @Override
     public GameMap create() {
         newCharacterPresenter.show();
-        MapEntity character = newCharacterPresenter.getGameCharacter()
-                                                   .orElseThrow(() -> new IllegalStateException("User character is not created"));
+        MapEntity character = newCharacterPresenter
+                .getGameCharacter()
+                .orElseThrow(() -> new IllegalStateException("User character is not created"));
         return new MainGameMap(entities(character), userMovementInput, taskDetectionCondition, taskCompletionStrategy);
     }
 
     @Nonnull
     private List<List<MapEntity>> entities(@Nonnull MapEntity character) {
         return map()
-                .line(road(), road(), wolf(), tree(), stone())
+                .line(road(), road(), road(wolf()), tree(), stone())
                 .line(road(), road(), road(), tree(), tree())
-                .line(road(), road(), road(character), road(), bear())
+                .line(road(), road(), road(character), road(), road(bear()))
                 .line(road(), stone(), road(), road(), road())
                 .line(road(orc()), tree(), road(), road(), road())
                 .create();
