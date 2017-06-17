@@ -13,7 +13,8 @@ public class UserMovementConsoleInput implements UserMovementInput {
     @Override
     public Position getNextPosition(@Nonnull Position currentPosition) {
         menu.draw();
-        switch (menu.chooseItem()) {
+        Movement item = menu.chooseItem();
+        switch (item) {
             case UP:
                 return Position.of(currentPosition.getLeft(), currentPosition.getTop() - 1);
             case DOWN:
@@ -23,7 +24,7 @@ public class UserMovementConsoleInput implements UserMovementInput {
             case LEFT:
                 return Position.of(currentPosition.getLeft() - 1, currentPosition.getTop());
             default:
-                throw new IllegalStateException("Unsupported menu item");
+                throw new IllegalStateException("Unsupported menu item: " + item);
         }
     }
 
