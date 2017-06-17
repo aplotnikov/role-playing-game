@@ -7,7 +7,6 @@ import org.home.game.map.entities.character.Sex;
 import javax.annotation.Nonnull;
 
 public interface NewCharacterView extends View<NewCharacterView.ActionDelegate> {
-
     interface ActionDelegate {
         void onChosen(@Nonnull Race race);
 

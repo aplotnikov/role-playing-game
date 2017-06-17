@@ -4,7 +4,7 @@ import org.home.game.map.GameMap;
 import org.home.game.map.MainGameMap;
 import org.home.game.map.behaviour.user.UserMovementInput;
 import org.home.game.map.entities.MapEntity;
-import org.home.game.map.entities.character.create.NewCharacterPresenter;
+import org.home.game.map.entities.character.create.NewCharacterFactory;
 import org.home.game.map.task.TaskCompletionStrategy;
 
 import javax.annotation.Nonnull;
@@ -23,7 +23,7 @@ import static org.home.game.map.entities.character.Sex.FEMALE;
 
 public class StaticMapFactory implements MapFactory {
 
-    private final NewCharacterPresenter newCharacterPresenter;
+    private final NewCharacterFactory newCharacterFactory;
 
     private final UserMovementInput userMovementInput;
 
@@ -31,11 +31,11 @@ public class StaticMapFactory implements MapFactory {
 
     private final TaskCompletionStrategy taskCompletionStrategy;
 
-    public StaticMapFactory(@Nonnull NewCharacterPresenter newCharacterPresenter,
+    public StaticMapFactory(@Nonnull NewCharacterFactory newCharacterFactory,
                             @Nonnull UserMovementInput userMovementInput,
                             @Nonnull Predicate<MapEntity> taskDetectionCondition,
                             @Nonnull TaskCompletionStrategy taskCompletionStrategy) {
-        this.newCharacterPresenter = newCharacterPresenter;
+        this.newCharacterFactory = newCharacterFactory;
         this.userMovementInput = userMovementInput;
         this.taskDetectionCondition = taskDetectionCondition;
         this.taskCompletionStrategy = taskCompletionStrategy;
@@ -44,10 +44,7 @@ public class StaticMapFactory implements MapFactory {
     @Nonnull
     @Override
     public GameMap create() {
-        newCharacterPresenter.show();
-        MapEntity character = newCharacterPresenter
-                .getGameCharacter()
-                .orElseThrow(() -> new IllegalStateException("User character is not created"));
+        MapEntity character = newCharacterFactory.getGameCharacter();
         return new MainGameMap(entities(character), userMovementInput, taskDetectionCondition, taskCompletionStrategy);
     }
 

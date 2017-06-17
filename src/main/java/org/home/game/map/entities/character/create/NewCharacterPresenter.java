@@ -7,14 +7,12 @@ import org.home.game.map.entities.character.Sex;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static org.home.game.map.entities.MapEntityFactory.userCharacter;
+import static org.home.game.map.entities.character.create.NewCharacterView.ActionDelegate;
 
-public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterView.ActionDelegate {
-
-    private MapEntity gameCharacter;
+public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> implements NewCharacterFactory, ActionDelegate {
 
     @CheckForNull
     private Race race;
@@ -47,17 +45,14 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
 
     @Override
     public void onCompleted() {
-        gameCharacter = userCharacter(
-                requireNonNull(name, "It is impossible to create an instance of character without name parameter"),
-                requireNonNull(race, "It is impossible to create an instance of character without race parameter"),
-                requireNonNull(sex, "It is impossible to create an instance of character without sex parameter")
-        );
-        name = null;
-        race = null;
-        sex = null;
+        requireNonNull(name, "It is impossible to create an instance of character without name parameter");
+        requireNonNull(race, "It is impossible to create an instance of character without race parameter");
+        requireNonNull(sex, "It is impossible to create an instance of character without sex parameter");
     }
 
-    public Optional<MapEntity> getGameCharacter() {
-        return Optional.ofNullable(gameCharacter);
+    @Nonnull
+    public MapEntity getGameCharacter() {
+        show();
+        return userCharacter(name, race, sex);
     }
 }

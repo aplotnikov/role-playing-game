@@ -5,6 +5,7 @@ import static org.home.game.map.entities.character.Race.HUMAN
 import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.map.entities.MapEntity
+import org.home.game.map.entities.character.GameCharacter
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
@@ -37,23 +38,15 @@ class NewCharacterPresenterSpec extends Specification {
             presenter.onChosen(characterName)
             presenter.onCompleted()
         when:
-            Optional<MapEntity> character = presenter.getGameCharacter()
+            MapEntity character = presenter.getGameCharacter()
         then:
-            old presenter.race
-            old presenter.sex
-            old presenter.name
-        and:
-            !presenter.race
-            !presenter.sex
-            !presenter.name
-        and:
-            character.isPresent()
-            with(character.get()) {
+            character instanceof GameCharacter
+            with(character as GameCharacter) {
                 type == CHARACTER
                 name == characterName
                 race == HUMAN
                 sex == MALE
-                isUserCharacter
+                isUser()
             }
     }
 

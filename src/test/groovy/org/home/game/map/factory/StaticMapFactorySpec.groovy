@@ -14,7 +14,7 @@ import org.home.game.map.GameMap
 import org.home.game.map.MainGameMap
 import org.home.game.map.behaviour.user.UserMovementInput
 import org.home.game.map.entities.MapEntity
-import org.home.game.map.entities.character.create.NewCharacterPresenter
+import org.home.game.map.entities.character.create.NewCharacterFactory
 import org.home.game.map.task.TaskCompletionStrategy
 import spock.lang.Specification
 import spock.lang.Subject
@@ -23,7 +23,7 @@ import java.util.function.Predicate
 
 class StaticMapFactorySpec extends Specification {
 
-    NewCharacterPresenter newCharacterPresenter = Mock()
+    NewCharacterFactory newCharacterFactory = Mock()
 
     UserMovementInput userInput = Stub()
 
@@ -32,7 +32,7 @@ class StaticMapFactorySpec extends Specification {
     TaskCompletionStrategy strategy = Stub()
 
     @Subject
-    StaticMapFactory factory = new StaticMapFactory(newCharacterPresenter, userInput, condition, strategy)
+    StaticMapFactory factory = new StaticMapFactory(newCharacterFactory, userInput, condition, strategy)
 
     void 'map should be created and user should provide information about his character'() {
         given:
@@ -40,8 +40,7 @@ class StaticMapFactorySpec extends Specification {
         when:
             GameMap map = factory.create()
         then:
-            1 * newCharacterPresenter.show()
-            1 * newCharacterPresenter.getGameCharacter() >> Optional.of(character)
+            1 * newCharacterFactory.getGameCharacter() >> character
         and:
             map instanceof MainGameMap
             with(map as MainGameMap) {
@@ -70,16 +69,5 @@ class StaticMapFactorySpec extends Specification {
                 entities[4][0].innerEntity.isPresent()
                 entities[4][0].innerEntity.get().type == CHARACTER
             }
-    }
-
-    void 'IllegalStateException should be thrown when no game character'() {
-        when:
-            factory.create()
-        then:
-            1 * newCharacterPresenter.show()
-            1 * newCharacterPresenter.getGameCharacter() >> Optional.empty()
-        and:
-            IllegalStateException exception = thrown(IllegalStateException)
-            exception.message == 'User character is not created'
     }
 }
