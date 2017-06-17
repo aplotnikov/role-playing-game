@@ -103,8 +103,10 @@ public class SimpleEntity implements Entity {
     public void isBeatenBy(@Nonnull Entity anotherEntity) {
         if (defended) {
             defended = false;
-        } else {
+        } else if (health >= anotherEntity.getAttackPower()) {
             health -= anotherEntity.getAttackPower();
+        } else {
+            health = 0;
         }
     }
 

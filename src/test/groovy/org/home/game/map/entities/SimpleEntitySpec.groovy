@@ -87,6 +87,19 @@ class SimpleEntitySpec extends Specification {
             entity.health == 90
     }
 
+    void 'entity health should be zero when attack of another entity is more than available health'() {
+        given:
+            Entity anotherEntity = Stub() {
+                getAttackPower() >> 100
+            }
+        and:
+            entity.isBeatenBy(anotherEntity)
+        when:
+            entity.isBeatenBy(anotherEntity)
+        then:
+            old(entity.health) == entity.health
+    }
+
     void 'entity should be not beaten when entity is in defended mode'() {
         given:
             Entity anotherEntity = Stub() {

@@ -23,6 +23,9 @@ class ContainerEntitySpec extends Specification {
     Predicate<Entity> foreverTrueCondition = { true }
 
     @Shared
+    Predicate<Entity> foreverFalseCondition = { false }
+
+    @Shared
     String containerName = 'Road'
 
     @Shared
@@ -107,6 +110,34 @@ class ContainerEntitySpec extends Specification {
             container.take(innerEntity)
         expect:
             container.containTasks(taskDetectionCondition)
+    }
+
+    void 'inner entity should be found when it matches condition'() {
+        given:
+            container.take character
+        expect:
+            container.findEntity(foreverTrueCondition) == character
+    }
+
+    void 'inner entity of inner entity should be found when it matches condition'() {
+        given:
+            Predicate<Entity> condition = Stub() {
+                test(_ as Entity) >> [false, true]
+            }
+        and:
+            container.take character
+        expect:
+            container.findEntity(condition) == character
+    }
+
+    void 'IllegalStateException should be thrown when no entities match condition'() {
+        given:
+            container.take road(character)
+        when:
+            container.findEntity(foreverFalseCondition)
+        then:
+            IllegalStateException exception = thrown(IllegalStateException)
+            exception.message == 'There is no entities with such condition'
     }
 
     void 'equals and hashcode contract should be followed'() {
