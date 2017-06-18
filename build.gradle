@@ -34,7 +34,9 @@ jar {
 apply from: 'config/static-code-analyze.gradle'
 
 dependencies {
-    compile 'com.google.code.findbugs:findbugs:3.0.1'
+    compile('com.google.code.findbugs:findbugs:3.0.1') {
+        exclude group: 'commons-lang'
+    }
 
     testCompile 'org.codehaus.groovy:groovy-all:2.4.11',
                 'org.spockframework:spock-core:1.1-groovy-2.4',
