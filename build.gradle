@@ -23,7 +23,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 jar {
     baseName = 'role-playing-game'
-    group = 'org.home'
+    group = 'org.home.game'
     version = '0.0.1-SNAPSHOT'
 
     manifest {
