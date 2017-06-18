@@ -9,8 +9,6 @@ import org.home.game.map.entities.character.create.NewCharacterConsoleConsoleVie
 import org.home.game.map.entities.character.create.NewCharacterPresenter;
 import org.home.game.map.factory.MapFactory;
 import org.home.game.map.factory.StaticMapFactory;
-import org.home.game.map.painter.ConsoleMapPainter;
-import org.home.game.map.painter.MapPainter;
 import org.home.game.map.task.TaskCompletionStrategy;
 import org.home.game.map.task.fight.FightConsoleView;
 import org.home.game.map.task.fight.FightStrategy;
@@ -38,12 +36,7 @@ class EntryPointFactory {
 
     @Nonnull
     private static GameFactory gameFactory() {
-        return new GameFactoryImpl(mapFactory(), mapPainter(), gameView());
-    }
-
-    @Nonnull
-    private static MapPainter mapPainter() {
-        return new ConsoleMapPainter();
+        return new GameFactoryImpl(mapFactory(), gameView());
     }
 
     @Nonnull
