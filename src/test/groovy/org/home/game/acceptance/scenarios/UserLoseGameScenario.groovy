@@ -1,9 +1,9 @@
-package org.home.game.acceptance.test
+package org.home.game.acceptance.scenarios
 
 import org.home.game.ConsoleIntegrationSpec
 import org.home.game.Launcher
 
-class LoseScenarioAcceptanceTest extends ConsoleIntegrationSpec {
+class UserLoseGameScenario extends ConsoleIntegrationSpec {
     void 'user should lose the game'() {
         userInput '1', // Main menu -> Start new game
                   'Andrii', // Character name
