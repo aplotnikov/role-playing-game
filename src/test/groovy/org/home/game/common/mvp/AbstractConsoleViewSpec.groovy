@@ -20,7 +20,7 @@ class AbstractConsoleViewSpec extends ConsoleIntegrationSpec {
         when:
             view.delegate = delegate
         then:
-            old view.delegate == null
+            old(view.delegate) == null
         and:
             view.delegate == delegate
     }

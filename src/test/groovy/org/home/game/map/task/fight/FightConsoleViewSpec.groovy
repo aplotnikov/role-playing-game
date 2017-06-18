@@ -1,6 +1,5 @@
 package org.home.game.map.task.fight
 
-import static java.lang.System.lineSeparator
 import static org.home.game.map.entities.EntityFactory.userCharacter
 import static org.home.game.map.entities.EntityFactory.wolf
 import static org.home.game.map.entities.character.Race.HUMAN
@@ -60,21 +59,21 @@ class FightConsoleViewSpec extends ConsoleIntegrationSpec {
         when:
             view.drawUser userCharacter('Andrii', HUMAN, MALE)
         then:
-            assertOutput "Name: Andrii; Race: Human; Sex: Male; Health: 100; Attack power: 50${lineSeparator()}"
+            assertOutput appendLineSeparatorTo('Name: Andrii; Race: Human; Sex: Male; Health: 100; Attack power: 50')
     }
 
     void 'enemy should be drawn'() {
         when:
             view.drawUser wolf()
         then:
-            assertOutput "Name: Wolf; Type: WOLF; Health: 100; Attack power: 10${lineSeparator()}"
+            assertOutput appendLineSeparatorTo('Name: Wolf; Type: WOLF; Health: 100; Attack power: 10')
     }
 
     void 'attack should be drawn'() {
         when:
             view.drawAttack(userCharacter('Andrii', HUMAN, MALE), wolf(), 10)
         then:
-            assertOutput "Andrii attacks Wolf. Wolf got a damage - 10${lineSeparator()}"
+            assertOutput appendLineSeparatorTo('Andrii attacks Wolf. Wolf got a damage - 10')
     }
 
     private static String fightMenuOutput() {

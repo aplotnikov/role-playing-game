@@ -19,6 +19,6 @@ class UserLoseGameScenario extends ConsoleIntegrationSpec {
         when:
             Launcher.main()
         then:
-            assertOutputContains 'Game Over'
+            assertOutputEndWith appendLineSeparatorTo('Game Over')
     }
 }

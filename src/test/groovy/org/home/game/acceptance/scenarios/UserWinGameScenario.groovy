@@ -32,6 +32,6 @@ class UserWinGameScenario extends ConsoleIntegrationSpec {
         when:
             Launcher.main()
         then:
-            assertOutputContains 'You won'
+            assertOutputEndWith appendLineSeparatorTo('You won')
     }
 }

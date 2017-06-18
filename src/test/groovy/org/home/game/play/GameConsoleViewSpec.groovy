@@ -1,6 +1,5 @@
 package org.home.game.play
 
-import static java.lang.System.lineSeparator
 import static org.home.game.map.GameMapBuilder.map
 import static org.home.game.map.entities.EntityFactory.character
 import static org.home.game.map.entities.EntityFactory.road
@@ -55,13 +54,13 @@ MAP
         when:
             view.showWinnerNotification()
         then:
-            assertOutput "You won${lineSeparator()}"
+            assertOutput appendLineSeparatorTo('You won')
     }
 
     void 'game over notification should be shown'() {
         when:
             view.showGameOverNotification()
         then:
-            assertOutput "Game Over${lineSeparator()}"
+            assertOutput appendLineSeparatorTo('Game Over')
     }
 }

@@ -20,8 +20,8 @@ abstract class ConsoleIntegrationSpec extends Specification {
         assert systemOutRule.log == expectedOutput
     }
 
-    protected void assertOutputContains(String output) {
-        assert systemOutRule.log.contains(output)
+    protected void assertOutputEndWith(String suffix) {
+        assert systemOutRule.log.endsWith(suffix)
     }
 
     protected void userInput(String... input) {
@@ -30,5 +30,9 @@ abstract class ConsoleIntegrationSpec extends Specification {
 
     protected static String eraseOutput() {
         (1..50).collect { lineSeparator() }.join('')
+    }
+
+    protected static String appendLineSeparatorTo(String text) {
+        text + lineSeparator()
     }
 }
