@@ -7,9 +7,9 @@ class UserWinGameScenario extends ConsoleIntegrationSpec {
     void 'user should win the game'() {
         given:
             userInput '1', // Main menu -> Start new game
-                      'Andrii', // Character name
-                      '1', // Race: Human
-                      '1', // Sex: male
+                      'Andrii', // New character -> Character name: Andrii
+                      '1', // New character -> Race: Human
+                      '1', // New character -> Sex: male
                       '1', // Map -> Move up
                       '1', // Map -> Move up
                       '1', // Fight with Wolf -> Beat the opponent
