@@ -1,8 +1,7 @@
 package org.home.game.common.console.ui;
 
-import org.apache.commons.lang.math.IntRange;
-import org.apache.commons.lang.math.Range;
 import org.home.game.common.console.ui.utils.ConsoleReader;
+import org.home.game.common.utils.IntRange;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +27,7 @@ public class Menu<T extends Enum> implements Component {
         printMenuFooter(true);
     };
 
-    private final Range acceptableItems;
+    private final IntRange acceptableItems;
 
     @SafeVarargs
     public Menu(@Nonnull String title, @Nonnull T... items) {
@@ -37,7 +36,8 @@ public class Menu<T extends Enum> implements Component {
         }
         this.title = title;
         this.items = items;
-        this.acceptableItems = new IntRange(1, items.length);
+
+        this.acceptableItems = IntRange.of(1, items.length);
     }
 
     @Override
@@ -60,11 +60,11 @@ public class Menu<T extends Enum> implements Component {
 
     @Nonnegative
     private int readItemIndex() {
-        return reader.readIntegerUntil(itemInRange(acceptableItems), redrawWithWarningMessage) - MENU_ITEM_OFFSET;
+        return reader.readIntegerUntil(itemIsInAcceptableRange(), redrawWithWarningMessage) - MENU_ITEM_OFFSET;
     }
 
     @Nonnull
-    private Predicate<String> itemInRange(@Nonnull Range range) {
-        return line -> range.containsInteger(Integer.parseInt(line));
+    private Predicate<String> itemIsInAcceptableRange() {
+        return line -> acceptableItems.contains(Integer.parseInt(line));
     }
 }

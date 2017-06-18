@@ -1,6 +1,6 @@
 package org.home.game.map;
 
-import org.apache.commons.lang.math.IntRange;
+import org.home.game.common.utils.IntRange;
 import org.home.game.map.behaviour.user.UserMovementInput;
 import org.home.game.map.entities.Entity;
 import org.home.game.map.task.TaskCompletionStrategy;
@@ -80,9 +80,9 @@ public class MainGameMap implements GameMap {
     }
 
     private boolean isValid(@Nonnull Position position, @Nonnegative int maxCoordinate) {
-        IntRange correctCoordinate = new IntRange(0, maxCoordinate);
-        return correctCoordinate.containsInteger(position.getLeft())
-                && correctCoordinate.containsInteger(position.getTop());
+        IntRange correctCoordinate = IntRange.of(0, maxCoordinate);
+        return correctCoordinate.contains(position.getLeft())
+                && correctCoordinate.contains(position.getTop());
     }
 
     private void moveUser(@Nonnull Position currentPosition, @Nonnull Position nextPosition) {
