@@ -17,7 +17,11 @@ abstract class ConsoleIntegrationSpec extends Specification {
     TextFromStandardInputStream systemInMock = emptyStandardInputStream()
 
     protected void assertOutput(String expectedOutput) {
-        assert systemOutRule.getLog() == expectedOutput
+        assert systemOutRule.log == expectedOutput
+    }
+
+    protected void assertOutputContains(String output) {
+        assert systemOutRule.log.contains(output)
     }
 
     protected void userInput(String... input) {
