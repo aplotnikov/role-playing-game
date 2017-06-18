@@ -29,6 +29,9 @@ import static org.home.game.map.entities.EntityType.CHARACTER;
 import static org.home.game.map.entities.EntityType.WOLF;
 
 class EntryPointFactory {
+
+    private EntryPointFactory() {}
+
     @Nonnull
     static Presenter newEntryPoint() {
         return new MainMenuPresenter(new MainMainMenuConsoleConsoleView(), gameFactory());
