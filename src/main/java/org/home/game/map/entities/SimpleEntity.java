@@ -100,14 +100,21 @@ public class SimpleEntity implements Entity {
     }
 
     @Override
-    public void isBeatenBy(@Nonnull Entity anotherEntity) {
+    public int isBeatenBy(@Nonnull Entity anotherEntity) {
         if (defended) {
             defended = false;
-        } else if (health >= anotherEntity.getAttackPower()) {
-            health -= anotherEntity.getAttackPower();
-        } else {
-            health = 0;
+            return 0;
         }
+
+        int anotherEntityAttackPower = anotherEntity.getAttackPower();
+        if (health >= anotherEntityAttackPower) {
+            health -= anotherEntityAttackPower;
+            return anotherEntityAttackPower;
+        }
+
+        int oldHealth = health;
+        health = 0;
+        return oldHealth;
     }
 
     @Override

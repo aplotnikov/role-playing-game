@@ -32,7 +32,8 @@ public interface Entity {
 
     void take(@Nonnull Entity anotherEntity);
 
-    void isBeatenBy(@Nonnull Entity anotherEntity);
+    @Nonnegative
+    int isBeatenBy(@Nonnull Entity anotherEntity);
 
     void defense();
 

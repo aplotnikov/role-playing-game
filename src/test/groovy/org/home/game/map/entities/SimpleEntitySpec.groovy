@@ -82,8 +82,10 @@ class SimpleEntitySpec extends Specification {
                 getAttackPower() >> 10
             }
         when:
-            entity.isBeatenBy(anotherEntity)
+            int damage = entity.isBeatenBy(anotherEntity)
         then:
+            damage == 10
+        and:
             entity.health == 90
     }
 
@@ -92,11 +94,13 @@ class SimpleEntitySpec extends Specification {
             Entity anotherEntity = Stub() {
                 getAttackPower() >> 100
             }
-        and:
-            entity.isBeatenBy(anotherEntity)
+        expect:
+            entity.isBeatenBy(anotherEntity) == 100
         when:
-            entity.isBeatenBy(anotherEntity)
+            int damage = entity.isBeatenBy(anotherEntity)
         then:
+            damage == 0
+        and:
             old(entity.health) == entity.health
     }
 
@@ -108,8 +112,10 @@ class SimpleEntitySpec extends Specification {
         and:
             entity.defense()
         when:
-            entity.isBeatenBy(anotherEntity)
+            int damage = entity.isBeatenBy(anotherEntity)
         then:
+            damage == 0
+        and:
             entity.health == 100
     }
 

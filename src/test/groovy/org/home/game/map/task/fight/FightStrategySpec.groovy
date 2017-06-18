@@ -1,12 +1,19 @@
 package org.home.game.map.task.fight
 
 import org.home.game.map.entities.Entity
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
 @Unroll
 class FightStrategySpec extends Specification {
+
+    @Shared
+    int enemyDamage = 10
+
+    @Shared
+    int userDamage = 20
 
     FightView view = Mock()
 
@@ -30,6 +37,8 @@ class FightStrategySpec extends Specification {
         when:
             strategy.complete(user, enemy)
         then:
+            1 * view.drawUser(user)
+            1 * view.drawEnemy(enemy)
             1 * view.draw()
         and:
             1 * user.alive >> true
@@ -60,10 +69,16 @@ class FightStrategySpec extends Specification {
             strategy.onUserAttack()
         then:
             1 * enemy.alive >> true
-            1 * enemy.isBeatenBy(user)
+            1 * enemy.isBeatenBy(user) >> enemyDamage
         and:
             1 * user.alive >> true
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawUser(user)
+            1 * view.drawEnemy(enemy)
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
+            1 * view.drawAttack(user, enemy, enemyDamage)
         and:
             1 * view.draw()
         and:
@@ -77,10 +92,13 @@ class FightStrategySpec extends Specification {
             strategy.onUserAttack()
         then:
             enemy.alive >> enemyIsAlive
-            1 * enemy.isBeatenBy(user)
+            1 * enemy.isBeatenBy(user) >> enemyDamage
         and:
             user.alive >> userIsAlive
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
+            1 * view.drawAttack(user, enemy, enemyDamage)
         and:
             0 * _
         where:
@@ -100,7 +118,12 @@ class FightStrategySpec extends Specification {
         and:
             1 * user.alive >> true
             1 * user.defense()
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawUser(user)
+            1 * view.drawEnemy(enemy)
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
         and:
             1 * view.draw()
         and:
@@ -117,7 +140,9 @@ class FightStrategySpec extends Specification {
         and:
             user.alive >> userIsAlive
             1 * user.defense()
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
         and:
             0 * _
         where:
@@ -137,7 +162,12 @@ class FightStrategySpec extends Specification {
             1 * enemy.alive >> true
         and:
             1 * user.alive >> true
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawUser(user)
+            1 * view.drawEnemy(enemy)
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
         and:
             1 * view.draw()
         and:
@@ -153,7 +183,9 @@ class FightStrategySpec extends Specification {
             enemy.alive >> enemyIsAlive
         and:
             user.alive >> userIsAlive
-            1 * user.isBeatenBy(enemy)
+            1 * user.isBeatenBy(enemy) >> userDamage
+        and:
+            1 * view.drawAttack(enemy, user, userDamage)
         and:
             0 * _
         where:
