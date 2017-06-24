@@ -1,19 +1,15 @@
 package org.home.game.map.entities;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public interface Entity {
+public interface Entity extends Serializable {
 
-    @Nonnull
     String getName();
 
-    @Nonnegative
     int getHealth();
 
-    @Nonnegative
     int getAttackPower();
 
     boolean isUser();
@@ -26,14 +22,13 @@ public interface Entity {
 
     boolean containUserCharacter();
 
-    boolean containTasks(@Nonnull Predicate<Entity> condition);
+    boolean containTasks(Predicate<Entity> condition);
 
-    Entity findEntity(@Nonnull Predicate<Entity> condition);
+    Entity findEntity(Predicate<Entity> condition);
 
-    void take(@Nonnull Entity anotherEntity);
+    void take(Entity anotherEntity);
 
-    @Nonnegative
-    int isBeatenBy(@Nonnull Entity anotherEntity);
+    int isBeatenBy(Entity anotherEntity);
 
     void defense();
 
@@ -43,10 +38,7 @@ public interface Entity {
 
     void clear();
 
-    @Nonnull
     Optional<Entity> getInnerEntity();
 
-    @Nonnull
     EntityType getType();
-
 }

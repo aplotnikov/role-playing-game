@@ -2,7 +2,6 @@ package org.home.game.map;
 
 import org.home.game.map.entities.Entity;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +16,11 @@ public class GameMapBuilder {
 
     private GameMapBuilder() {}
 
-    @Nonnull
     public static GameMapBuilder map() {
         return new GameMapBuilder();
     }
 
-    @Nonnull
-    public GameMapBuilder line(@Nonnull Entity... entities) {
+    public GameMapBuilder line(Entity... entities) {
         if (entities.length == 0) {
             throw new IllegalStateException("It is impossible to create empty line of map");
         }
@@ -38,12 +35,10 @@ public class GameMapBuilder {
         return this;
     }
 
-    @Nonnull
     public List<List<Entity>> create() {
         if (entities.isEmpty()) {
             throw new IllegalStateException("It is impossible to create empty map");
         }
-
         return unmodifiableList(entities);
     }
 }

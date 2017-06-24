@@ -1,16 +1,12 @@
 package org.home.game.map.entities;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class ContainerEntity extends SimpleEntity {
 
-    @CheckForNull
     private Entity innerEntity;
 
-    public ContainerEntity(@Nonnull String name, @Nonnull EntityType type, @Nonnegative int attachPower) {
+    public ContainerEntity(String name, EntityType type, int attachPower) {
         super(name, type, attachPower);
     }
 
@@ -19,14 +15,13 @@ public class ContainerEntity extends SimpleEntity {
         return true;
     }
 
-    @Nonnull
     @Override
     public Optional<Entity> getInnerEntity() {
         return Optional.ofNullable(innerEntity);
     }
 
     @Override
-    public void take(@Nonnull Entity anotherEntity) {
+    public void take(Entity anotherEntity) {
         innerEntity = anotherEntity;
     }
 

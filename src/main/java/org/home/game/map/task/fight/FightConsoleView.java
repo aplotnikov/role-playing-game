@@ -6,8 +6,6 @@ import org.home.game.map.entities.Entity;
 import org.home.game.map.entities.character.GameCharacter;
 import org.home.game.map.task.fight.FightView.ActionDelegate;
 
-import javax.annotation.Nonnull;
-
 import static java.lang.String.format;
 
 public class FightConsoleView extends AbstractConsoleView<ActionDelegate> implements FightView {
@@ -32,24 +30,24 @@ public class FightConsoleView extends AbstractConsoleView<ActionDelegate> implem
     }
 
     @Override
-    public void drawUser(@Nonnull Entity user) {
+    public void drawUser(Entity user) {
         drawEntity(user);
     }
 
     @Override
-    public void drawEnemy(@Nonnull Entity enemy) {
+    public void drawEnemy(Entity enemy) {
         drawEntity(enemy);
     }
 
     @Override
-    public void drawAttack(@Nonnull Entity attacker, @Nonnull Entity defender, int damage) {
+    public void drawAttack(Entity attacker, Entity defender, int damage) {
         System.out.println(format(
                 "%s attacks %s. %s got a damage - %d",
                 attacker.getName(), defender.getName(), defender.getName(), damage
         ));
     }
 
-    private void drawEntity(@Nonnull Entity entity) {
+    private void drawEntity(Entity entity) {
         if (entity instanceof GameCharacter) {
             GameCharacter character = (GameCharacter) entity;
             System.out.println(format(
@@ -72,7 +70,7 @@ public class FightConsoleView extends AbstractConsoleView<ActionDelegate> implem
 
         private final String title;
 
-        FightAction(@Nonnull String title) {
+        FightAction(String title) {
             this.title = title;
         }
 

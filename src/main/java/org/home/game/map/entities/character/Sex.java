@@ -1,14 +1,12 @@
 package org.home.game.map.entities.character;
 
-import javax.annotation.Nonnull;
-
 public enum Sex {
     MALE("Male"),
     FEMALE("Female");
 
     private final String title;
 
-    Sex(@Nonnull String title) {
+    Sex(String title) {
         this.title = title;
     }
 

@@ -19,7 +19,6 @@ import org.home.game.play.GameFactory;
 import org.home.game.play.GameFactoryImpl;
 import org.home.game.play.GameView;
 
-import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -32,43 +31,35 @@ class EntryPointFactory {
 
     private EntryPointFactory() {}
 
-    @Nonnull
     static Presenter newEntryPoint() {
         return new MainMenuPresenter(new MainMainMenuConsoleConsoleView(), gameFactory());
     }
 
-    @Nonnull
     private static GameFactory gameFactory() {
         return new GameFactoryImpl(mapFactory(), gameView());
     }
 
-    @Nonnull
     private static MapFactory mapFactory() {
         return new StaticMapFactory(characterPresenter(), userMovementInput(), taskDetectionCondition(), taskCompletionStrategy());
     }
 
-    @Nonnull
     private static NewCharacterPresenter characterPresenter() {
         return new NewCharacterPresenter(new NewCharacterConsoleConsoleView());
     }
 
-    @Nonnull
     private static UserMovementInput userMovementInput() {
         return new UserMovementConsoleInput();
     }
 
-    @Nonnull
     private static Predicate<Entity> taskDetectionCondition() {
         Set<EntityType> enemies = EnumSet.of(CHARACTER, WOLF, BEAR);
         return entity -> enemies.contains(entity.getType());
     }
 
-    @Nonnull
     private static TaskCompletionStrategy taskCompletionStrategy() {
         return new FightStrategy(new FightConsoleView());
     }
 
-    @Nonnull
     private static GameView gameView() {
         return new GameConsoleView();
     }

@@ -4,21 +4,19 @@ import org.home.game.common.mvp.AbstractPresenter;
 import org.home.game.map.entities.Entity;
 import org.home.game.map.task.TaskCompletionStrategy;
 
-import javax.annotation.Nonnull;
-
 public class FightStrategy extends AbstractPresenter<FightView> implements TaskCompletionStrategy, FightView.ActionDelegate {
 
     private Entity user;
 
     private Entity enemy;
 
-    public FightStrategy(@Nonnull FightView view) {
+    public FightStrategy(FightView view) {
         super(view);
         this.view.setDelegate(this);
     }
 
     @Override
-    public void complete(@Nonnull Entity user, @Nonnull Entity enemy) {
+    public void complete(Entity user, Entity enemy) {
         this.user = user;
         this.enemy = enemy;
         nextIteration();

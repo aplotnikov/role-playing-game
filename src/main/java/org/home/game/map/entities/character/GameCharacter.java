@@ -2,8 +2,6 @@ package org.home.game.map.entities.character;
 
 import org.home.game.map.entities.SimpleEntity;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
@@ -17,11 +15,7 @@ public class GameCharacter extends SimpleEntity {
 
     private final Sex sex;
 
-    public GameCharacter(@Nonnull String name,
-                         boolean isUserCharacter,
-                         @Nonnull Race race,
-                         @Nonnull Sex sex,
-                         @Nonnegative int attackPower) {
+    public GameCharacter(String name, boolean isUserCharacter, Race race, Sex sex, int attackPower) {
         super(name, CHARACTER, attackPower);
         this.isUserCharacter = isUserCharacter;
         this.race = race;
@@ -33,12 +27,10 @@ public class GameCharacter extends SimpleEntity {
         return isUserCharacter;
     }
 
-    @Nonnull
     public Race getRace() {
         return race;
     }
 
-    @Nonnull
     public Sex getSex() {
         return sex;
     }

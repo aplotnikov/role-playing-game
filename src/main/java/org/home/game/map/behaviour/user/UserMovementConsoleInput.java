@@ -3,15 +3,12 @@ package org.home.game.map.behaviour.user;
 import org.home.game.common.console.ui.Menu;
 import org.home.game.map.utils.Position;
 
-import javax.annotation.Nonnull;
-
 public class UserMovementConsoleInput implements UserMovementInput {
 
     private final Menu<Movement> menu = new Menu<>("Choose character movement:", Movement.values());
 
-    @Nonnull
     @Override
-    public Position getNextPosition(@Nonnull Position currentPosition) {
+    public Position getNextPosition(Position currentPosition) {
         menu.draw();
         Movement item = menu.chooseItem();
         switch (item) {
@@ -36,7 +33,7 @@ public class UserMovementConsoleInput implements UserMovementInput {
 
         private final String title;
 
-        Movement(@Nonnull String title) {
+        Movement(String title) {
             this.title = title;
         }
 

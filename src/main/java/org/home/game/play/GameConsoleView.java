@@ -4,8 +4,6 @@ import org.home.game.common.mvp.console.AbstractConsoleView;
 import org.home.game.map.GameMap;
 import org.home.game.map.entities.Entity;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
@@ -18,7 +16,7 @@ public class GameConsoleView extends AbstractConsoleView implements GameView {
     private static final int MAP_SIZE_MARGIN = 2;
 
     @Override
-    public void draw(@Nonnull GameMap map) {
+    public void draw(GameMap map) {
         String lineSeparator = prepareLineSeparator(map.getEntities().size());
 
         System.out.println("MAP");
@@ -27,18 +25,17 @@ public class GameConsoleView extends AbstractConsoleView implements GameView {
         System.out.println(lineSeparator);
     }
 
-    @Nonnull
-    private String prepareLineSeparator(@Nonnegative int numberEntitiesInLine) {
+    private String prepareLineSeparator(int numberEntitiesInLine) {
         return generate(() -> "-").limit(numberEntitiesInLine + MAP_SIZE_MARGIN).collect(joining());
     }
 
-    private void drawLine(@Nonnull List<Entity> entities) {
+    private void drawLine(List<Entity> entities) {
         System.out.print(CELL_SEPARATOR);
         entities.forEach(this::drawEntity);
         System.out.println(CELL_SEPARATOR);
     }
 
-    private void drawEntity(@Nonnull Entity entity) {
+    private void drawEntity(Entity entity) {
         switch (entity.getType()) {
             case ROAD:
                 entity.getInnerEntity().ifPresent(this::drawEntity);

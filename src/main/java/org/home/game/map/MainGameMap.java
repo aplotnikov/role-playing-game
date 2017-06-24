@@ -6,8 +6,6 @@ import org.home.game.map.entities.Entity;
 import org.home.game.map.task.TaskCompletionStrategy;
 import org.home.game.map.utils.Position;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -26,10 +24,10 @@ public class MainGameMap implements GameMap {
 
     private final TaskCompletionStrategy taskCompletionStrategy;
 
-    public MainGameMap(@Nonnull List<List<Entity>> entities,
-                       @Nonnull UserMovementInput userMovementInput,
-                       @Nonnull Predicate<Entity> taskDetectionCondition,
-                       @Nonnull TaskCompletionStrategy taskCompletionStrategy) {
+    public MainGameMap(List<List<Entity>> entities,
+                       UserMovementInput userMovementInput,
+                       Predicate<Entity> taskDetectionCondition,
+                       TaskCompletionStrategy taskCompletionStrategy) {
         this.entities = entities;
         this.taskDetectionCondition = taskDetectionCondition;
         this.userMovementInput = userMovementInput;
@@ -46,7 +44,6 @@ public class MainGameMap implements GameMap {
         return entities().anyMatch(entity -> entity.containTasks(taskDetectionCondition));
     }
 
-    @Nonnull
     private Stream<Entity> entities() {
         return entities.stream().flatMap(List::stream);
     }
@@ -61,7 +58,6 @@ public class MainGameMap implements GameMap {
         }
     }
 
-    @Nonnull
     private Optional<Position> findFirstEntity(Predicate<Entity> condition) {
         return range(0, entities.size())
                 .boxed()
@@ -69,23 +65,21 @@ public class MainGameMap implements GameMap {
                 .findFirst();
     }
 
-    @Nonnull
-    private IntStream findEntityIndex(@Nonnull List<Entity> entities, @Nonnull Predicate<Entity> condition) {
+    private IntStream findEntityIndex(List<Entity> entities, Predicate<Entity> condition) {
         return range(0, entities.size()).filter(left -> condition.test(entities.get(left)));
     }
 
-    @Nonnull
-    private Stream<Position> zip(@Nonnegative int top, @Nonnull IntStream leftCoordinates) {
+    private Stream<Position> zip(int top, IntStream leftCoordinates) {
         return leftCoordinates.mapToObj(left -> Position.of(left, top));
     }
 
-    private boolean isValid(@Nonnull Position position, @Nonnegative int maxCoordinate) {
+    private boolean isValid(Position position, int maxCoordinate) {
         IntRange correctCoordinate = IntRange.of(0, maxCoordinate);
         return correctCoordinate.contains(position.getLeft())
                 && correctCoordinate.contains(position.getTop());
     }
 
-    private void moveUser(@Nonnull Position currentPosition, @Nonnull Position nextPosition) {
+    private void moveUser(Position currentPosition, Position nextPosition) {
         Entity containerEntity = entityOn(currentPosition);
         Entity newContainerEntity = entityOn(nextPosition);
 
@@ -113,16 +107,14 @@ public class MainGameMap implements GameMap {
         }
     }
 
-    @Nonnull
-    private Entity entityOn(@Nonnull Position position) {
+    private Entity entityOn(Position position) {
         return entities.get(position.getTop()).get(position.getLeft());
     }
 
-    private boolean isUserAlive(@Nonnull Entity entity) {
+    private boolean isUserAlive(Entity entity) {
         return entity.findEntity(Entity::isUser).isAlive();
     }
 
-    @Nonnull
     @Override
     public List<List<Entity>> getEntities() {
         return entities;

@@ -7,7 +7,6 @@ import org.home.game.map.entities.Entity;
 import org.home.game.map.entities.character.create.NewCharacterFactory;
 import org.home.game.map.task.TaskCompletionStrategy;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -31,25 +30,23 @@ public class StaticMapFactory implements MapFactory {
 
     private final TaskCompletionStrategy taskCompletionStrategy;
 
-    public StaticMapFactory(@Nonnull NewCharacterFactory newCharacterFactory,
-                            @Nonnull UserMovementInput userMovementInput,
-                            @Nonnull Predicate<Entity> taskDetectionCondition,
-                            @Nonnull TaskCompletionStrategy taskCompletionStrategy) {
+    public StaticMapFactory(NewCharacterFactory newCharacterFactory,
+                            UserMovementInput userMovementInput,
+                            Predicate<Entity> taskDetectionCondition,
+                            TaskCompletionStrategy taskCompletionStrategy) {
         this.newCharacterFactory = newCharacterFactory;
         this.userMovementInput = userMovementInput;
         this.taskDetectionCondition = taskDetectionCondition;
         this.taskCompletionStrategy = taskCompletionStrategy;
     }
 
-    @Nonnull
     @Override
     public GameMap create() {
         Entity character = newCharacterFactory.getGameCharacter();
         return new MainGameMap(entities(character), userMovementInput, taskDetectionCondition, taskCompletionStrategy);
     }
 
-    @Nonnull
-    private List<List<Entity>> entities(@Nonnull Entity character) {
+    private List<List<Entity>> entities(Entity character) {
         return map()
                 .line(road(), road(), road(wolf()), tree(), stone())
                 .line(road(), road(), road(), tree(), tree())
@@ -59,7 +56,6 @@ public class StaticMapFactory implements MapFactory {
                 .create();
     }
 
-    @Nonnull
     private Entity orc() {
         return character(ORC.toString(), ORC, FEMALE, 10);
     }

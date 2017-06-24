@@ -1,7 +1,5 @@
 package org.home.game.common.console.ui.utils;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -19,8 +17,7 @@ public class ConsoleReader {
 
     private static final Predicate<String> VALID_INPUT_DATA_CONDITION = NOT_BLANK.and(IS_NUMERIC).and(NON_NEGATIVE);
 
-    @Nonnegative
-    public int readIntegerUntil(@Nonnull Predicate<String> userCondition, @Nonnull Runnable onFail) {
+    public int readIntegerUntil(Predicate<String> userCondition, Runnable onFail) {
         Predicate<String> retryCondition = VALID_INPUT_DATA_CONDITION.and(userCondition).negate();
         String line = null;
         do {
@@ -32,12 +29,10 @@ public class ConsoleReader {
         return Integer.parseInt(line);
     }
 
-    @Nonnull
     private Scanner scanner() {
         return new Scanner(System.in, "UTF-8");
     }
 
-    @Nonnull
     public String readString() {
         return scanner().nextLine();
     }

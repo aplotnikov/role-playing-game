@@ -3,8 +3,6 @@ package org.home.game.common.console.ui;
 import org.home.game.common.console.ui.utils.ConsoleReader;
 import org.home.game.common.utils.IntRange;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -30,7 +28,7 @@ public class Menu<T extends Enum> implements Component {
     private final IntRange acceptableItems;
 
     @SafeVarargs
-    public Menu(@Nonnull String title, @Nonnull T... items) {
+    public Menu(String title, T... items) {
         if (items.length == 0) {
             throw new IllegalArgumentException("There are no configured menu items");
         }
@@ -58,12 +56,10 @@ public class Menu<T extends Enum> implements Component {
         System.out.println("Put operation's number which you want to do: ");
     }
 
-    @Nonnegative
     private int readItemIndex() {
         return reader.readIntegerUntil(itemIsInAcceptableRange(), redrawWithWarningMessage) - MENU_ITEM_OFFSET;
     }
 
-    @Nonnull
     private Predicate<String> itemIsInAcceptableRange() {
         return line -> acceptableItems.contains(Integer.parseInt(line));
     }

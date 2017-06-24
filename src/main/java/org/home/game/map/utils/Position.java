@@ -1,7 +1,5 @@
 package org.home.game.map.utils;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
@@ -12,22 +10,19 @@ public class Position {
 
     private final int top;
 
-    private Position(@Nonnegative int left, @Nonnegative int top) {
+    private Position(int left, int top) {
         this.left = left;
         this.top = top;
     }
 
-    @Nonnull
-    public static Position of(@Nonnegative int left, @Nonnegative int top) {
+    public static Position of(int left, int top) {
         return new Position(left, top);
     }
 
-    @Nonnegative
     public int getLeft() {
         return left;
     }
 
-    @Nonnegative
     public int getTop() {
         return top;
     }

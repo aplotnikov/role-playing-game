@@ -1,28 +1,24 @@
 package org.home.game.common.utils;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
 public class IntRange {
 
     private final int min;
 
     private final int max;
 
-    private IntRange(@Nonnegative int min, @Nonnegative int max) {
+    private IntRange(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    @Nonnull
-    public static IntRange of(@Nonnegative int min, @Nonnegative int max) {
+    public static IntRange of(int min, int max) {
         if (min > max) {
             throw new IllegalStateException("Min value is greater than max. Min: " + min + ", Max: " + max);
         }
         return new IntRange(min, max);
     }
 
-    public boolean contains(@Nonnegative int value) {
+    public boolean contains(int value) {
         return value >= min && value <= max;
     }
 

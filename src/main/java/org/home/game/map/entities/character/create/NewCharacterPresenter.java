@@ -5,8 +5,6 @@ import org.home.game.map.entities.Entity;
 import org.home.game.map.entities.character.Race;
 import org.home.game.map.entities.character.Sex;
 
-import javax.annotation.Nonnull;
-
 import static java.util.Objects.requireNonNull;
 import static org.home.game.map.entities.EntityFactory.userCharacter;
 import static org.home.game.map.entities.character.create.NewCharacterView.ActionDelegate;
@@ -19,23 +17,23 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
 
     private String name;
 
-    public NewCharacterPresenter(@Nonnull NewCharacterView view) {
+    public NewCharacterPresenter(NewCharacterView view) {
         super(view);
         view.setDelegate(this);
     }
 
     @Override
-    public void onChosen(@Nonnull Race race) {
+    public void onChosen(Race race) {
         this.race = race;
     }
 
     @Override
-    public void onChosen(@Nonnull Sex sex) {
+    public void onChosen(Sex sex) {
         this.sex = sex;
     }
 
     @Override
-    public void onChosen(@Nonnull String name) {
+    public void onChosen(String name) {
         this.name = name;
     }
 
@@ -46,7 +44,6 @@ public class NewCharacterPresenter extends AbstractPresenter<NewCharacterView> i
         requireNonNull(sex, "It is impossible to create an instance of character without sex parameter");
     }
 
-    @Nonnull
     public Entity getGameCharacter() {
         show();
         return userCharacter(name, race, sex);

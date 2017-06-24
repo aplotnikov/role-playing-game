@@ -4,15 +4,13 @@ import org.home.game.common.mvp.View;
 import org.home.game.map.entities.character.Race;
 import org.home.game.map.entities.character.Sex;
 
-import javax.annotation.Nonnull;
-
 public interface NewCharacterView extends View<NewCharacterView.ActionDelegate> {
     interface ActionDelegate {
-        void onChosen(@Nonnull Race race);
+        void onChosen(Race race);
 
-        void onChosen(@Nonnull Sex sex);
+        void onChosen(Sex sex);
 
-        void onChosen(@Nonnull String name);
+        void onChosen(String name);
 
         void onCompleted();
     }

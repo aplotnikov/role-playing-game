@@ -1,7 +1,5 @@
 package org.home.game.map.entities;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -18,7 +16,7 @@ public class SimpleEntity implements Entity {
 
     private boolean defended;
 
-    public SimpleEntity(@Nonnull String name, @Nonnull EntityType type, @Nonnegative int attackPower) {
+    public SimpleEntity(String name, EntityType type, int attackPower) {
         this.name = name;
         this.type = type;
         this.attackPower = attackPower;
@@ -26,7 +24,6 @@ public class SimpleEntity implements Entity {
         this.defended = false;
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return name;
@@ -42,7 +39,6 @@ public class SimpleEntity implements Entity {
         return attackPower;
     }
 
-    @Nonnull
     @Override
     public EntityType getType() {
         return type;
@@ -76,31 +72,30 @@ public class SimpleEntity implements Entity {
     }
 
     @Override
-    public boolean containTasks(@Nonnull Predicate<Entity> condition) {
+    public boolean containTasks(Predicate<Entity> condition) {
         return condition.test(this) && !isUser()
                 || getInnerEntity().filter(entity -> entity.containTasks(condition)).isPresent();
     }
 
     @Override
-    public Entity findEntity(@Nonnull Predicate<Entity> condition) {
+    public Entity findEntity(Predicate<Entity> condition) {
         return getInnerEntity()
                 .map(entity -> condition.test(entity) ? entity : entity.findEntity(condition))
                 .orElseThrow(() -> new IllegalStateException("There is no entities with such condition"));
     }
 
-    @Nonnull
     @Override
     public Optional<Entity> getInnerEntity() {
         return Optional.empty();
     }
 
     @Override
-    public void take(@Nonnull Entity anotherEntity) {
+    public void take(Entity anotherEntity) {
         throw new UnsupportedOperationException("This method is not supported.");
     }
 
     @Override
-    public int isBeatenBy(@Nonnull Entity anotherEntity) {
+    public int isBeatenBy(Entity anotherEntity) {
         if (defended) {
             defended = false;
             return 0;

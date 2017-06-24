@@ -3,13 +3,11 @@ package org.home.game.menu;
 import org.home.game.common.mvp.AbstractPresenter;
 import org.home.game.play.GameFactory;
 
-import javax.annotation.Nonnull;
-
 public class MainMenuPresenter extends AbstractPresenter<MainMenuView> implements MainMenuView.ActionDelegate {
 
     private final GameFactory gameFactory;
 
-    public MainMenuPresenter(@Nonnull MainMenuView view, @Nonnull GameFactory gameFactory) {
+    public MainMenuPresenter(MainMenuView view, GameFactory gameFactory) {
         super(view);
         this.view.setDelegate(this);
         this.gameFactory = gameFactory;

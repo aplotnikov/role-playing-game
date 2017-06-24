@@ -1,7 +1,5 @@
 package org.home.game.map.entities.character;
 
-import javax.annotation.Nonnull;
-
 public enum Race {
     HUMAN("Human"),
     ORC("Orc"),
@@ -11,7 +9,7 @@ public enum Race {
 
     private final String title;
 
-    Race(@Nonnull String title) {
+    Race(String title) {
         this.title = title;
     }
 
