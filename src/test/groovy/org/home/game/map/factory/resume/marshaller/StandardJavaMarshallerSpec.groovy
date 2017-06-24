@@ -1,4 +1,4 @@
-package org.home.game.save
+package org.home.game.map.factory.resume.marshaller
 
 import static org.home.game.map.GameMapBuilder.map
 import static org.home.game.map.entities.EntityFactory.bear

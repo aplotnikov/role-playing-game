@@ -5,6 +5,7 @@ import org.home.game.map.MainGameMap;
 import org.home.game.map.behaviour.user.UserMovementInput;
 import org.home.game.map.entities.Entity;
 import org.home.game.map.entities.character.create.NewCharacterFactory;
+import org.home.game.map.factory.resume.Restorer;
 import org.home.game.map.task.TaskCompletionStrategy;
 
 import java.util.List;
@@ -30,20 +31,27 @@ public class StaticMapFactory implements MapFactory {
 
     private final TaskCompletionStrategy taskCompletionStrategy;
 
+    private final Restorer restorer;
+
     public StaticMapFactory(NewCharacterFactory newCharacterFactory,
                             UserMovementInput userMovementInput,
                             Predicate<Entity> taskDetectionCondition,
-                            TaskCompletionStrategy taskCompletionStrategy) {
+                            TaskCompletionStrategy taskCompletionStrategy,
+                            Restorer restorer) {
         this.newCharacterFactory = newCharacterFactory;
         this.userMovementInput = userMovementInput;
         this.taskDetectionCondition = taskDetectionCondition;
         this.taskCompletionStrategy = taskCompletionStrategy;
+        this.restorer = restorer;
     }
 
     @Override
     public GameMap create() {
-        Entity character = newCharacterFactory.getGameCharacter();
-        return new MainGameMap(entities(character), userMovementInput, taskDetectionCondition, taskCompletionStrategy);
+        return create(entities(newCharacterFactory.getGameCharacter()));
+    }
+
+    private GameMap create(List<List<Entity>> entities) {
+        return new MainGameMap(entities, userMovementInput, taskDetectionCondition, taskCompletionStrategy);
     }
 
     private List<List<Entity>> entities(Entity character) {
@@ -58,5 +66,10 @@ public class StaticMapFactory implements MapFactory {
 
     private Entity orc() {
         return character(ORC.toString(), ORC, FEMALE, 10);
+    }
+
+    @Override
+    public GameMap restore() {
+        return create(restorer.restore());
     }
 }

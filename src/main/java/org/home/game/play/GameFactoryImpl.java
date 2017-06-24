@@ -1,5 +1,6 @@
 package org.home.game.play;
 
+import org.home.game.map.GameMap;
 import org.home.game.map.factory.MapFactory;
 
 public class GameFactoryImpl implements GameFactory {
@@ -15,12 +16,15 @@ public class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game create() {
-        return new GameImpl(mapFactory.create(), view);
+        return create(mapFactory.create());
     }
 
     @Override
     public Game resume() {
-        // provide correct implementation
-        return create();
+        return create(mapFactory.restore());
+    }
+
+    private Game create(GameMap map) {
+        return new GameImpl(map, view);
     }
 }

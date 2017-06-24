@@ -9,9 +9,7 @@ class GameFactoryImplSpec extends Specification {
 
     GameMap gameMap = Stub()
 
-    MapFactory mapFactory = Stub() {
-        create() >> gameMap
-    }
+    MapFactory mapFactory = Stub()
 
     GameView gameView = Stub()
 
@@ -19,6 +17,8 @@ class GameFactoryImplSpec extends Specification {
     GameFactoryImpl factory = new GameFactoryImpl(mapFactory, gameView)
 
     void 'new game should be created'() {
+        given:
+            mapFactory.create() >> gameMap
         when:
             Game firstGame = factory.create()
         then:
@@ -29,6 +29,24 @@ class GameFactoryImplSpec extends Specification {
             }
         when:
             Game secondGame = factory.create()
+        then:
+            secondGame != null
+            secondGame != firstGame
+    }
+
+    void 'game should be restored'() {
+        given:
+            mapFactory.restore() >> gameMap
+        when:
+            Game firstGame = factory.resume()
+        then:
+            firstGame instanceof GameImpl
+            with(firstGame as GameImpl) {
+                map == gameMap
+                view == gameView
+            }
+        when:
+            Game secondGame = factory.resume()
         then:
             secondGame != null
             secondGame != firstGame

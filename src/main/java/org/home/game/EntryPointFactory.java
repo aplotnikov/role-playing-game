@@ -9,6 +9,11 @@ import org.home.game.map.entities.character.create.NewCharacterConsoleConsoleVie
 import org.home.game.map.entities.character.create.NewCharacterPresenter;
 import org.home.game.map.factory.MapFactory;
 import org.home.game.map.factory.StaticMapFactory;
+import org.home.game.map.factory.resume.RestoreConsoleView;
+import org.home.game.map.factory.resume.RestorePresenter;
+import org.home.game.map.factory.resume.Restorer;
+import org.home.game.map.factory.resume.marshaller.Marshaller;
+import org.home.game.map.factory.resume.marshaller.StandardJavaMarshaller;
 import org.home.game.map.task.TaskCompletionStrategy;
 import org.home.game.map.task.fight.FightConsoleView;
 import org.home.game.map.task.fight.FightStrategy;
@@ -40,7 +45,7 @@ class EntryPointFactory {
     }
 
     private static MapFactory mapFactory() {
-        return new StaticMapFactory(characterPresenter(), userMovementInput(), taskDetectionCondition(), taskCompletionStrategy());
+        return new StaticMapFactory(characterPresenter(), userMovementInput(), taskDetectionCondition(), taskCompletionStrategy(), restorer());
     }
 
     private static NewCharacterPresenter characterPresenter() {
@@ -62,5 +67,13 @@ class EntryPointFactory {
 
     private static GameView gameView() {
         return new GameConsoleView();
+    }
+
+    private static Restorer restorer() {
+        return new RestorePresenter(new RestoreConsoleView(), marshaller());
+    }
+
+    private static Marshaller marshaller() {
+        return new StandardJavaMarshaller();
     }
 }

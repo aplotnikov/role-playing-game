@@ -1,4 +1,4 @@
-package org.home.game.save;
+package org.home.game.map.factory.resume.marshaller;
 
 import org.home.game.map.entities.Entity;
 

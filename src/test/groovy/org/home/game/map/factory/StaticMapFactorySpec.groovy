@@ -1,5 +1,7 @@
 package org.home.game.map.factory
 
+import static org.home.game.map.entities.EntityFactory.road
+import static org.home.game.map.entities.EntityFactory.tree
 import static org.home.game.map.entities.EntityFactory.userCharacter
 import static org.home.game.map.entities.EntityType.BEAR
 import static org.home.game.map.entities.EntityType.CHARACTER
@@ -15,6 +17,7 @@ import org.home.game.map.MainGameMap
 import org.home.game.map.behaviour.user.UserMovementInput
 import org.home.game.map.entities.Entity
 import org.home.game.map.entities.character.create.NewCharacterFactory
+import org.home.game.map.factory.resume.Restorer
 import org.home.game.map.task.TaskCompletionStrategy
 import spock.lang.Specification
 import spock.lang.Subject
@@ -31,8 +34,10 @@ class StaticMapFactorySpec extends Specification {
 
     TaskCompletionStrategy strategy = Stub()
 
+    Restorer restorer = Stub()
+
     @Subject
-    StaticMapFactory factory = new StaticMapFactory(newCharacterFactory, userInput, condition, strategy)
+    StaticMapFactory factory = new StaticMapFactory(newCharacterFactory, userInput, condition, strategy, restorer)
 
     void 'map should be created and user should provide information about his character'() {
         given:
@@ -68,6 +73,24 @@ class StaticMapFactorySpec extends Specification {
 
                 entities[4][0].innerEntity.isPresent()
                 entities[4][0].innerEntity.get().type == CHARACTER
+            }
+    }
+
+    void 'game should be restored by restorer'() {
+        given:
+            List<Entity> mapEntities = [road(), tree()]
+        and:
+            restorer.restore() >> mapEntities
+        when:
+            GameMap map = factory.restore()
+        then:
+            map instanceof MainGameMap
+            with(map as MainGameMap) {
+                userMovementInput == userInput
+                taskDetectionCondition == condition
+                taskCompletionStrategy == strategy
+
+                entities == mapEntities
             }
     }
 }
