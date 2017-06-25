@@ -152,7 +152,6 @@ class FightStrategySpec extends Specification {
             false       | true
     }
 
-
     void 'user should do nothing, enemy attacks when view is drawn when both entities are alive and user does nothing'() {
         given:
             strategy.complete(user, enemy)

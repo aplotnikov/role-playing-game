@@ -21,7 +21,7 @@ class GameConsoleViewSpec extends ConsoleIntegrationSpec {
     @Subject
     GameConsoleView view = new GameConsoleView()
 
-    GameMap map = Stub() {
+    GameMap map = Stub {
         getEntities() >> map().line(road(), wolf(), tree())
                               .line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree())
                               .line(stone(), road(character('ORC', ORC, FEMALE)), tree())

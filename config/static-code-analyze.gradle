@@ -59,6 +59,12 @@ tasks.withType(Checkstyle) {
     }
 }
 
+codenarc {
+    toolVersion = '0.27.0'
+    sourceSets = [sourceSets.test]
+    configFile = rootProject.file 'config/codenarc/codenarc.groovy'
+}
+
 jacoco {
     toolVersion = '0.7.9'
 }

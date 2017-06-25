@@ -18,8 +18,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity road = EntityFactory.road()
         then:
-            road instanceof SimpleEntity
-        and:
             with(road as SimpleEntity) {
                 name == 'Road'
                 type == ROAD
@@ -36,8 +34,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity road = EntityFactory.road(entity)
         then:
-            road instanceof SimpleEntity
-        and:
             with(road as SimpleEntity) {
                 name == 'Road'
                 type == ROAD
@@ -52,8 +48,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity wolf = EntityFactory.wolf()
         then:
-            wolf instanceof SimpleEntity
-        and:
             with(wolf as SimpleEntity) {
                 name == 'Wolf'
                 type == WOLF
@@ -68,8 +62,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity bear = EntityFactory.bear()
         then:
-            bear instanceof SimpleEntity
-        and:
             with(bear as SimpleEntity) {
                 name == 'Bear'
                 type == BEAR
@@ -84,8 +76,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity tree = EntityFactory.tree()
         then:
-            tree instanceof SimpleEntity
-        and:
             with(tree as SimpleEntity) {
                 name == 'Tree'
                 type == TREE
@@ -100,8 +90,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity stone = EntityFactory.stone()
         then:
-            stone instanceof SimpleEntity
-        and:
             with(stone as SimpleEntity) {
                 name == 'Stone'
                 type == STONE
@@ -116,8 +104,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity character = EntityFactory.userCharacter('Andrii', HUMAN, MALE)
         then:
-            character instanceof GameCharacter
-        and:
             with(character as GameCharacter) {
                 name == 'Andrii'
                 type == CHARACTER
@@ -135,8 +121,6 @@ class EntityFactorySpec extends Specification {
         when:
             Entity character = EntityFactory.character('Andrii', HUMAN, MALE)
         then:
-            character instanceof GameCharacter
-        and:
             with(character as GameCharacter) {
                 name == 'Andrii'
                 type == CHARACTER

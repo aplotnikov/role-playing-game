@@ -8,7 +8,7 @@ import org.home.game.map.entities.character.Sex;
 
 public class NewCharacterConsoleConsoleView extends AbstractConsoleView<NewCharacterView.ActionDelegate> implements NewCharacterView {
 
-    private final TextBox characterName = new TextBox("Character name: ");
+    private final TextBox characterName = new TextBox("Character name:");
 
     private final Menu<Race> raceMenu = new Menu<>("Choose Race:", Race.values());
 

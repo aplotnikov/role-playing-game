@@ -43,7 +43,7 @@ class MainMenuConsoleViewSpec extends ConsoleIntegrationSpec {
 Main menu
 1. Start new game
 2. Resume previous game
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 """
     }
 }

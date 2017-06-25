@@ -56,7 +56,7 @@ title
             menu.chooseItem() == ITEM_1
         and:
             assertOutput """\
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 ${(1..5).collect { eraseOutput() + menuOutput() }.join('')}"""
     }
 
@@ -66,7 +66,7 @@ title
 1. ITEM_1
 2. ITEM_2
 Operation number is incorrect. Please, type correct one.
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 """
     }
 }

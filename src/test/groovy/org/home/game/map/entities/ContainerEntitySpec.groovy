@@ -74,7 +74,7 @@ class ContainerEntitySpec extends Specification {
                     userCharacter,
                     road(userCharacter),
                     road(road(userCharacter)),
-                    road(road(road(userCharacter)))
+                    road(road(road(userCharacter))),
             ]
     }
 
@@ -89,7 +89,7 @@ class ContainerEntitySpec extends Specification {
                     character,
                     road(character),
                     road(road(character)),
-                    road(road(road(character)))
+                    road(road(road(character))),
             ]
     }
 
@@ -102,7 +102,7 @@ class ContainerEntitySpec extends Specification {
         given:
             Predicate<Entity> taskDetectionCondition = { it != container }
         and:
-            Entity innerEntity = Stub() {
+            Entity innerEntity = Stub {
                 isUser() >> false
                 containTasks(taskDetectionCondition) >> true
             }
@@ -121,9 +121,7 @@ class ContainerEntitySpec extends Specification {
 
     void 'inner entity of inner entity should be found when it matches condition'() {
         given:
-            Predicate<Entity> condition = Stub() {
-                test(_ as Entity) >>> [false, true]
-            }
+            Predicate<Entity> condition = Stub { test(_ as Entity) >>> [false, true] }
         and:
             container.take road(character)
         expect:

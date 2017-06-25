@@ -78,9 +78,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity should be beaten by another entity'() {
         given:
-            Entity anotherEntity = Stub() {
-                getAttackPower() >> 10
-            }
+            Entity anotherEntity = Stub { getAttackPower() >> 10 }
         when:
             int damage = entity.isBeatenBy(anotherEntity)
         then:
@@ -91,9 +89,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity health should be zero when attack of another entity is more than available health'() {
         given:
-            Entity anotherEntity = Stub() {
-                getAttackPower() >> 100
-            }
+            Entity anotherEntity = Stub { getAttackPower() >> 100 }
         expect:
             entity.isBeatenBy(anotherEntity) == 100
         when:
@@ -106,9 +102,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity should be not beaten when entity is in defended mode'() {
         given:
-            Entity anotherEntity = Stub() {
-                getAttackPower() >> 10
-            }
+            Entity anotherEntity = Stub { getAttackPower() >> 10 }
         and:
             entity.defense()
         when:

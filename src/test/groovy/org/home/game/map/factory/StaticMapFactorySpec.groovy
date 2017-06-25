@@ -47,7 +47,6 @@ class StaticMapFactorySpec extends Specification {
         then:
             1 * newCharacterFactory.getGameCharacter() >> character
         and:
-            map instanceof MainGameMap
             with(map as MainGameMap) {
                 userMovementInput == userInput
                 taskDetectionCondition == condition
@@ -84,7 +83,6 @@ class StaticMapFactorySpec extends Specification {
         when:
             GameMap map = factory.restore()
         then:
-            map instanceof MainGameMap
             with(map as MainGameMap) {
                 userMovementInput == userInput
                 taskDetectionCondition == condition

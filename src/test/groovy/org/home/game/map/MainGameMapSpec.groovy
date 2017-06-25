@@ -79,7 +79,7 @@ class MainGameMapSpec extends Specification {
                     Position.of(-1, 0),
                     Position.of(0, -1),
                     Position.of(2, 0),
-                    Position.of(0, 2)
+                    Position.of(0, 2),
             ]
     }
 
@@ -117,7 +117,7 @@ class MainGameMapSpec extends Specification {
                     Position.of(1, 0),
                     Position.of(1, 2),
                     Position.of(0, 1),
-                    Position.of(2, 1)
+                    Position.of(2, 1),
             ]
     }
 

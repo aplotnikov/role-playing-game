@@ -8,7 +8,7 @@ import org.junit.contrib.java.lang.system.SystemOutRule
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream
 import spock.lang.Specification
 
-abstract class ConsoleIntegrationSpec extends Specification {
+class ConsoleIntegrationSpec extends Specification {
 
     @Rule
     SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests()

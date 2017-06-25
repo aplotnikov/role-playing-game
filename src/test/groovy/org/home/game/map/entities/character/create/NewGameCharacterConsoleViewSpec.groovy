@@ -26,18 +26,18 @@ class NewGameCharacterConsoleViewSpec extends ConsoleIntegrationSpec {
         then:
             assertOutput """\
 New Character Menu
-Character name: 
+Character name:
 Choose Race:
 1. Human
 2. Orc
 3. Elf
 4. Gnome
 5. Troll
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 Choose Sex:
 1. Male
 2. Female
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 """
         and:
             1 * delegate.onChosen(characterName)

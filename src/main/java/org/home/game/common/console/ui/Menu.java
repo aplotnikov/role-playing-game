@@ -53,7 +53,7 @@ public class Menu<T extends Enum> implements Component {
         if (hasToPrintWarning) {
             System.out.println("Operation number is incorrect. Please, type correct one.");
         }
-        System.out.println("Put operation's number which you want to do: ");
+        System.out.println("Put operation's number which you want to do:");
     }
 
     private int readItemIndex() {

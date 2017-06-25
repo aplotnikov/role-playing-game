@@ -6,6 +6,7 @@ ruleset {
     ruleset('rulesets/design.xml')
     ruleset('rulesets/dry.xml') {
         DuplicateStringLiteral(enabled: false)
+        DuplicateNumberLiteral(enabled: false)
     }
     ruleset('rulesets/enhanced.xml')
     ruleset('rulesets/formatting.xml') {
@@ -21,9 +22,12 @@ ruleset {
     ruleset('rulesets/unnecessary.xml') {
         UnnecessaryBooleanExpression(enabled: false)
         UnnecessaryGetter(enabled: false)
+        UnnecessaryGString(enabled: false)
     }
     ruleset('rulesets/unused.xml') {
         UnusedObject(enabled: false)
     }
-    ruleset('rulesets/security.xml')
+    ruleset('rulesets/security.xml') {
+        JavaIoPackageAccess(enabled: false)
+    }
 }

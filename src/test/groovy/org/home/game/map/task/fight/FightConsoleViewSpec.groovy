@@ -82,7 +82,7 @@ Choose your action:
 1. Beat the opponent
 2. Defense yourself
 3. Do nothing
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 """
     }
 }

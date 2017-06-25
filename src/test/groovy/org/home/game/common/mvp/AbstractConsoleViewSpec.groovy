@@ -6,12 +6,12 @@ import spock.lang.Subject
 
 class AbstractConsoleViewSpec extends ConsoleIntegrationSpec {
 
-    private interface SomeActionDelegate {}
+    private interface SomeActionDelegate { }
 
     @Subject
     AbstractConsoleView<SomeActionDelegate> view = new AbstractConsoleView<SomeActionDelegate>() {
         @Override
-        void draw() {}
+        void draw() { }
     }
 
     void 'delegate should be set'() {

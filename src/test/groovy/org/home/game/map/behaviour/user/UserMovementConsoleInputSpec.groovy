@@ -75,7 +75,7 @@ Choose character movement:
 2. Move down
 3. Move right
 4. Move left
-Put operation's number which you want to do: 
+Put operation's number which you want to do:
 """
     }
 }

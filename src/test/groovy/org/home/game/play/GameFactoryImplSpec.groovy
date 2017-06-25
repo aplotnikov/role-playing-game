@@ -22,7 +22,6 @@ class GameFactoryImplSpec extends Specification {
         when:
             Game firstGame = factory.create()
         then:
-            firstGame instanceof GameImpl
             with(firstGame as GameImpl) {
                 map == gameMap
                 view == gameView
@@ -40,7 +39,6 @@ class GameFactoryImplSpec extends Specification {
         when:
             Game firstGame = factory.resume()
         then:
-            firstGame instanceof GameImpl
             with(firstGame as GameImpl) {
                 map == gameMap
                 view == gameView

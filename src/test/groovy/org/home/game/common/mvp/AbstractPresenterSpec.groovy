@@ -8,7 +8,7 @@ class AbstractPresenterSpec extends Specification {
     View view = Mock()
 
     @Subject
-    AbstractPresenter<View> presenter = new AbstractPresenter<View>(view) {}
+    AbstractPresenter<View> presenter = new AbstractPresenter<View>(view) { }
 
     void 'draw method on presenter should be called'() {
         when:

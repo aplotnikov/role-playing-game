@@ -40,7 +40,6 @@ class NewCharacterPresenterSpec extends Specification {
         when:
             Entity character = presenter.getGameCharacter()
         then:
-            character instanceof GameCharacter
             with(character as GameCharacter) {
                 type == CHARACTER
                 name == characterName
