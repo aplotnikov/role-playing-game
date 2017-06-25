@@ -125,6 +125,7 @@ public class SimpleEntity implements Entity {
     @Override
     public void relax() {
         defended = false;
+        getInnerEntity().ifPresent(Entity::relax);
     }
 
     @Override

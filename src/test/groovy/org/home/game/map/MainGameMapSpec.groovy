@@ -144,7 +144,6 @@ class MainGameMapSpec extends Specification {
                     enemy.defense()
             }
         and:
-            !wolf.defended
             !character.defended
         and:
             0 * _

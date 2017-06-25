@@ -56,6 +56,7 @@ public class MainGameMap implements GameMap {
         if (isValid(nextPosition, entities.size() - 1)) {
             moveUser(currentPosition, nextPosition);
         }
+        entities().forEach(Entity::relax);
     }
 
     private Optional<Position> findFirstEntity(Predicate<Entity> condition) {
@@ -92,9 +93,6 @@ public class MainGameMap implements GameMap {
             Entity taskEntity = newContainerEntity.findEntity(taskDetectionCondition);
 
             taskCompletionStrategy.complete(userCharacter, taskEntity);
-
-            userCharacter.relax();
-            taskEntity.relax();
         }
 
         containerEntity.getInnerEntity().ifPresent(userCharacter -> {

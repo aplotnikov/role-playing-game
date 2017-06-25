@@ -140,6 +140,22 @@ class ContainerEntitySpec extends Specification {
             exception.message == 'There is no entities with such condition'
     }
 
+    void 'inner entity should relax together with root entity'() {
+        given:
+            container.take userCharacter
+        and:
+            container.defense()
+            userCharacter.defense()
+        when:
+            container.relax()
+        then:
+            old(container.defended)
+            old(userCharacter.defended)
+        and:
+            !container.defended
+            !userCharacter.defended
+    }
+
     void 'equals and hashcode contract should be followed'() {
         expect:
             EqualsVerifier.forClass(ContainerEntity)
