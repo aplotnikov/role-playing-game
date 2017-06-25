@@ -20,6 +20,6 @@ class RestoreConsoleViewSpec extends ConsoleIntegrationSpec {
         and:
             userInput value
         expect:
-            view.getPath() == value
+            view.path == value
     }
 }

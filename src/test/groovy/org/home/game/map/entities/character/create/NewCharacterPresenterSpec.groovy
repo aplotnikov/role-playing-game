@@ -38,7 +38,7 @@ class NewCharacterPresenterSpec extends Specification {
             presenter.onChosen(characterName)
             presenter.onCompleted()
         when:
-            Entity character = presenter.getGameCharacter()
+            Entity character = presenter.gameCharacter
         then:
             with(character as GameCharacter) {
                 type == CHARACTER

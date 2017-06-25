@@ -20,12 +20,12 @@ ruleset {
     ruleset('rulesets/imports.xml')
     ruleset('rulesets/size.xml')
     ruleset('rulesets/unnecessary.xml') {
-        UnnecessaryBooleanExpression(enabled: false)
-        UnnecessaryGetter(enabled: false)
-        UnnecessaryGString(enabled: false)
+        UnnecessaryBooleanExpression(enabled: false) // looks like a bug with parametrized tests
+        UnnecessaryGetter(enabled: false) // looks like a bug with spock closures
+        UnnecessaryGString(enabled: false) // looks like a big with multi-line GStrings
     }
     ruleset('rulesets/unused.xml') {
-        UnusedObject(enabled: false)
+        UnusedObject(enabled: false) // issue with instantiation of object where throwing an exception
     }
     ruleset('rulesets/security.xml') {
         JavaIoPackageAccess(enabled: false)

@@ -45,7 +45,7 @@ class StaticMapFactorySpec extends Specification {
         when:
             GameMap map = factory.create()
         then:
-            1 * newCharacterFactory.getGameCharacter() >> character
+            1 * newCharacterFactory.gameCharacter >> character
         and:
             with(map as MainGameMap) {
                 userMovementInput == userInput

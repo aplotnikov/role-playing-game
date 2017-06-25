@@ -32,6 +32,6 @@ class TextBoxSpec extends ConsoleIntegrationSpec {
         and:
             userInput inputText
         expect:
-            component.getValue() == inputText
+            component.value == inputText
     }
 }
