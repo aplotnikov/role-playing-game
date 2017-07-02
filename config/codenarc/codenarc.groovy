@@ -21,7 +21,6 @@ ruleset {
     ruleset 'rulesets/size.xml'
     ruleset('rulesets/unnecessary.xml') {
         UnnecessaryBooleanExpression(enabled: false) // looks like a bug with parametrized tests
-        UnnecessaryGetter(enabled: false) // looks like a bug with spock closures
     }
     ruleset('rulesets/unused.xml') {
         UnusedObject(enabled: false) // issue with instantiation of object where throwing an exception

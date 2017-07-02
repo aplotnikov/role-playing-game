@@ -14,6 +14,8 @@ import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.ConsoleIntegrationSpec
 import org.home.game.map.GameMap
+import org.home.game.map.MainGameMap
+import org.home.game.map.entities.Entity
 import spock.lang.Subject
 
 class GameConsoleViewSpec extends ConsoleIntegrationSpec {
@@ -21,12 +23,12 @@ class GameConsoleViewSpec extends ConsoleIntegrationSpec {
     @Subject
     GameConsoleView view = new GameConsoleView()
 
-    GameMap map = Stub {
-        getEntities() >> map().line(road(), wolf(), tree())
-                              .line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree())
-                              .line(stone(), road(character('ORC', ORC, FEMALE)), tree())
-                              .create()
-    }
+    List<List<Entity>> entities = map().line(road(), wolf(), tree())
+                                       .line(road(), road(userCharacter('Andrii', HUMAN, MALE)), tree())
+                                       .line(stone(), road(character('ORC', ORC, FEMALE)), tree())
+                                       .create()
+
+    GameMap map = new MainGameMap(entities, null, null, null)
 
     void 'map should be drawn'() {
         when:

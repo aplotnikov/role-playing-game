@@ -1,10 +1,12 @@
 package org.home.game.map
 
+import static org.home.game.map.entities.EntityFactory.character
 import static org.home.game.map.entities.EntityFactory.road
 import static org.home.game.map.entities.EntityFactory.tree
 import static org.home.game.map.entities.EntityFactory.userCharacter
 import static org.home.game.map.entities.EntityFactory.wolf
 import static org.home.game.map.entities.character.Race.HUMAN
+import static org.home.game.map.entities.character.Sex.FEMALE
 import static org.home.game.map.entities.character.Sex.MALE
 
 import org.home.game.map.behaviour.user.UserMovementInput
@@ -151,11 +153,11 @@ class MainGameMapSpec extends Specification {
 
     void 'user character should be removed when the character is not alive'() {
         given:
-            Entity character = userCharacter('Andrii', HUMAN, MALE)
-            character.isBeatenBy(Stub(Entity) { getAttackPower() >> 100 })
+            Entity userCharacter = userCharacter('Andrii', HUMAN, MALE)
+            userCharacter.isBeatenBy(character('Some character', HUMAN, FEMALE, 100))
         and:
             entities[0] << road()
-            entities << [road(wolf()), road(character)]
+            entities << [road(wolf()), road(userCharacter)]
         and:
             userMovementInput.getNextPosition(_ as Position) >> Position.of(0, 1)
         when:

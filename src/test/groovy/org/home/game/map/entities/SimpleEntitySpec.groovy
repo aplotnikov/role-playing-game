@@ -1,6 +1,9 @@
 package org.home.game.map.entities
 
+import static org.home.game.map.entities.EntityFactory.character
 import static org.home.game.map.entities.EntityType.STONE
+import static org.home.game.map.entities.character.Race.HUMAN
+import static org.home.game.map.entities.character.Sex.FEMALE
 
 import nl.jqno.equalsverifier.EqualsVerifier
 import spock.lang.Shared
@@ -78,7 +81,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity should be beaten by another entity'() {
         given:
-            Entity anotherEntity = Stub { getAttackPower() >> 10 }
+            Entity anotherEntity = character('Some character', HUMAN, FEMALE, 10)
         when:
             int damage = entity.isBeatenBy(anotherEntity)
         then:
@@ -89,7 +92,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity health should be zero when attack of another entity is more than available health'() {
         given:
-            Entity anotherEntity = Stub { getAttackPower() >> 100 }
+            Entity anotherEntity = character('Some character', HUMAN, FEMALE, 100)
         expect:
             entity.isBeatenBy(anotherEntity) == 100
         when:
@@ -102,7 +105,7 @@ class SimpleEntitySpec extends Specification {
 
     void 'entity should be not beaten when entity is in defended mode'() {
         given:
-            Entity anotherEntity = Stub { getAttackPower() >> 10 }
+            Entity anotherEntity = character('Some character', HUMAN, FEMALE, 1)
         and:
             entity.defense()
         when:
