@@ -30,11 +30,11 @@ class MenuSpec extends ConsoleIntegrationSpec {
         when:
             menu.draw()
         then:
-            assertOutput """\
+            assertOutput '''\
 title
 1. ITEM_1
 2. ITEM_2
-"""
+'''
     }
 
     void 'menu should be redrawn'() {

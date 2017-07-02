@@ -32,14 +32,14 @@ class GameConsoleViewSpec extends ConsoleIntegrationSpec {
         when:
             view.draw map
         then:
-            assertOutput """\
+            assertOutput '''\
 MAP
 -----
 | WT|
 | UT|
 |SOT|
 -----
-"""
+'''
     }
 
     void 'UnsupportedOperationException should be thrown when draw is called'() {
